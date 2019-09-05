@@ -1,14 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%request.setCharacterEncoding("utf-8"); %>
-<%response.setContentType("text/html; charset=UTF-8"); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<% request.setCharacterEncoding("utf-8"); %>
+<% response.setContentType("text/html; charset=UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>로그인 화면</title>
+<script type="text/javascript">
+	function regist() {
+		location.href = "LoginController.do?command=regist";
+	}
+</script>
 </head>
 <body>
-시작하기
-<span>나는 내꺼 그냥 계속 하는중.....</span>
+<h1>로그인</h1>
+<form action="LoginController.do" method="post">
+	<input type="hidden" name="command" value="login">
+	<table border="1">
+		<tr>
+			<th>아이디</th>
+			<td><input type="text" name="id"></td>
+		</tr>
+		<tr>
+			<th>패스워드</th>
+			<td><input type="password" name="password"></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+			<input type="submit" value="로그인">
+			<input type="button" value="회원가입" onclick="regist()">
+			</td>
+		</tr>
+	</table>
+</form>
 </body>
 </html>

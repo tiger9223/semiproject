@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hk.login">
+	<!-- 	회원가입 -->
+	<insert id="insertUser" parameterType="LoginDto">
+		INSERT INTO USERINFO VALUES(USERINFO_SEQ.NEXTVAL, #{id}, #{name}, #{password}, #{address},
+		 #{phone}, #{email}, 'Y', 'USER', SYSDATE)
+	</insert>
+	<!-- 	로그인 -->
+	<select id="getLogin" parameterType="LoginDto" resultType="LoginDto">
+		SELECT SEQ, ID, NAME, PASSWORD, ADDRESS, PHONE, EMAIL, ENABLED, ROLE, REGDATE
+	    FROM USERINFO WHERE ID=#{id} AND PASSWORD=#{password}
+	</select>
+	<!-- 	내 정보 조회 -->
+	<select id="getUserInfo">
+		SELECT SEQ, ID, NAME, ADDRESS, PHONE, EMAIL, REGDATE 
+		FROM USERINFO WHERE SEQ=#{seq}
+	</select>
+	<!-- 	정보수정 -->
+	<update id="userUpdate" parameterType="LoginDto">
+		UPDATE USERINFO SET ADDRESS=#{address}, PHONE=#{phone},
+		EMAIL=#{email} WHERE ID=#{rid}
+	</update>
+	<!-- 	회원탈퇴 -->
+	<update id="withdraw" parameterType="String">
+		UPDATE USERINFO SET RENABLED='N' WHERE ID=#{id}
+	</update>
+	<!-- 	아이디 중복체크 -->
+	<select id="idChk" parameterType="String" resultType="LoginDto">
+		SELECT ID FROM USERINFO WHERE ID=#{id}
+	</select>
+	<!-- 	전체 회원 조회(탈퇴O) -->
+	<select id="getAllUserStatus" resultType="LoginDto">
+		SELECT SEQ, ID, NAME, ADDRESS, PHONE, EMAIL, ENABLED, ROLE, REGDATE
+	 	FROM USERINFO 
+	</select>
+	<!-- 	사용자 조회(탈퇴X) -->
+	<select id="getAllUserList" resultType="LoginDto">
+		SELECT SEQ, ID, NAME, ROLE, REGDATE 
+		FROM USERINFO WHERE ENABLED='Y'
+	</select>
+	<!-- 	사용자 상세조회 -->
+	<select id="getUser" parameterType="String" resultType="LoginDto">
+		SELECT SEQ, ID, NAME, ADDRESS, PHONE,EMAIL,ENABLED, ROLE, REGDATE
+		FROM USERINFO WHERE SEQ=#{seq}
+	</select>
+	<update id="updateUserRole" parameterType="LoginDto">
+		UPDATE USERINFO SET ROLE=#{role} WHERE SEQ=#{seq}
+	</update>
+</mapper>
