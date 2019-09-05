@@ -64,14 +64,19 @@ public class LoginController extends HttpServlet {
 //				pageContext.forward("error.jsp");
 				dispatch("error.jsp", request, response);
 			}else {
-				session.setAttribute("ldto", ldto);
-				session.setMaxInactiveInterval(10*60);// 10분간 요청이 없으면 세션을 삭제
-				if(ldto.getRole().toUpperCase().equals("ADMIN")) {
-					response.sendRedirect("admin_main.jsp");
-				}else if(ldto.getRole().toUpperCase().equals("USER")) {
-					response.sendRedirect("user_main.jsp");
-				}else if(ldto.getRole().toUpperCase().equals("MANAGER")) {
-					response.sendRedirect("user_main.jsp");
+				if(ldto.getEnabled().equals("N")) {
+					request.setAttribute("msg", "탈퇴한 회원입니다.");
+					dispatch("error.jsp", request, response);
+				}else {
+					session.setAttribute("ldto", ldto);//세션삽입
+					session.setMaxInactiveInterval(10*60);// 10분간 요청이 없으면 세션을 삭제
+					if(ldto.getRole().toUpperCase().equals("ADMIN")) {
+						response.sendRedirect("admin_main.jsp");
+					}else if(ldto.getRole().toUpperCase().equals("USER")) {
+						response.sendRedirect("user_main.jsp");
+					}else if(ldto.getRole().toUpperCase().equals("MANAGER")) {
+						response.sendRedirect("user_main.jsp");
+					}
 				}
 			}
 		}else if(command.equals("logout")) {
@@ -79,6 +84,7 @@ public class LoginController extends HttpServlet {
 			response.sendRedirect("index.jsp");
 		}else if(command.equals("idChk")) {
 			String id = request.getParameter("id");
+			System.out.println(id);
 			LoginDto dto = dao.idChk(id);
 			request.setAttribute("dto", dto);
 //			pageContext.forward("idchkform.jsp");
@@ -112,7 +118,7 @@ public class LoginController extends HttpServlet {
 			}
 		}else if(command.equals("getUserInfo")) {
 			int seq = Integer.parseInt(request.getParameter("seq"));
-			LoginDto dto=dao.getUser(seq);
+			LoginDto dto = dao.getUserInfo(seq);
 			request.setAttribute("dto", dto);
 //			pageContext.forward("user_info.jsp");
 			dispatch("user_info.jsp", request, response);

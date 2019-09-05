@@ -11,6 +11,7 @@
 </head>
 <%
 	LoginDto dto = (LoginDto)request.getAttribute("dto");
+	
 %>
 <body>
 <h1>나의 정보 조회</h1>
@@ -45,8 +46,8 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button conclick="">수정</button>
-			<button conclick="">삭제</button>
+			<button onclick="">수정</button>
+			<button onclick="">삭제</button>
 		</td>
 	</tr>
 </table>

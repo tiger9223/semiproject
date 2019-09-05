@@ -29,6 +29,5 @@
 		}
 	}
 %>
-<a href="index.jsp">메인페이지</a>
 </body>
 </html>

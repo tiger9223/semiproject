@@ -13,14 +13,14 @@
 	    FROM USERINFO WHERE ID=#{id} AND PASSWORD=#{password}
 	</select>
 	<!-- 	내 정보 조회 -->
-	<select id="getUserInfo">
+	<select id="getUserInfo" parameterType="int" resultType="LoginDto">
 		SELECT SEQ, ID, NAME, ADDRESS, PHONE, EMAIL, REGDATE 
 		FROM USERINFO WHERE SEQ=#{seq}
 	</select>
 	<!-- 	정보수정 -->
 	<update id="userUpdate" parameterType="LoginDto">
 		UPDATE USERINFO SET ADDRESS=#{address}, PHONE=#{phone},
-		EMAIL=#{email} WHERE ID=#{rid}
+		EMAIL=#{email} WHERE ID=#{id}
 	</update>
 	<!-- 	회원탈퇴 -->
 	<update id="withdraw" parameterType="String">
@@ -41,7 +41,7 @@
 		FROM USERINFO WHERE ENABLED='Y'
 	</select>
 	<!-- 	사용자 상세조회 -->
-	<select id="getUser" parameterType="String" resultType="LoginDto">
+	<select id="getUser" parameterType="int" resultType="LoginDto">
 		SELECT SEQ, ID, NAME, ADDRESS, PHONE,EMAIL,ENABLED, ROLE, REGDATE
 		FROM USERINFO WHERE SEQ=#{seq}
 	</select>

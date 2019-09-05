@@ -18,7 +18,7 @@
 		form.onsubmit = function() {//패스워드가 정확하게 입력됐는지와 모든 입력값을 넣었는지 확인
 			var inputs = document.querySelectorAll("table input");//[input,input....]
 			if(inputs[3].value!=inputs[4].value) {	//유효하지 않을 값이 존재하면 submit전송 기능 취소해야한다
-				alert("패스워드를 확인하세요오~!");
+				alert("패스워드를 확인하세요.");
 				inputs[3].vlaue="";
 				inputs[4].value="";
 				inputs[3].focus();
@@ -29,7 +29,7 @@
 					if(inputs[i].value=="") {
 						var tagEleTxt = inputs[i].parentNode.previousElementSibling.textContent;
 						//						 .부모태그 구함 .앞에오는 형제엘리먼트 구함      .내부에 text 구함 
-						alert(tagEleTxt+"을(를) 입력하세요오~!");
+						alert(tagEleTxt+"를 입력하세요.");
 						inputs[i].focus();
 						return false;
 					}
@@ -37,18 +37,23 @@
 			}
 		}
 	}
-	
+	//아이디 중복체크
 	function idChk() {
-		var id = document.getElementsByName("id")[0].value;
+		var id = document.getElementsByName("id")[0].value;//
+		if(id==null){
+			alert("아이디를 입력하세요.");
+			return false;
+		}else{
 		//"open(url", "title", "창의 속성설정")
 		window.open("LoginController.do?command=idChk&id="+id,"",
 					"width=300px, height=300px");
+		}
 	}
 </script>
 </head>
 <body>
 <h1>회원가입</h1>
-<form action="loginController.jsp" method="post">
+<form action="LoginController.do" method="post">
 <input type="hidden" name="command" value="insertuser">
 <table border="1">
 	<tr>
@@ -84,7 +89,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-		<input type="submit" name="가입완료">
+		<input type="submit" name="가입완료" value="완료"/>
 		</td>
 	</tr>
 </table>
