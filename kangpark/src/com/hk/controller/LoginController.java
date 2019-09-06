@@ -122,6 +122,33 @@ public class LoginController extends HttpServlet {
 			request.setAttribute("dto", dto);
 //			pageContext.forward("user_info.jsp");
 			dispatch("user_info.jsp", request, response);
+		}else if(command.equals("userUpdate")) {
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			LoginDto dto=dao.getUser(seq);
+			request.setAttribute("dto", dto);
+			dispatch("userupdate.jsp", request, response);
+		}else if(command.equals("updateUserInfo")) {
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			String id = request.getParameter("id");
+			String address = request.getParameter("address");
+			String email = request.getParameter("email");
+			String phone = request.getParameter("phone");
+			boolean isS = dao.userUpdate(new LoginDto(id,address,phone,email));
+			if(isS) {
+				jsForward("LoginController.do?command=getUserInfo&seq="+seq,"회원정보을 수정했습니다.",response);
+			}else {
+				request.setAttribute("msg", "회원정보 수정실패");
+				dispatch("error.jsp", request, response);
+			}
+		}else if(command.equals("withdraw")) {
+			String id = request.getParameter("id");
+			boolean isS = dao.withdraw(id);
+			if(isS) {
+				 jsForward("LoginController.do?command=logout", "회원 탈퇴 되었습니다.", response);
+			}else {
+				request.setAttribute("msg", "회원 탈퇴실패");
+				dispatch("error.jsp", request, response);
+			}
 		}
 		
 	}

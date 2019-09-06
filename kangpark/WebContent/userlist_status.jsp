@@ -1,8 +1,10 @@
+<%@page import="com.hk.util.Util"%>
+<%@page import="com.hk.dtos.LoginDto"%>
+<%@page import="java.util.List"%>
 <%@include file = "ad_header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +12,9 @@
 <title></title>
 </head>
 <body>
+<%
+	List<LoginDto> list = (List<LoginDto>)request.getAttribute("list");
+%>
 <h1>회원정보상태조회</h1>
 <table border="1">
 	<tr>
@@ -23,28 +28,31 @@
 		<th>회원등급</th>
 		<th>가입일</th>
 	</tr>
-	<c:choose>
-		<c:when test="${empty list}">
+	<%
+	if(list==null){
+		%>
+		<tr>
+			<td>가입된 회원이 없습니다.</td>
+		</tr>
+		<% 
+	}else{
+		for(LoginDto dto:list) {
+			%>
 			<tr>
-				<td colspan="9">----가입된 회원이 존재하지 않습니다.----</td>
+				<td><%=dto.getSeq()%></td>
+				<td><%=dto.getId()%></td>
+				<td><%=dto.getName()%></td>
+				<td><%=dto.getAddress()%></td>
+				<td><%=dto.getPhone()%></td>
+				<td><%=dto.getEmail()%></td>
+				<td><%=dto.getEnabled()%></td>
+				<td><%=dto.getRole()%></td>
+				<td><%=Util.getToDate(dto.getRegdate())%></td>
 			</tr>
-		</c:when>
-		<c:otherwise>
-			<c:forEach items="${list}" var="dto">
-				<tr>
-					<td>${dto.seq}</td>
-					<td>${dto.id}</td>
-					<td>${dto.name}</td>
-					<td>${dto.address}</td>
-					<td>${dto.phone}</td>
-					<td>${dto.email}</td>
-					<td>${dto.enabled}</td>
-					<td>${dto.role}</td>
-					<td>${dto.regdate}</td>
-				</tr>
-			</c:forEach>
-		</c:otherwise>
-	</c:choose>
+			<%
+		}
+	}
+	%>
 </table>
 </body>
 </html>

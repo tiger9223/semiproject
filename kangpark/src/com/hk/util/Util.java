@@ -11,5 +11,4 @@ public class Util {
 		r = sdf.format(regDate);
 		return r;
 	}
-	
 }

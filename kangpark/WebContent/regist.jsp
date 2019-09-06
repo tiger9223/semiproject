@@ -49,6 +49,10 @@
 					"width=300px, height=300px");
 		}
 	}
+	//뒤로가기
+	function back(){
+		location.href="LoginController.do?command=logout"
+	}
 </script>
 </head>
 <body>
@@ -90,10 +94,10 @@
 	<tr>
 		<td colspan="2">
 		<input type="submit" name="가입완료" value="완료"/>
+		<input type="button" value="뒤로가기" onclick="back()"></button>
 		</td>
 	</tr>
 </table>
 </form>
-
 </body>
 </html>

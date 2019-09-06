@@ -1,3 +1,4 @@
+<%@page import="com.hk.util.Util"%>
 <%@include file="us_header.jsp"%>
 <%@page import="com.hk.dtos.LoginDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
@@ -11,13 +12,12 @@
 </head>
 <%
 	LoginDto dto = (LoginDto)request.getAttribute("dto");
-	
 %>
 <body>
 <h1>나의 정보 조회</h1>
 <table border="1">
 	<tr>
-	    <th>번호</th>
+	    <th>회원번호</th>
 	    <td><%=dto.getSeq()%></td>
 	</tr>
 	<tr>
@@ -42,14 +42,25 @@
 	</tr>
 	<tr>
 	    <th>가입일</th>
-	    <td><%=dto.getRegdate()%></td>
+	    <td><%=Util.getToDate(dto.getRegdate())%></td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button onclick="">수정</button>
-			<button onclick="">삭제</button>
+			<button onclick="update(<%=dto.getSeq()%>)">수정</button>
+			<button onclick="withdraw('<%=dto.getId()%>')">탈퇴</button>
 		</td>
 	</tr>
 </table>
+<script type="text/javascript">
+	function update(seq){
+		location.href = "LoginController.do?command=userUpdate&seq="+seq;
+	}
+	
+	function withdraw(id){
+		if(confirm("정말 탈퇴하시겠습니까?")==true){
+			location.href = "LoginController.do?command=withdraw&id="+id;
+		}
+	}
+</script>
 </body>
 </html>

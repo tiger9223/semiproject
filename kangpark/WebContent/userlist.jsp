@@ -1,3 +1,4 @@
+<%@page import="com.hk.util.Util"%>
 <%@page import="com.hk.dtos.LoginDto"%>
 <%@page import="java.util.List"%>
 <%@include file="ad_header.jsp" %>
@@ -34,7 +35,7 @@
 					<%=dto.getRole()%>
 					<button onclick="auth(<%=dto.getSeq()%>)">변경</button>
 				</td>
-				<td><%=dto.getRegdate()%></td>
+				<td><%=Util.getToDate(dto.getRegdate())%></td>
 			</tr>
 			<%
 		}
