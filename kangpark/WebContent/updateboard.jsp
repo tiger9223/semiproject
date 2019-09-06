@@ -28,7 +28,7 @@ $(function(){
 </head>
 <body>
 <h1>게시글수정하기</h1>
-<form action="AnsController.do" method="post">
+<form action="BoardController.do" method="post">
 <input type="hidden" name="command" value="updateboard"/>
 <input type="hidden" name="seq" value="${dto.seq}"/>
 <table border="1">
@@ -51,7 +51,7 @@ $(function(){
 	<tr>
 		<td colspan="2">
 			<input type="submit" value="수정완료"/>
-			<button type="button" onclick="location.href='AnsController.do?command=boardlist'">글목록</button>
+			<button type="button" onclick="location.href='BoardController.do?command=boardlist'">글목록</button>
 		</td>
 	</tr>
 </table>

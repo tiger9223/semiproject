@@ -23,7 +23,7 @@ public class BoardDao extends SqlMapConfig{
 			List<BoardDto> list=new ArrayList<>();
 			SqlSession sqlSession=null;
 			try {
-				sqlSession=getSqlSessionFactory().openSession(true);
+				sqlSession = getSqlSessionFactory().openSession(true);
 				list=sqlSession.selectList(nameSpace+"boardlist");
 			} catch (Exception e) {
 				e.printStackTrace();

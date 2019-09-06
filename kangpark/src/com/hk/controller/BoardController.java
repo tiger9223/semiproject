@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 import com.hk.daos.BoardDao;
 import com.hk.daos.LoginDao;
 import com.hk.dtos.BoardDto;
+import com.hk.dtos.LoginDto;
 
 /**
  * Servlet implementation class BoardController
@@ -37,12 +39,12 @@ public class BoardController extends HttpServlet {
 		BoardDao dao = new BoardDao();
 		
 		if(command.equals("boardlist")) {
-			
-			//"readcount"값을 삭제한다. 
+			//"readcount"값을 삭제한다.
 			request.getSession().removeAttribute("readcount");
-			
-			
+			int member_seq = Integer.parseInt(request.getParameter("seq"));
+			LoginDto ldto = ldao.getUserInfo(member_seq);
 			List<BoardDto> list=dao.getAllList();
+			request.setAttribute("ldto", ldto);
 			request.setAttribute("list", list);
 //			request.getRequestDispatcher("boardlist.jsp").forward(request, response);
 			dispatch("boardlist.jsp", request, response);

@@ -1,3 +1,4 @@
+<%@page import="com.hk.dtos.LoginDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
@@ -44,8 +45,9 @@
 
 </head>
 <body>
+
 <h1>게시글 추가하기</h1>
-<form action="AnsController.do" method="post" >
+<form action="BoardController.do" method="post" >
 <input type="hidden" name="command" value="insertboard"/>
 <table border="1">
 	<tr>
@@ -64,7 +66,7 @@
 		<td colspan="2">
 			<input type="submit" value="글등록"/>
 			<input type="button" value="목록" 
-			          onclick="location.herf='AnsController.do?command=boardlist'"/>
+			          onclick="location.herf='BoardController.do?command=boardlist'"/>
 		</td>
 	</tr>
 </table>

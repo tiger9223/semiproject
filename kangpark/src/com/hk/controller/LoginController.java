@@ -154,7 +154,7 @@ public class LoginController extends HttpServlet {
 			LoginDto dto = dao.getUserInfo(seq);
 			request.setAttribute("dto", dto);
 //			pageContext.forward("user_info.jsp");
-			dispatch("board.do?command=marketboard", request, response);
+			dispatch("BoardController.do?command=boardlist", request, response);
 		}
 	}
 	public void dispatch(String url, HttpServletRequest request

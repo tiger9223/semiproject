@@ -1,3 +1,4 @@
+<%@page import="com.hk.dtos.LoginDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
@@ -79,10 +80,12 @@
 			$("tr").each(function(){
 				$(this).children("td").slice(5,8).toggle().end().slice(9).toggle();
 			});
-			alert($("th:hidden").length);
+//			alert($("th:hidden").length);
 			$("tr").last().children("td").attr("colspan",$("th:visible").length);
 		});
 	});//onload
+	
+	
 </script>
 <style type="text/css">
 	img{width: 12px; height: 12px;}
@@ -94,6 +97,7 @@
 <%-- <%@include file="header.jsp" %> --%>
 <%-- <% int a=5; %> --%>
 <jsp:useBean id="util" class="com.hk.util.Util"  />
+
 <h1>글목록보기</h1>
 <textarea rows="2" cols="30" id="contentView"></textarea>
 <button id="detail">상세정보</button>
