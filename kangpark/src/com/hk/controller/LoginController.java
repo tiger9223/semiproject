@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
 			boolean isS = dao.insertUser(new LoginDto(0, id, name, password, address, phone, email, null, null, null));
 			
 			if(isS) {
-				jsForward("index.jsp", "회원가입을 축하합니다~!!", response);
+				jsForward("index.jsp", "회원가입이 완료되었습니다.", response);
 			}else {
 				request.setAttribute("msg", "회원가입 실패");
 //				pageContext.forward("error.jsp");
@@ -60,7 +60,7 @@ public class LoginController extends HttpServlet {
 			LoginDto ldto = dao.getLogin(id, password);
 			
 			if(ldto==null || ldto.getId()==null) {
-				request.setAttribute("msg", "아이디나 패스워드를 확인하시오");
+				request.setAttribute("msg", "아이디나 패스워드를 확인하시오.");
 //				pageContext.forward("error.jsp");
 				dispatch("error.jsp", request, response);
 			}else {
@@ -110,7 +110,7 @@ public class LoginController extends HttpServlet {
 			String role = request.getParameter("role");
 			boolean isS = dao.updateUserRole(seq, role);
 			if(isS) {
-				jsForward("LoginController.do?command=alluserlist", "회원등급을 수정했습니다아~!", response);	
+				jsForward("LoginController.do?command=alluserlist", "회원등급을 수정했습니다.", response);	
 			}else {
 				request.setAttribute("msg", "회원등급 변경실패");
 //				pageContext.forward("error.jsp");
@@ -149,8 +149,13 @@ public class LoginController extends HttpServlet {
 				request.setAttribute("msg", "회원 탈퇴실패");
 				dispatch("error.jsp", request, response);
 			}
+		}else if(command.equals("marketboard")) {
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			LoginDto dto = dao.getUserInfo(seq);
+			request.setAttribute("dto", dto);
+//			pageContext.forward("user_info.jsp");
+			dispatch("board.do?command=marketboard", request, response);
 		}
-		
 	}
 	public void dispatch(String url, HttpServletRequest request
 							, HttpServletResponse response) throws ServletException, IOException {

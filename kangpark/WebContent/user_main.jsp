@@ -24,5 +24,8 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 <ul>												<!-- ldto에 로그인 정보가 있으니까.. -->
 	<li><a href="LoginController.do?command=getUserInfo&seq=<%=ldto.getSeq()%>">나의 정보 조회</a></li>
 </ul>
+<ul>												<!-- ldto에 로그인 정보가 있으니까.. -->
+	<li><a href="BoardController.do?command=marketboard&seq=<%=ldto.getSeq()%>">장터게시판</a></li>
+</ul>
 </body>
 </html>
