@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.hk.daos.BoardListDao;
+import com.hk.daos.BoardDao;
 import com.hk.daos.LoginDao;
-import com.hk.dtos.BoardListDto;
+import com.hk.dtos.BoardDto;
 import com.hk.dtos.LoginDto;
 
 @WebServlet("/HomeController.do")
@@ -22,8 +22,8 @@ public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BoardListDao bdao = new BoardListDao();
-		List<BoardListDto> list = bdao.getBoardList();
+		BoardDao bdao = new BoardDao();
+		List<BoardDto> list = bdao.getBoardList();
 		request.setAttribute("list", list);
 		dispatch("user_main.jsp", request, response);
 	}

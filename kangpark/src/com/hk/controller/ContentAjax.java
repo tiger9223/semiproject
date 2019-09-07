@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hk.daos.BoardDao;
+import com.hk.daos.PostDao;
 import com.hk.dtos.BoardDto;
 
 import net.sf.json.JSONObject;
@@ -32,7 +32,7 @@ public class ContentAjax extends HttpServlet {
 		
 		System.out.println("클라이언트로부터 전달받은 seq값:"+seq);
 		
-		BoardDao dao=new BoardDao();
+		PostDao dao=new PostDao();
 		BoardDto dto=dao.getContent(seq);
 		
 		//text 데이터를 클라이언트로 보낼때

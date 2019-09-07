@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import com.hk.daos.PostDao;
 import com.hk.daos.BoardDao;
 import com.hk.daos.LoginDao;
+import com.hk.dtos.PostDto;
 import com.hk.dtos.BoardDto;
 import com.hk.dtos.LoginDto;
 
@@ -39,28 +41,24 @@ public class BoardController extends HttpServlet {
 		String command=request.getParameter("command");
 		
 		LoginDao ldao = new LoginDao();
-		BoardDao dao = new BoardDao();
+		PostDao dao = new PostDao();
+		BoardDao bldao = new BoardDao();
+		
+		LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 		
 		if(command.equals("boardlist")) {
 			//"readcount"값을 삭제한다.
 			request.getSession().removeAttribute("readcount");
-			int member_seq = Integer.parseInt(request.getParameter("seq"));
-			LoginDto ldto = ldao.getUserInfo(member_seq);
-			List<BoardDto> list=dao.getAllList();
-			request.setAttribute("ldto", ldto);
-			request.setAttribute("list", list);
-//			request.getRequestDispatcher("boardlist.jsp").forward(request, response);
-			dispatch("boardlist.jsp", request, response);
-		}else if(command.equals("infoboardlist")) {
-			//"readcount"값을 삭제한다.
-			request.getSession().removeAttribute("readcount");
-			int member_seq = Integer.parseInt(request.getParameter("seq"));
-			LoginDto ldto = ldao.getUserInfo(member_seq);
-			List<BoardDto> list=dao.getAllList();
-			request.setAttribute("ldto", ldto);
+			int listseq = Integer.parseInt(request.getParameter("listseq"));
+			BoardDto bdto = bldao.getBoardListBySeq(listseq);
+			System.out.print(bdto.getList());
+			List<PostDto> list=dao.getListByListSeq(listseq);
+			request.setAttribute("bdto", bdto);
 			request.setAttribute("list", list);
 //			request.getRequestDispatcher("boardlist.jsp").forward(request, response);
 			dispatch("infoboardlist.jsp", request, response);
+			
+			
 		}else if(command.equals("boarddetail")) {
 			int seq=Integer.parseInt(request.getParameter("seq"));
 			
@@ -74,10 +72,11 @@ public class BoardController extends HttpServlet {
 				request.getSession().setAttribute("readcount", seq+"");
 			}
 			
-			
-			BoardDto dto=dao.getBoard(seq);
+			PostDto dto=dao.getBoard(seq);
 			request.setAttribute("dto", dto);
 			dispatch("boarddetail.jsp", request, response);
+			
+			
 		}else if(command.equals("muldel")) {
 			String [] seqs=request.getParameterValues("chk");
 			boolean isS=dao.mulDel(seqs);
@@ -87,45 +86,53 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("msg", "글여러개삭제실패");
 				dispatch("error.jsp", request, response);
 			}
+			
+			
 		}else if(command.equals("insertForm")) {
 			dispatch("insertboard.jsp", request, response);
+			
 		}else if(command.equals("insertboard")) {
-			int member_seq = Integer.parseInt(request.getParameter("member_seq"));
+			int listseq = Integer.parseInt(request.getParameter("listseq"));
 			String id=request.getParameter("id");
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
 			
-			boolean isS=dao.insertBoard(new BoardDto(id,title,content));
+			boolean isS=dao.insertBoard(new PostDto(id,title,content,ldto.getSeq(),listseq));
 			if(isS) {
 				response.sendRedirect("AnsController.do?command=infoboardlist");
 			}else {
 				request.setAttribute("msg", "글추가실패");
 				dispatch("error.jsp", request, response);
 			}
+			
+			
 		}else if(command.equals("updateForm")) {
 			int seq=Integer.parseInt(request.getParameter("seq"));
-			BoardDto dto=dao.getBoard(seq);
+			PostDto dto=dao.getBoard(seq);
 			request.setAttribute("dto", dto);
 			dispatch("updateboard.jsp", request, response);
+			
+			
 		}else if(command.equals("updateboard")) {
 			int seq=Integer.parseInt(request.getParameter("seq"));
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
 			
-			boolean isS=dao.updateBoard(new BoardDto(seq,title,content));
+			boolean isS=dao.updateBoard(new PostDto(seq,title,content));
 			if(isS) {
 				response.sendRedirect("AnsController.do?command=boarddetail&seq="+seq);
 			}else {
 				request.setAttribute("msg", "글수정하기 실패");
 				dispatch("error.jsp", request, response);
 			}
+			
 		}else if(command.equals("replyboard")) {
 			int seq=Integer.parseInt(request.getParameter("seq"));
 			String id=request.getParameter("id");
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
 			
-			boolean isS=dao.replyBoard(new BoardDto(seq,id,title,content));
+			boolean isS=dao.replyBoard(new PostDto(seq,id,title,content));
 			if(isS) {
 				response.sendRedirect("AnsController.do?command=boardlist");
 			}else {

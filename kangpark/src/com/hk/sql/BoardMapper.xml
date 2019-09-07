@@ -4,8 +4,8 @@
 <mapper namespace="com.hk.board">
 
 	<sql id="a">
-		SELECT SEQ,ID,TITLE,CONTENT,REGDATE,REFER,STEP,DEPTH,READCOUNT,DELFLAG 
-		FROM BOARD 
+		SELECT SEQ,ID,TITLE,CONTENT,REGDATE,REF,STEP,DEPTH,READCOUNT,DELFLAG
+		FROM POST 
 	</sql>
 
 	<select id="boardlist" resultType="BoardDto" parameterType="Map">
@@ -15,7 +15,17 @@
 				SEQ = #{seq}					
 			</if>
 		</where>
-		ORDER BY REFER,STEP 
+		ORDER BY REF,STEP 
+	</select>
+	
+	<select id="boardlistbylistseq" resultType="BoardDto" parameterType="int">
+		<include refid="a"/>
+		<where>
+			<if test="seq!=null">
+				LIST_SEQ = #{seq}					
+			</if>
+		</where>
+		ORDER BY REF,STEP 
 	</select>
 	
 	<select id="getboard" parameterType="int">
@@ -24,19 +34,19 @@
 	</select>
 	
 	<insert id="insertboard" parameterType="BoardDto">
-		INSERT INTO BOARD (SEQ,ID,TITLE,CONTENT,REGDATE,REFER,
-		STEP,DEPTH,READCOUNT,DELFLAG) 
-		VALUES(BOARD_SEQ.NEXTVAL,#{id},#{title},#{content},SYSDATE, 
-		(SELECT NVL(MAX(REFER)+1,0) FROM BOARD ),0,0,0,'N')
+		INSERT INTO POST (SEQ,ID,TITLE,CONTENT,REF,STEP,DEPTH,READCOUNT,DELFLAG,REGDATE,
+		NOTICE,MEMBER_SEQ,LIST_SEQ,KIND) 
+		VALUES(POST_SEQ.NEXTVAL,#{id},#{title},#{content},(SELECT NVL(MAX(REF)+1,0) FROM POST),0,0 
+		,0,'N',SYSDATE,'N',#{member_seq},#{kind})
 	</insert>
 	
 	<update id="updateboard" parameterType="BoardDto">
-		UPDATE BOARD SET TITLE=#{title},CONTENT=#{content},REGDATE=SYSDATE 
+		UPDATE POST SET TITLE=#{title},CONTENT=#{content},REGDATE=SYSDATE 
 		WHERE SEQ=#{seq} 
 	</update>
 	
 	<update id="muldel" parameterType="Map">
-		UPDATE BOARD SET DELFLAG='Y' WHERE SEQ IN 
+		UPDATE POST SET DELFLAG='1' WHERE SEQ IN 
 		<foreach collection="seqs" item="seq" open="(" close=")" separator=",">
 			#{seq}
 		</foreach>
@@ -44,28 +54,28 @@
 	
 	<update id="readcount" parameterType="int">
 		<![CDATA[
-		UPDATE BOARD SET READCOUNT=READCOUNT+1
+		UPDATE POST SET READCOUNT=READCOUNT+1
 		WHERE SEQ=#{seq} 
 		]]>
 	</update>
 	
 	<update id="replyupdate" parameterType="BoardDto">
 		<![CDATA[
-		UPDATE BOARD SET STEP=STEP+1
-		WHERE REFER=(SELECT REFER FROM BOARD WHERE SEQ=#{seq})
-		AND STEP > (SELECT STEP FROM BOARD WHERE SEQ=#{seq})		
+		UPDATE POST SET STEP=STEP+1
+		WHERE REF=(SELECT REF FROM POST WHERE SEQ=#{seq})
+		AND STEP > (SELECT STEP FROM POST WHERE SEQ=#{seq})		
 		]]>
 	</update>
 	
 	<insert id="replyinsert" parameterType="BoardDto">
-		INSERT INTO BOARD 
-		VALUES(BOARD_SEQ.NEXTVAL,#{id},#{title},#{content},SYSDATE, 
-		(SELECT REFER FROM BOARD WHERE SEQ=#{seq}), 
-		(SELECT STEP FROM BOARD WHERE SEQ=#{seq})+1, 
-		(SELECT DEPTH FROM BOARD WHERE SEQ=#{seq})+1,0,'N')
+		INSERT INTO POST 
+		VALUES(POST_SEQ.NEXTVAL,#{id},#{title},#{content},SYSDATE, 
+		(SELECT REFER FROM POST WHERE SEQ=#{seq}), 
+		(SELECT STEP FROM POST WHERE SEQ=#{seq})+1, 
+		(SELECT DEPTH FROM POST WHERE SEQ=#{seq})+1,0,'N')
 	</insert>
 	
 	<select id="contentAjax" parameterType="int" resultType="BoardDto">
-		SELECT CONTENT FROM BOARD WHERE SEQ=#{seq}
+		SELECT CONTENT FROM POST WHERE SEQ=#{seq}
 	</select>
 </mapper>

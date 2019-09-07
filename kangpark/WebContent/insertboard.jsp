@@ -47,11 +47,12 @@
 <body>
 <%
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
+	int listseq = Integer.parseInt(request.getParameter("listseq"));
 %>
 <h1>게시글 추가하기</h1>
 <form action="BoardController.do" method="post" >
 <input type="hidden" name="command" value="insertboard"/>
-<input type="hidden" name="member_seq" value="<%=ldto.getSeq()%>">
+<input type="hidden" name="listseq" value="<%=listseq%>"/>
 <table border="1">
 	<tr>
 		<th>아이디</th>
