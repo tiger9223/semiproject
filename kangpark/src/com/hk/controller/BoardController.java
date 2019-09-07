@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import com.hk.daos.BoardDao;
@@ -33,6 +34,8 @@ public class BoardController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
+		HttpSession session = request.getSession();
+		
 		String command=request.getParameter("command");
 		
 		LoginDao ldao = new LoginDao();
@@ -48,6 +51,16 @@ public class BoardController extends HttpServlet {
 			request.setAttribute("list", list);
 //			request.getRequestDispatcher("boardlist.jsp").forward(request, response);
 			dispatch("boardlist.jsp", request, response);
+		}else if(command.equals("infoboardlist")) {
+			//"readcount"값을 삭제한다.
+			request.getSession().removeAttribute("readcount");
+			int member_seq = Integer.parseInt(request.getParameter("seq"));
+			LoginDto ldto = ldao.getUserInfo(member_seq);
+			List<BoardDto> list=dao.getAllList();
+			request.setAttribute("ldto", ldto);
+			request.setAttribute("list", list);
+//			request.getRequestDispatcher("boardlist.jsp").forward(request, response);
+			dispatch("infoboardlist.jsp", request, response);
 		}else if(command.equals("boarddetail")) {
 			int seq=Integer.parseInt(request.getParameter("seq"));
 			
@@ -75,15 +88,16 @@ public class BoardController extends HttpServlet {
 				dispatch("error.jsp", request, response);
 			}
 		}else if(command.equals("insertForm")) {
-			response.sendRedirect("insertboard.jsp");
+			dispatch("insertboard.jsp", request, response);
 		}else if(command.equals("insertboard")) {
+			int member_seq = Integer.parseInt(request.getParameter("member_seq"));
 			String id=request.getParameter("id");
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
 			
 			boolean isS=dao.insertBoard(new BoardDto(id,title,content));
 			if(isS) {
-				response.sendRedirect("AnsController.do?command=boardlist");
+				response.sendRedirect("AnsController.do?command=infoboardlist");
 			}else {
 				request.setAttribute("msg", "글추가실패");
 				dispatch("error.jsp", request, response);

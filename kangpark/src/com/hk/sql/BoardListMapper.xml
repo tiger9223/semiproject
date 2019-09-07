@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hk.boardlist">
+
+	<select id="boardlist" resultType="BoardListDto">
+		SELECT SEQ, LIST FROM BOARDLIST
+	</select>
+	
+	<insert id="insertboardlist" parameterType="BoardListDto">
+		INSERT INTO BOARDLIST (SEQ,LIST) VALUES(BOARDLIST_SEQ.NEXTVAL, #{list})
+	</insert>
+	
+	<update id="updateboardlist" parameterType="BoardListDto">
+		UPDATE BOARD SET LIST=#{list} 
+		WHERE SEQ=#{seq}
+	</update>
+	
+	<delete id="deleteboardlist" parameterType="BoardListDto">
+		DELETE FROM LIST WHERE SEQ=#{seq}
+	</delete>
+</mapper>

@@ -12,7 +12,7 @@
 		<include refid="a"/>
 		<where>
 			<if test="seq!=null">
-				SEQ=#{seq}					
+				SEQ = #{seq}					
 			</if>
 		</where>
 		ORDER BY REFER,STEP 
@@ -20,7 +20,7 @@
 	
 	<select id="getboard" parameterType="int">
 		<include refid="a"/>
-		WHERE SEQ=#{seq}
+		WHERE SEQ = #{seq}
 	</select>
 	
 	<insert id="insertboard" parameterType="BoardDto">
@@ -51,9 +51,9 @@
 	
 	<update id="replyupdate" parameterType="BoardDto">
 		<![CDATA[
-			UPDATE BOARD SET STEP=STEP+1
-			WHERE REFER=(SELECT REFER FROM BOARD WHERE SEQ=#{seq})
-			AND STEP > (SELECT STEP FROM BOARD WHERE SEQ=#{seq})		
+		UPDATE BOARD SET STEP=STEP+1
+		WHERE REFER=(SELECT REFER FROM BOARD WHERE SEQ=#{seq})
+		AND STEP > (SELECT STEP FROM BOARD WHERE SEQ=#{seq})		
 		]]>
 	</update>
 	

@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hk.daos.BoardListDao;
 import com.hk.daos.LoginDao;
+import com.hk.dtos.BoardListDto;
 import com.hk.dtos.LoginDto;
 
 @WebServlet("/LoginController.do")
@@ -58,7 +60,6 @@ public class LoginController extends HttpServlet {
 			String password = request.getParameter("password");
 			
 			LoginDto ldto = dao.getLogin(id, password);
-			
 			if(ldto==null || ldto.getId()==null) {
 				request.setAttribute("msg", "아이디나 패스워드를 확인하시오.");
 //				pageContext.forward("error.jsp");
@@ -73,9 +74,15 @@ public class LoginController extends HttpServlet {
 					if(ldto.getRole().toUpperCase().equals("ADMIN")) {
 						response.sendRedirect("admin_main.jsp");
 					}else if(ldto.getRole().toUpperCase().equals("USER")) {
-						response.sendRedirect("user_main.jsp");
+						BoardListDao bdao = new BoardListDao();
+						List<BoardListDto> list = bdao.getBoardList();
+						request.setAttribute("list", list);
+						dispatch("user_main.jsp", request, response);
 					}else if(ldto.getRole().toUpperCase().equals("MANAGER")) {
-						response.sendRedirect("user_main.jsp");
+						BoardListDao bdao = new BoardListDao();
+						List<BoardListDto> list = bdao.getBoardList();
+						request.setAttribute("list", list);
+						dispatch("user_main.jsp", request, response);
 					}
 				}
 			}
