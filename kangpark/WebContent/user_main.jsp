@@ -1,6 +1,7 @@
+<%@page import="com.hk.dtos.BoardDto"%>
 <%@page import="java.util.List"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-<%@page import="com.hk.dtos.BoardListDto"%>
+
 <%
 response.setHeader("pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
@@ -20,7 +21,7 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 <body>
 <%
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
-	List<BoardListDto> list = (List<BoardListDto>)request.getAttribute("list");
+	List<BoardDto> list = (List<BoardDto>)request.getAttribute("list");
 %>
 <div><%=ldto.getId()%>님 반가워요.(등급:<%=ldto.getRole().equals("USER")?"일반회원":"정회원"%>)
 	<a href="LoginController.do?command=logout">로그아웃</a>
@@ -29,10 +30,10 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 	<li><a href="LoginController.do?command=getUserInfo&seq=<%=ldto.getSeq()%>">나의 정보 조회</a></li>
 </ul>
 <% 
-	for(BoardListDto dto:list){
+	for(BoardDto dto:list){
 		%>
 <ul>												<!-- ldto에 로그인 정보가 있으니까.. -->
-	<li><a href="BoardController.do?command=boardlist&listseq=<%=dto.getSeq()%>"><%=dto.getList() %></a></li>
+	<li><a href="PostController.do?command=boardlist&listseq=<%=dto.getSeq()%>"><%=dto.getTitle() %></a></li>
 </ul>
 <% 
 	}

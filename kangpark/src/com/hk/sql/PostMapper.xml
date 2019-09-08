@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hk.post">
+
+	<sql id="a">
+		SELECT SEQ,TITLE,CONTENT,REGDATE,REF,STEP,DEPTH,READCOUNT,DELFLAG
+		FROM POST 
+	</sql>
+	
+	<sql id="selectSqlJoinMember">
+		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG
+		FROM POST p, MEMBER m
+		WHERE p.MEMBER_SEQ = m.SEQ
+	</sql>
+
+	<select id="boardlist" resultType="PostDto" parameterType="Map">
+		<include refid="a"/>
+		<where>
+			<if test="seq!=null">
+				SEQ = #{seq}					
+			</if>
+		</where>
+		ORDER BY REF,STEP 
+	</select>
+	
+	<select id="boardlistbylistseq" resultType="PostDto" parameterType="int">
+		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG
+		FROM POST p, MEMBER m
+		WHERE p.MEMBER_SEQ = m.SEQ AND p.BOARD_SEQ = #{boardSeq}		
+		ORDER BY REF,STEP 
+	</select>
+	
+	<select id="getboard" parameterType="int">
+		<include refid="a"/>
+		WHERE SEQ = #{seq}
+	</select>
+	
+	<insert id="insertboard" parameterType="PostDto">
+		INSERT INTO POST 
+		(SEQ, TITLE, CONTENT,
+		REF, STEP, DEPTH,
+		READCOUNT, DELFLAG, REGDATE,
+		NOTICE, MEMBER_SEQ, BOARD_SEQ,
+		CATEGORY_SEQ) 
+		VALUES
+		(POST_SEQ.NEXTVAL, #{title}, #{content},
+		(SELECT NVL(MAX(REF)+1,0) FROM POST), 0, 0,
+		0, 0, SYSDATE,
+		0, #{member_seq}, #{board_seq},
+		#{category_seq})
+	</insert>
+	
+	<update id="updateboard" parameterType="PostDto">
+		UPDATE POST SET TITLE=#{title},CONTENT=#{content},REGDATE=SYSDATE 
+		WHERE SEQ=#{seq} 
+	</update>
+	
+	<update id="muldel" parameterType="Map">
+		UPDATE POST SET DELFLAG='1' WHERE SEQ IN 
+		<foreach collection="seqs" item="seq" open="(" close=")" separator=",">
+			#{seq}
+		</foreach>
+	</update>
+	
+	<update id="readcount" parameterType="int">
+		<![CDATA[
+		UPDATE POST SET READCOUNT=READCOUNT+1
+		WHERE SEQ=#{seq} 
+		]]>
+	</update>
+	
+	<update id="replyupdate" parameterType="PostDto">
+		<![CDATA[
+		UPDATE POST SET STEP=STEP+1
+		WHERE REF=(SELECT REF FROM POST WHERE SEQ=#{seq})
+		AND STEP > (SELECT STEP FROM POST WHERE SEQ=#{seq})		
+		]]>
+	</update>
+	
+	<insert id="replyinsert" parameterType="PostDto">
+		INSERT INTO POST 
+		VALUES(POST_SEQ.NEXTVAL,#{id},#{title},#{content},SYSDATE, 
+		(SELECT REFER FROM POST WHERE SEQ=#{seq}), 
+		(SELECT STEP FROM POST WHERE SEQ=#{seq})+1, 
+		(SELECT DEPTH FROM POST WHERE SEQ=#{seq})+1,0,'N')
+	</insert>
+	
+	<select id="contentAjax" parameterType="int" resultType="PostDto">
+		SELECT CONTENT FROM POST WHERE SEQ=#{seq}
+	</select>
+</mapper>

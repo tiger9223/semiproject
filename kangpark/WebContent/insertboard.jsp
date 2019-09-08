@@ -50,7 +50,7 @@
 	int listseq = Integer.parseInt(request.getParameter("listseq"));
 %>
 <h1>게시글 추가하기</h1>
-<form action="BoardController.do" method="post" >
+<form action="PostController.do" method="post" >
 <input type="hidden" name="command" value="insertboard"/>
 <input type="hidden" name="listseq" value="<%=listseq%>"/>
 <table border="1">
@@ -70,7 +70,7 @@
 		<td colspan="2">
 			<input type="submit" value="글등록"/>
 			<input type="button" value="목록" 
-			          onclick="location.herf='BoardController.do?command=boardlist'"/>
+			          onclick="location.herf='PostController.do?command=boardlist'"/>
 		</td>
 	</tr>
 </table>

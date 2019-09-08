@@ -16,7 +16,7 @@ public class PostDao extends SqlMapConfig{
 		super();
 	}
 	
-	private String nameSpace="com.hk.board.";
+	private String nameSpace="com.hk.post.";
 	
 	//전체 게시글 조회(list를 반환)
 		public List<PostDto> getAllList(){
@@ -32,13 +32,14 @@ public class PostDao extends SqlMapConfig{
 			}
 			return list;
 		}
+		
 		//특정 게시판의 게시글 리스트 조회
-		public List<PostDto> getListByListSeq(int listseq){
+		public List<PostDto> getListByListSeq(int boardSeq){
 			List<PostDto> list=new ArrayList<>();
 			SqlSession sqlSession=null;
 			try {
 				sqlSession = getSqlSessionFactory().openSession(true);
-				list=sqlSession.selectList(nameSpace+"boardlistbylistseq",listseq);
+				list=sqlSession.selectList(nameSpace+"boardlistbylistseq", boardSeq);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {

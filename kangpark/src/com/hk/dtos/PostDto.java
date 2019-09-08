@@ -4,7 +4,9 @@ import java.sql.Date;
 
 public class PostDto {
 
+	
 	private int seq;
+	private String id;
 	private String title;
 	private String content;
 	private int ref;
@@ -29,10 +31,13 @@ public class PostDto {
 		this.content = content;
 	}
 
-	public PostDto(int seq, String title, String content, int ref, int step, int depth, int readcount, int delflag,
-			Date regdate, int notice, int member_seq, int board_seq, int category_seq) {
+
+
+	public PostDto(int seq, String id, String title, String content, int ref, int step, int depth, int readcount,
+			int delflag, Date regdate, int notice, int member_seq, int board_seq, int category_seq) {
 		super();
 		this.seq = seq;
+		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.ref = ref;
@@ -47,12 +52,29 @@ public class PostDto {
 		this.category_seq = category_seq;
 	}
 
+	public PostDto(String title, String content, int member_seq, int board_seq, int category_seq) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.member_seq = member_seq;
+		this.board_seq = board_seq;
+		this.category_seq = category_seq;
+	}
+
 	public int getSeq() {
 		return seq;
 	}
 
 	public void setSeq(int seq) {
 		this.seq = seq;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -153,11 +175,12 @@ public class PostDto {
 
 	@Override
 	public String toString() {
-		return "PostDto [seq=" + seq + ", title=" + title + ", content=" + content + ", ref=" + ref + ", step=" + step
-				+ ", depth=" + depth + ", readcount=" + readcount + ", delflag=" + delflag + ", regdate=" + regdate
-				+ ", notice=" + notice + ", member_seq=" + member_seq + ", board_seq=" + board_seq + ", category_seq="
-				+ category_seq + "]";
+		return "PostDto [seq=" + seq + ", id=" + id + ", title=" + title + ", content=" + content + ", ref=" + ref
+				+ ", step=" + step + ", depth=" + depth + ", readcount=" + readcount + ", delflag=" + delflag
+				+ ", regdate=" + regdate + ", notice=" + notice + ", member_seq=" + member_seq + ", board_seq="
+				+ board_seq + ", category_seq=" + category_seq + "]";
 	}
+
 	
 	
 	

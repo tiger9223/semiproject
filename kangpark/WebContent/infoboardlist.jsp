@@ -1,4 +1,4 @@
-<%@page import="com.hk.dtos.BoardListDto"%>
+<%@page import="com.hk.dtos.PostDto"%>
 <%@page import="com.hk.util.Util"%>
 <%@page import="com.hk.dtos.BoardDto"%>
 <%@page import="java.util.List"%>
@@ -89,8 +89,8 @@
 </script>
 <%
 	LoginDto ldto = (LoginDto)request.getAttribute("ldto");
-	List<BoardDto> list = (List<BoardDto>)request.getAttribute("list");
-	BoardListDto bldto = (BoardListDto)request.getAttribute("bdto");
+	List<PostDto> list = (List<PostDto>)request.getAttribute("list");
+	BoardDto bldto = (BoardDto)request.getAttribute("bdto");
 %>
 <style type="text/css">
 	img{width: 12px; height: 12px;}
@@ -98,10 +98,10 @@
 </style>
 </head>
 <body> 
-<h1><%=bldto.getList()%> 목록보기</h1>
+<h1><%=bldto.getTitle()%> 목록보기</h1>
 <textarea rows="2" cols="30" id="contentView"></textarea>
 <button id="detail">상세정보</button>
-<form action="BoardController.do" method="post">
+<form action="PostController.do" method="post">
 <input type="hidden" name="command" value="muldel" />
 <table border="1">
 	<col width="50px" />
@@ -126,7 +126,7 @@
 	</tr> 
 	<%
 	}else{
-		for(BoardDto dto:list){
+		for(PostDto dto:list){
 			%>
 			<tr>
 				<td><input type="checkbox" name="chk" value="<%=dto.getSeq()%>"/></td>
@@ -134,11 +134,11 @@
 				<td><%=dto.getId() %></td>
 				<td>
 				<%
-				if(dto.getDelflag().equals("Y")){
+				if(dto.getDelflag()==11){
 					%>삭제된 글입니다.<%
 				}else{
 					%>
-					<a href="BoardController.do?command=boarddetail&seq=<%=dto.getSeq()%>"><%=dto.getTitle()%></a>
+					<a href="PostController.do?command=boarddetail&seq=<%=dto.getSeq()%>"><%=dto.getTitle()%></a>
 					<%
 				}
 				%>
@@ -153,7 +153,7 @@
 	<tr>
 		<td colspan="6">
 			<input type="button" value="글추가" 
-			       onclick="location.href='BoardController.do?command=insertForm&listseq=<%=bldto.getSeq()%>'"/>
+			       onclick="location.href='PostController.do?command=insertForm&listseq=<%=bldto.getSeq()%>'"/>
 			<input type="submit" value="글삭제"/>       
 		</td>
 	</tr>

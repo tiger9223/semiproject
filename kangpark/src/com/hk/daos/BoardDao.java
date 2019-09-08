@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.hk.config.SqlMapConfig;
 import com.hk.dtos.BoardDto;
-import com.hk.dtos.BoardDto;
 
 public class BoardDao  extends SqlMapConfig{
 
@@ -15,7 +14,7 @@ public class BoardDao  extends SqlMapConfig{
 		super();
 	}
 	
-	private String nameSpace="com.hk.boardlist.";
+	private String nameSpace="com.hk.board.";
 	
 	//게시판 종류 가져오기
 	public List<BoardDto> getBoardList(){

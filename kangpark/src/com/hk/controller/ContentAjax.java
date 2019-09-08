@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hk.daos.PostDao;
 import com.hk.dtos.BoardDto;
+import com.hk.dtos.PostDto;
 
 import net.sf.json.JSONObject;
 
@@ -33,7 +34,7 @@ public class ContentAjax extends HttpServlet {
 		System.out.println("클라이언트로부터 전달받은 seq값:"+seq);
 		
 		PostDao dao=new PostDao();
-		BoardDto dto=dao.getContent(seq);
+		PostDto dto=dao.getContent(seq);
 		
 		//text 데이터를 클라이언트로 보낼때
 //		String content=dto.getContent();
@@ -45,7 +46,7 @@ public class ContentAjax extends HttpServlet {
 		//{key:value} -----> Map[key:value]형태로 만들고 json으로 변환해서 보내준다.
 		//            ----->obj=["dto":{seq:1,id:hk,title:'제목',content:'내용'...}]
 		//json변환시 date타입은 변환할 수 없다.
-		Map<String, BoardDto> map=new HashMap<>();
+		Map<String, PostDto> map=new HashMap<>();
 		map.put("dto", dto);
 //		
 		JSONObject obj=JSONObject.fromObject(map);//map---> json변환

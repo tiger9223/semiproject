@@ -101,7 +101,7 @@
 <h1>글목록보기</h1>
 <textarea rows="2" cols="30" id="contentView"></textarea>
 <button id="detail">상세정보</button>
-<form action="BoardController.do" method="post">
+<form action="PostController.do" method="post">
 <input type="hidden" name="command" value="muldel" />
 <table border="1">
 	<col width="50px" />
@@ -158,7 +158,7 @@
 <%-- 								</c:if> --%>
 								<jsp:setProperty property="arrowNbsp" name="util" value="${dto.depth}"/>
 								<jsp:getProperty property="arrowNbsp" name="util"/>
-							   <a href="BoardController.do?command=boarddetail&seq=${dto.seq}">${dto.title}</a>
+							   <a href="PostController.do?command=boarddetail&seq=${dto.seq}">${dto.title}</a>
 							</td>
 						</c:otherwise>
 					</c:choose>
@@ -175,7 +175,7 @@
 	<tr>
 		<td colspan="10">
 			<input type="button" value="글추가" 
-			       onclick="location.href='BoardController.do?command=insertForm'"/>
+			       onclick="location.href='PostController.do?command=insertForm'"/>
 			<input type="submit" value="글삭제"/>       
 		</td>
 	</tr>

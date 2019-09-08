@@ -21,8 +21,8 @@ import com.hk.dtos.LoginDto;
 /**
  * Servlet implementation class BoardController
  */
-@WebServlet("/BoardController.do")
-public class BoardController extends HttpServlet {
+@WebServlet("/PostController.do")
+public class PostController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
@@ -51,7 +51,6 @@ public class BoardController extends HttpServlet {
 			request.getSession().removeAttribute("readcount");
 			int listseq = Integer.parseInt(request.getParameter("listseq"));
 			BoardDto bdto = bldao.getBoardListBySeq(listseq);
-			System.out.print(bdto.getList());
 			List<PostDto> list=dao.getListByListSeq(listseq);
 			request.setAttribute("bdto", bdto);
 			request.setAttribute("list", list);
@@ -92,14 +91,13 @@ public class BoardController extends HttpServlet {
 			dispatch("insertboard.jsp", request, response);
 			
 		}else if(command.equals("insertboard")) {
-			int listseq = Integer.parseInt(request.getParameter("listseq"));
-			String id=request.getParameter("id");
+			int boardSeq = Integer.parseInt(request.getParameter("listseq"));
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
-			
-			boolean isS=dao.insertBoard(new PostDto(id,title,content,ldto.getSeq(),listseq));
+	
+			boolean isS=dao.insertBoard(new PostDto(title, content, ldto.getSeq(), boardSeq, 1));
 			if(isS) {
-				response.sendRedirect("AnsController.do?command=infoboardlist");
+				response.sendRedirect("PostController.do?command=infoboardlist");
 			}else {
 				request.setAttribute("msg", "글추가실패");
 				dispatch("error.jsp", request, response);
@@ -132,7 +130,7 @@ public class BoardController extends HttpServlet {
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
 			
-			boolean isS=dao.replyBoard(new PostDto(seq,id,title,content));
+			boolean isS=dao.replyBoard(new PostDto());
 			if(isS) {
 				response.sendRedirect("AnsController.do?command=boardlist");
 			}else {

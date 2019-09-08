@@ -61,7 +61,7 @@
 </table>
 <div id="replyForm">
 <h1>답글달기</h1>
-<form action="BoardController.do" method="post" >
+<form action="PostController.do" method="post" >
 <input type="hidden" name="command" value="replyboard"/>
 <input type="hidden" name="seq" value="${dto.seq}"/>
 <table border="1">
@@ -81,7 +81,7 @@
 		<td colspan="2">
 			<input type="submit" value="답글등록"/>
 			<input type="button" value="목록" 
-			          onclick="location.herf='BoardController.do?command=boardlist'"/>
+			          onclick="location.herf='PostController.do?command=boardlist'"/>
 		</td>
 	</tr>
 </table>
@@ -100,10 +100,10 @@
 		//animate({css속성값정의},지연시간,easing)
 	}
 	function updateForm(seq){
-		location.href="BoardController.do?command=updateForm&seq="+seq;
+		location.href="PostController.do?command=updateForm&seq="+seq;
 	}
 	function delBoard(seq){
-		location.href="BoardController.do?command=muldel&chk="+seq;
+		location.href="PostController.do?command=muldel&chk="+seq;
 	}
 </script>
 </body>
