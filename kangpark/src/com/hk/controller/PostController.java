@@ -62,20 +62,22 @@ public class PostController extends HttpServlet {
 			dispatch("postlist.jsp", request, response);
 			
 		}else if(command.equals("PostDetail")) {
-			int boardseq=Integer.parseInt(request.getParameter("boardseq"));
-			
+			int MemberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
+			int PostSeq = Integer.parseInt(request.getParameter("PostSeq"));
 			//세션에 "readcount"가 있는지 가져와 본다
 			String rSeq=(String)request.getSession().getAttribute("readcount");
 			
 			if(rSeq==null) {
 				//조회수 올리기
-				pdao.readCount(boardseq);
+				pdao.readCount(PostSeq);
 				//현재 조회된 글에 번호를 세션에 "readcount"라는 이름으로 담아두기
-				request.getSession().setAttribute("readcount", boardseq+"");
+				request.getSession().setAttribute("readcount", PostSeq+"");
 			}
 			
-			PostDto pdto=pdao.getPost(boardseq);
+			PostDto pdto = pdao.getPost(MemberSeq);
+			ldto = ldao.getUserInfo(MemberSeq);
 			request.setAttribute("pdto", pdto);
+			request.setAttribute("dto", ldto);
 			dispatch("postdetail.jsp", request, response);
 			
 			
@@ -102,11 +104,11 @@ public class PostController extends HttpServlet {
 		}else if(command.equals("InsertPost")) {
 			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));
 			String id = request.getParameter("id");
-			String title=request.getParameter("title");
-			String content=request.getParameter("content");
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
 			int categorySeq = Integer.parseInt(request.getParameter("category"));
 			
-			boolean isS=pdao.insertPost(new PostDto(id,title, content, ldto.getSeq(), boardSeq, categorySeq));
+			boolean isS = pdao.insertPost(new PostDto(title, content, ldto.getSeq(), boardSeq, categorySeq));
 			if(isS) {
 				jsForward("PostController.do?command=PostList&boardseq="+boardSeq, "글이 정상적으로 등록 됐습니다.", response);
 				
@@ -117,16 +119,16 @@ public class PostController extends HttpServlet {
 			
 			
 		}else if(command.equals("UpdatePost")) {
-			int seq=Integer.parseInt(request.getParameter("seq"));
-			PostDto dto=pdao.getPost(seq);
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			PostDto dto = pdao.getPost(seq);
 			request.setAttribute("dto", dto);
 			dispatch("updatepost.jsp", request, response);
 			
 			
 		}else if(command.equals("UpdatePost")) {
-			int seq=Integer.parseInt(request.getParameter("seq"));
-			String title=request.getParameter("title");
-			String content=request.getParameter("content");
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
 			
 			boolean isS=pdao.updatePost(new PostDto(seq,title,content));
 			if(isS) {
@@ -137,10 +139,10 @@ public class PostController extends HttpServlet {
 			}
 			
 		}else if(command.equals("replyPost")) {
-			int seq=Integer.parseInt(request.getParameter("seq"));
-			String id=request.getParameter("id");
-			String title=request.getParameter("title");
-			String content=request.getParameter("content");
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			String id = request.getParameter("id");
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
 			
 			boolean isS=pdao.replyPost(new PostDto());
 			if(isS) {

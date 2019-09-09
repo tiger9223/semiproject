@@ -52,9 +52,8 @@ public class PostDto {
 		this.category_seq = category_seq;
 	}
 
-	public PostDto(String id,String title, String content, int member_seq, int board_seq, int category_seq) {
+	public PostDto(String title, String content, int member_seq, int board_seq, int category_seq) {
 		super();
-		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.member_seq = member_seq;

@@ -32,6 +32,7 @@
 <%
  	PostDto pdto = (PostDto)request.getAttribute("pdto");
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
+	LoginDto dto = (LoginDto)request.getAttribute("dto");
 %>
 <jsp:include page="header.jsp"  />
 <div id="container">
@@ -43,7 +44,7 @@
 	</tr>
 	<tr>
 		<th>작성자</th>
-		<td><%=pdto.getId() %></td>
+		<td><%=dto.getId()%></td>
 	</tr>
 	<tr>
 		<th>제목</th>

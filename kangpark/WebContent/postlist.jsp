@@ -144,7 +144,7 @@
 					%>삭제된 글입니다.<%
 				}else{
 					%>
-					<a href="PostController.do?command=PostDetail&boardseq=<%=dto.getSeq()%>"><%=dto.getTitle()%></a>
+					<a href="PostController.do?command=PostDetail&PostSeq=<%=dto.getSeq()%>&MemberSeq=<%=dto.getMember_seq()%>"><%=dto.getTitle()%></a>
 					<%
 				}
 				%>
