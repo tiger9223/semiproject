@@ -2,20 +2,16 @@
 <!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hk.post">
-	<!-- 조회 -->
-	<sql id="a">
-		SELECT SEQ,TITLE,CONTENT,REGDATE,REF,STEP,DEPTH,READCOUNT,DELFLAG
-		FROM POST 
-	</sql>
-	<!-- 그 -->
+	
 	<sql id="selectSqlJoinMember">
 		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG
 		FROM POST p, MEMBER m
 		WHERE p.MEMBER_SEQ = m.SEQ
 	</sql>
 
-	<select id="boardlist" resultType="PostDto" parameterType="Map">
-		<include refid="a"/>
+	<select id="getPost" resultType="PostDto" parameterType="Map">
+		SELECT SEQ,TITLE,CONTENT,REGDATE,REF,STEP,DEPTH,READCOUNT,DELFLAG
+		FROM POST 
 		<where>
 			<if test="seq!=null">
 				SEQ = #{seq}					
@@ -24,7 +20,7 @@
 		ORDER BY REF,STEP 
 	</select>
 	
-	<select id="boardlistbylistseq" resultType="PostDto" parameterType="int">
+	<select id="PostlistByBoardSeq" resultType="PostDto" parameterType="int">
 		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG
 		FROM POST p, MEMBER m
 		WHERE p.MEMBER_SEQ = m.SEQ AND p.BOARD_SEQ = #{boardSeq}		
@@ -32,11 +28,12 @@
 	</select>
 	
 	<select id="getboard" parameterType="int">
-		<include refid="a"/>
+		SELECT SEQ,TITLE,CONTENT,REGDATE,REF,STEP,DEPTH,READCOUNT,DELFLAG
+		FROM POST 
 		WHERE SEQ = #{seq}
 	</select>
 	
-	<insert id="insertboard" parameterType="PostDto">
+	<insert id="insertPost" parameterType="PostDto">
 		INSERT INTO POST 
 		(SEQ, ID, TITLE, CONTENT,
 		REF, STEP, DEPTH,
@@ -51,12 +48,12 @@
 		#{category_seq})
 	</insert>
 	
-	<update id="updateboard" parameterType="PostDto">
+	<update id="updatePost" parameterType="PostDto">
 		UPDATE POST SET TITLE=#{title},CONTENT=#{content},REGDATE=SYSDATE 
 		WHERE SEQ=#{seq} 
 	</update>
 	
-	<update id="muldel" parameterType="Map">
+	<update id="mulDel" parameterType="Map">
 		UPDATE POST SET DELFLAG='N' WHERE SEQ IN 
 		<foreach collection="seqs" item="seq" open="(" close=")" separator=",">
 			#{seq}

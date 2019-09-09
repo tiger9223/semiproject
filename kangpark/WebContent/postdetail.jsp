@@ -57,7 +57,7 @@
 		<td colspan="2">
 			<button onclick="replyForm()">답글</button>
 			<button onclick="updateForm(${dto.seq})">수정</button>
-			<button onclick="delBoard(${dto.seq})">삭제</button>
+			<button onclick="delPost(${dto.seq})">삭제</button>
 <%-- 			<button onclick="location.href='postcontroller.do?command=boardlist&boardseq=<%=%>'">글목록</button> --%>
 		</td>
 	</tr>
@@ -65,7 +65,7 @@
 <div id="replyForm">
 <h1>답글달기</h1>
 <form action="PostController.do" method="post" >
-<input type="hidden" name="command" value="replyboard"/>
+<input type="hidden" name="command" value="replyPost"/>
 <input type="hidden" name="seq" value="${dto.seq}"/>
 <table border="1">
 	<tr>
@@ -84,7 +84,7 @@
 		<td colspan="2">
 			<input type="submit" value="답글등록"/>
 			<input type="button" value="목록" 
-			          onclick="location.herf='PostController.do?command=boardlist'"/>
+			          onclick="location.herf='PostController.do?command=PostList'"/>
 		</td>
 	</tr>
 </table>
@@ -103,9 +103,9 @@
 		//animate({css속성값정의},지연시간,easing)
 	}
 	function updateForm(seq){
-		location.href="PostController.do?command=updateForm&seq="+seq;
+		location.href="PostController.do?command=UpdatePost&seq="+seq;
 	}
-	function delBoard(seq){
+	function delPost(seq){
 		location.href="PostController.do?command=muldel&chk="+seq;
 	}
 </script>

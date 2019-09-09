@@ -144,7 +144,7 @@
 					%>삭제된 글입니다.<%
 				}else{
 					%>
-					<a href="PostController.do?command=boarddetail&boardseq=<%=dto.getSeq()%>"><%=dto.getTitle()%></a>
+					<a href="PostController.do?command=PostDetail&boardseq=<%=dto.getSeq()%>"><%=dto.getTitle()%></a>
 					<%
 				}
 				%>
@@ -159,7 +159,7 @@
 	<tr>
 		<td colspan="6">
 			<input type="button" value="글추가" 
-			       onclick="location.href='PostController.do?command=insertForm&boardseq=<%=bdto.getSeq()%>'"/>
+			       onclick="location.href='PostController.do?command=InsertForm&boardseq=<%=bdto.getSeq()%>'"/>
 			<input type="submit" value="글삭제"/>       
 		</td>
 	</tr>

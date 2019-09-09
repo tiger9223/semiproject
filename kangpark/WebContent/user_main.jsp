@@ -30,12 +30,16 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 	<li><a href="LoginController.do?command=getUserInfo&seq=<%=ldto.getSeq()%>">나의 정보 조회</a></li>
 </ul>
 <% 
+	if(list == null || list.size()==0){
+		
+	}else{
 	for(BoardDto dto:list){
 		%>
 <ul>												
-	<li><a href="PostController.do?command=boardlist&boardseq=<%=dto.getSeq()%>"><%=dto.getTitle() %></a></li>
+	<li><a href="PostController.do?command=PostList&boardseq=<%=dto.getSeq()%>"><%=dto.getTitle() %></a></li>
 </ul>
 <% 
+		}
 	}
 %>
 

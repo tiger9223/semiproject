@@ -19,12 +19,12 @@ public class PostDao extends SqlMapConfig{
 	private String nameSpace="com.hk.post.";
 	
 		//전체 게시글 조회(list를 반환)
-		public List<PostDto> getAllList(){
+		public List<PostDto> getPostList(){
 			List<PostDto> list=new ArrayList<>();
 			SqlSession sqlSession=null;
 			try {
 				sqlSession = getSqlSessionFactory().openSession(true);
-				list=sqlSession.selectList(nameSpace+"boardlist");
+				list=sqlSession.selectList(nameSpace+"PostList");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -34,12 +34,12 @@ public class PostDao extends SqlMapConfig{
 		}
 		
 		//특정 게시판의 게시글 리스트 조회
-		public List<PostDto> getPostByListSeq(int boardSeq){
+		public List<PostDto> getPostByBoardSeq(int boardSeq){
 			List<PostDto> list=new ArrayList<>();
 			SqlSession sqlSession=null;
 			try {
 				sqlSession = getSqlSessionFactory().openSession(true);
-				list=sqlSession.selectList(nameSpace+"boardlistbylistseq", boardSeq);
+				list=sqlSession.selectList(nameSpace+"PostlistByBoardSeq", boardSeq);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -49,13 +49,13 @@ public class PostDao extends SqlMapConfig{
 		}
 		
 		//새글추가(id,title,content값 전달받음)
-		public boolean insertBoard(PostDto dto) {
+		public boolean insertPost(PostDto dto) {
 			int count=0;
 			SqlSession sqlSession=null;
 			try {
 				//         <--SqlSessionFactory객체에서 sqlSession객체를 구함
 				sqlSession=getSqlSessionFactory().openSession(true);
-				count=sqlSession.insert(nameSpace+"insertboard", dto);
+				count=sqlSession.insert(nameSpace+"insertPost", dto);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -64,14 +64,14 @@ public class PostDao extends SqlMapConfig{
 			return count>0?true:false;
 		}
 		//글상세보기(AnsDto반환)
-		public PostDto getBoard(int seq){
+		public PostDto getPost(int seq){
 			PostDto dto=new PostDto();
 			SqlSession sqlSession=null;
 			Map<String, Integer> map=new HashMap<>();
 			map.put("seq", seq);
 			try {
 				sqlSession=getSqlSessionFactory().openSession(true);
-				dto=sqlSession.selectOne(nameSpace+"boardlist", map);
+				dto=sqlSession.selectOne(nameSpace+"getPost", map);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -80,12 +80,12 @@ public class PostDao extends SqlMapConfig{
 			return dto;
 		}
 		//글수정하기(seq,title,content값 전달받음)
-		public boolean updateBoard(PostDto dto) {
+		public boolean updatePost(PostDto dto) {
 			int count=0;
 			SqlSession sqlSession=null;
 			try {
 				sqlSession=getSqlSessionFactory().openSession(true);
-				count=sqlSession.update(nameSpace+"updateboard", dto);
+				count=sqlSession.update(nameSpace+"updatePost", dto);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -102,7 +102,7 @@ public class PostDao extends SqlMapConfig{
 			SqlSession sqlSession=null;
 			try {
 				sqlSession=getSqlSessionFactory().openSession(true);
-				count=sqlSession.update(nameSpace+"muldel", map);
+				count=sqlSession.update(nameSpace+"mulDel", map);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -126,7 +126,7 @@ public class PostDao extends SqlMapConfig{
 			return count>0?true:false;
 		}
 		//답글달기(id,title,content,부모의 seq)
-		public boolean replyBoard(PostDto dto) {
+		public boolean replyPost(PostDto dto) {
 			int count=0;
 			SqlSession sqlSession=null;
 			try {                                         //transaction처리

@@ -55,7 +55,7 @@
 %>
 <h1>게시글 추가하기</h1>
 <form action="PostController.do" method="post" >
-<input type="hidden" name="command" value="insertboard"/>
+<input type="hidden" name="command" value="InsertPost"/>
 <input type="hidden" name="boardseq" value="<%=bdto.getSeq()%>"/>
 <table border="1">
 	<tr>
@@ -85,7 +85,7 @@
 		<td colspan="2">
 			<input type="submit" value="글등록"/>
 			<input type="button" value="목록" 
-			          onclick="location.herf='PostController.do?command=boardlist&boardseq=<%=bdto.getSeq()%>'"/>
+			          onclick="location.herf='PostController.do?command=Postlist&boardseq=<%=bdto.getSeq()%>'"/>
 		</td>
 	</tr>
 </table>
