@@ -45,6 +45,7 @@
 		SELECT SEQ, ID, NAME, ADDRESS, PHONE, EMAIL, ENABLED, ROLE, REGDATE
 		FROM MEMBER WHERE SEQ=#{seq}
 	</select>
+	<!-- 	사용자 등급변경 -->
 	<update id="updateUserRole" parameterType="LoginDto">
 		UPDATE MEMBER SET ROLE=#{role} WHERE SEQ=#{seq}
 	</update>

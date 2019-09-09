@@ -17,7 +17,7 @@
 	</update>
 	
 	<delete id="deleteboardlist" parameterType="BoardDto">
-		DELETE FROM TITLE WHERE SEQ=#{seq}
+		DELETE FROM BOARD WHERE SEQ=#{seq}
 	</delete>
 	
 	<select id="boardlistbyseq" resultType="BoardDto" parameterType="int">

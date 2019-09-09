@@ -1,3 +1,4 @@
+<%@page import="com.hk.dtos.CategoryDto"%>
 <%@page import="com.hk.dtos.PostDto"%>
 <%@page import="com.hk.util.Util"%>
 <%@page import="com.hk.dtos.BoardDto"%>
@@ -19,11 +20,15 @@
 // 			chks[i].checked=ele;
 // 		}
 // 	}
-	function allSel(ele){
-// 		document.getElementsByTagName("input")[0].attr();
-		//js객체를 jq로 변환할때는  $(jsObj) 로 작성해주면 해결 
-// 		$(ele).attr("title","체크박스");
-		$("input[name=chk]").prop("checked",$(ele).prop("checked"));
+	function allSel(ele){ // ele는 전체 선택 체크박스의 체크여부 즉 (true/false)
+//		alert(ele);
+		//어떻게 하면 다른 체크박스의 체크여부를 전달해줄 수 있을까??
+		//DOM탐색 메소드의 종류: getElementById(), getElementsByName(), getElementsByTagName()
+		//                 getElementsByClass(), querySelector(), querySelectorAll()
+		var chks=document.getElementsByName("chk");//chks[chk,chk,chk,chk]
+		for(var i=0;i<chks.length;i++){
+			chks[i].checked=ele;//각각의 체크박스에 전달받은 체크여부(true/false)를 적용
+		}
 	}
 	
 	//js: 페이지로딩 이벤트 구현---> window.onload=function(){ 기능정의  }
@@ -90,7 +95,8 @@
 <%
 	LoginDto ldto = (LoginDto)request.getAttribute("ldto");
 	List<PostDto> list = (List<PostDto>)request.getAttribute("list");
-	BoardDto bldto = (BoardDto)request.getAttribute("bdto");
+	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
+	CategoryDto cdto = (CategoryDto)request.getAttribute("cdto");
 %>
 <style type="text/css">
 	img{width: 12px; height: 12px;}
@@ -98,7 +104,7 @@
 </style>
 </head>
 <body> 
-<h1><%=bldto.getTitle()%> 목록보기</h1>
+<h1><%=bdto.getTitle()%></h1>
 <textarea rows="2" cols="30" id="contentView"></textarea>
 <button id="detail">상세정보</button>
 <form action="PostController.do" method="post">
@@ -112,7 +118,7 @@
 	<col width="50px" />
 	<col width="50px" />
 	<tr>
-		<th><input type="checkbox" name="all" onclick="allSel(this)"/></th>
+		<th><input type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
 		<th>번호</th>
 		<th>작성자</th>
 		<th>제 목</th>
@@ -122,7 +128,7 @@
 	<%if(list==null || list.size()==0){
 	%>
 	<tr>
-		<td colspan="10">-----------------작성된 글이 없습니다-----------------</td>
+		<td colspan="6">-----------------작성된 글이 없습니다-----------------</td>
 	</tr> 
 	<%
 	}else{
@@ -134,11 +140,11 @@
 				<td><%=dto.getId() %></td>
 				<td>
 				<%
-				if(dto.getDelflag()==11){
+				if(dto.getDelflag().equals("N")){
 					%>삭제된 글입니다.<%
 				}else{
 					%>
-					<a href="PostController.do?command=boarddetail&seq=<%=dto.getSeq()%>"><%=dto.getTitle()%></a>
+					<a href="PostController.do?command=boarddetail&boardseq=<%=dto.getSeq()%>"><%=dto.getTitle()%></a>
 					<%
 				}
 				%>
@@ -153,7 +159,7 @@
 	<tr>
 		<td colspan="6">
 			<input type="button" value="글추가" 
-			       onclick="location.href='PostController.do?command=insertForm&listseq=<%=bldto.getSeq()%>'"/>
+			       onclick="location.href='PostController.do?command=insertForm&boardseq=<%=bdto.getSeq()%>'"/>
 			<input type="submit" value="글삭제"/>       
 		</td>
 	</tr>

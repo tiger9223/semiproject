@@ -9,6 +9,7 @@
 		<typeAlias type="com.hk.dtos.LoginDto" alias="loginDto"/>
 		<typeAlias type="com.hk.dtos.PostDto" alias="PostDto"/>
 		<typeAlias type="com.hk.dtos.BoardDto" alias="BoardDto"/>
+		<typeAlias type="com.hk.dtos.CategoryDto" alias="CategoryDto"/>
 	</typeAliases>
 	
 <!-- 	DB접속 정보 셋팅 -->
@@ -28,6 +29,7 @@
 		<mapper resource="com/hk/sql/loginMapper.xml"/>
 		<mapper resource="com/hk/sql/BoardMapper.xml"/>
 		<mapper resource="com/hk/sql/PostMapper.xml"/>
+		<mapper resource="com/hk/sql/CategoryMapper.xml"/>
 	</mappers>
 </configuration>
 

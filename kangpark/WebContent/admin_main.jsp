@@ -24,7 +24,7 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 		response.sendRedirect("index.jsp");
 	}else {
 		%>
-		<div><%=ldto.getId()%>님 반갑습네다.(등급:<%=ldto.getRole()%>)
+		<div><%=ldto.getId()%>님 반갑습니다.(등급:<%=ldto.getRole()%>)
 			<a href="LoginController.do?command=logout">로그아웃</a>
 		</div>
 		<ul>

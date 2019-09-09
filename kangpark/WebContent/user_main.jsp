@@ -32,8 +32,8 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 <% 
 	for(BoardDto dto:list){
 		%>
-<ul>												<!-- ldto에 로그인 정보가 있으니까.. -->
-	<li><a href="PostController.do?command=boardlist&listseq=<%=dto.getSeq()%>"><%=dto.getTitle() %></a></li>
+<ul>												
+	<li><a href="PostController.do?command=boardlist&boardseq=<%=dto.getSeq()%>"><%=dto.getTitle() %></a></li>
 </ul>
 <% 
 	}

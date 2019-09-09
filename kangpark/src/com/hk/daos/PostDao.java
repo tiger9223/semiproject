@@ -18,7 +18,7 @@ public class PostDao extends SqlMapConfig{
 	
 	private String nameSpace="com.hk.post.";
 	
-	//전체 게시글 조회(list를 반환)
+		//전체 게시글 조회(list를 반환)
 		public List<PostDto> getAllList(){
 			List<PostDto> list=new ArrayList<>();
 			SqlSession sqlSession=null;
@@ -34,7 +34,7 @@ public class PostDao extends SqlMapConfig{
 		}
 		
 		//특정 게시판의 게시글 리스트 조회
-		public List<PostDto> getListByListSeq(int boardSeq){
+		public List<PostDto> getPostByListSeq(int boardSeq){
 			List<PostDto> list=new ArrayList<>();
 			SqlSession sqlSession=null;
 			try {

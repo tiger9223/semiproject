@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hk.post">
-
+	<!-- 조회 -->
 	<sql id="a">
 		SELECT SEQ,TITLE,CONTENT,REGDATE,REF,STEP,DEPTH,READCOUNT,DELFLAG
 		FROM POST 
 	</sql>
-	
+	<!-- 그 -->
 	<sql id="selectSqlJoinMember">
 		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG
 		FROM POST p, MEMBER m
@@ -38,13 +38,13 @@
 	
 	<insert id="insertboard" parameterType="PostDto">
 		INSERT INTO POST 
-		(SEQ, TITLE, CONTENT,
+		(SEQ, ID, TITLE, CONTENT,
 		REF, STEP, DEPTH,
 		READCOUNT, DELFLAG, REGDATE,
 		NOTICE, MEMBER_SEQ, BOARD_SEQ,
 		CATEGORY_SEQ) 
 		VALUES
-		(POST_SEQ.NEXTVAL, #{title}, #{content},
+		(POST_SEQ.NEXTVAL, #{id} ,#{title}, #{content},
 		(SELECT NVL(MAX(REF)+1,0) FROM POST), 0, 0,
 		0, 0, SYSDATE,
 		0, #{member_seq}, #{board_seq},
@@ -57,7 +57,7 @@
 	</update>
 	
 	<update id="muldel" parameterType="Map">
-		UPDATE POST SET DELFLAG='1' WHERE SEQ IN 
+		UPDATE POST SET DELFLAG='N' WHERE SEQ IN 
 		<foreach collection="seqs" item="seq" open="(" close=")" separator=",">
 			#{seq}
 		</foreach>

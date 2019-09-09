@@ -1,3 +1,5 @@
+<%@page import="com.hk.dtos.PostDto"%>
+<%@page import="com.hk.dtos.LoginDto"%>
 <%@page import="com.hk.dtos.BoardDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
@@ -28,7 +30,8 @@
 </head>
 <body>
 <%
-// 	AnsDto dto1=(AnsDto)request.getAttribute("dto");
+ 	PostDto pdto = (PostDto)request.getAttribute("pdto");
+	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 %>
 <jsp:include page="header.jsp"  />
 <div id="container">
@@ -36,26 +39,26 @@
 <table border="1">
 	<tr>
 		<th>번호</th>
-		<td>${requestScope.dto.seq}</td>
+		<td><%=pdto.getSeq() %></td>
 	</tr>
 	<tr>
 		<th>작성자</th>
-		<td>${dto.id}</td>
+		<td><%=pdto.getId() %></td>
 	</tr>
 	<tr>
 		<th>제목</th>
-		<td>${dto.title}</td>
+		<td><%=pdto.getTitle() %></td>
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td><textarea rows="10" cols="60" readonly="readonly">${dto.content}</textarea> </td>
+		<td><textarea rows="10" cols="60" readonly="readonly"><%=pdto.getContent() %></textarea> </td>
 	</tr>
 	<tr>
 		<td colspan="2">
 			<button onclick="replyForm()">답글</button>
 			<button onclick="updateForm(${dto.seq})">수정</button>
 			<button onclick="delBoard(${dto.seq})">삭제</button>
-			<button onclick="location.href='AnsController.do?command=boardlist'">글목록</button>
+<%-- 			<button onclick="location.href='postcontroller.do?command=boardlist&boardseq=<%=%>'">글목록</button> --%>
 		</td>
 	</tr>
 </table>

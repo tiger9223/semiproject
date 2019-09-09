@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.hk.config.SqlMapConfig;
 import com.hk.dtos.BoardDto;
 
-public class BoardDao  extends SqlMapConfig{
+public class BoardDao extends SqlMapConfig{
 
 	public BoardDao() {
 		super();

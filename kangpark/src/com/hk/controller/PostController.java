@@ -1,6 +1,7 @@
 package com.hk.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,9 +14,11 @@ import javax.websocket.Session;
 
 import com.hk.daos.PostDao;
 import com.hk.daos.BoardDao;
+import com.hk.daos.CategoryDao;
 import com.hk.daos.LoginDao;
 import com.hk.dtos.PostDto;
 import com.hk.dtos.BoardDto;
+import com.hk.dtos.CategoryDto;
 import com.hk.dtos.LoginDto;
 
 /**
@@ -41,46 +44,47 @@ public class PostController extends HttpServlet {
 		String command=request.getParameter("command");
 		
 		LoginDao ldao = new LoginDao();
-		PostDao dao = new PostDao();
-		BoardDao bldao = new BoardDao();
+		PostDao pdao = new PostDao();
+		BoardDao bdao = new BoardDao();
+		CategoryDao cdao = new CategoryDao();
 		
 		LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 		
 		if(command.equals("boardlist")) {
 			//"readcount"값을 삭제한다.
 			request.getSession().removeAttribute("readcount");
-			int listseq = Integer.parseInt(request.getParameter("listseq"));
-			BoardDto bdto = bldao.getBoardListBySeq(listseq);
-			List<PostDto> list=dao.getListByListSeq(listseq);
+			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
+			BoardDto bdto = bdao.getBoardListBySeq(boardseq);
+			List<PostDto> list = pdao.getPostByListSeq(boardseq);
 			request.setAttribute("bdto", bdto);
 			request.setAttribute("list", list);
 //			request.getRequestDispatcher("boardlist.jsp").forward(request, response);
 			dispatch("infoboardlist.jsp", request, response);
 			
-			
 		}else if(command.equals("boarddetail")) {
-			int seq=Integer.parseInt(request.getParameter("seq"));
+			int boardseq=Integer.parseInt(request.getParameter("boardseq"));
 			
 			//세션에 "readcount"가 있는지 가져와 본다
 			String rSeq=(String)request.getSession().getAttribute("readcount");
 			
 			if(rSeq==null) {
 				//조회수 올리기
-				dao.readCount(seq);
+				pdao.readCount(boardseq);
 				//현재 조회된 글에 번호를 세션에 "readcount"라는 이름으로 담아두기
-				request.getSession().setAttribute("readcount", seq+"");
+				request.getSession().setAttribute("readcount", boardseq+"");
 			}
 			
-			PostDto dto=dao.getBoard(seq);
-			request.setAttribute("dto", dto);
+			PostDto pdto=pdao.getBoard(boardseq);
+			request.setAttribute("pdto", pdto);
 			dispatch("boarddetail.jsp", request, response);
 			
 			
 		}else if(command.equals("muldel")) {
-			String [] seqs=request.getParameterValues("chk");
-			boolean isS=dao.mulDel(seqs);
+			String [] seqs = request.getParameterValues("chk");
+			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
+			boolean isS=pdao.mulDel(seqs);
 			if(isS) {
-				response.sendRedirect("AnsController.do?command=boardlist");
+				response.sendRedirect("PostController.do?command=boardlist&boardseq="+boardseq);
 			}else {
 				request.setAttribute("msg", "글여러개삭제실패");
 				dispatch("error.jsp", request, response);
@@ -88,16 +92,24 @@ public class PostController extends HttpServlet {
 			
 			
 		}else if(command.equals("insertForm")) {
+			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
+			BoardDto bdto = bdao.getBoardListBySeq(boardseq);
+			List<CategoryDto> list = cdao.getCategoryBySeq(boardseq);
+			request.setAttribute("list",list);
+			request.setAttribute("bdto", bdto);
 			dispatch("insertboard.jsp", request, response);
 			
 		}else if(command.equals("insertboard")) {
-			int boardSeq = Integer.parseInt(request.getParameter("listseq"));
+			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));
+			String id = request.getParameter("id");
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
-	
-			boolean isS=dao.insertBoard(new PostDto(title, content, ldto.getSeq(), boardSeq, 1));
+			int categorySeq = Integer.parseInt(request.getParameter("category"));
+			
+			boolean isS=pdao.insertBoard(new PostDto(id,title, content, ldto.getSeq(), boardSeq, categorySeq));
 			if(isS) {
-				response.sendRedirect("PostController.do?command=infoboardlist");
+				jsForward("PostController.do?command=boardlist&boardseq="+boardSeq, "글이 정상적으로 등록 됐습니다.", response);
+				
 			}else {
 				request.setAttribute("msg", "글추가실패");
 				dispatch("error.jsp", request, response);
@@ -106,7 +118,7 @@ public class PostController extends HttpServlet {
 			
 		}else if(command.equals("updateForm")) {
 			int seq=Integer.parseInt(request.getParameter("seq"));
-			PostDto dto=dao.getBoard(seq);
+			PostDto dto=pdao.getBoard(seq);
 			request.setAttribute("dto", dto);
 			dispatch("updateboard.jsp", request, response);
 			
@@ -116,7 +128,7 @@ public class PostController extends HttpServlet {
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
 			
-			boolean isS=dao.updateBoard(new PostDto(seq,title,content));
+			boolean isS=pdao.updateBoard(new PostDto(seq,title,content));
 			if(isS) {
 				response.sendRedirect("AnsController.do?command=boarddetail&seq="+seq);
 			}else {
@@ -130,7 +142,7 @@ public class PostController extends HttpServlet {
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
 			
-			boolean isS=dao.replyBoard(new PostDto());
+			boolean isS=pdao.replyBoard(new PostDto());
 			if(isS) {
 				response.sendRedirect("AnsController.do?command=boardlist");
 			}else {
@@ -147,6 +159,14 @@ public class PostController extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 		
+	public void jsForward(String url, String msg, HttpServletResponse response) throws IOException {
+		String str = "<script type='text/javascript'>"
+		+"alert('"+msg+"');"
+		+"location.href='"+url+"';"
+		+"</script>";
+		PrintWriter pw = response.getWriter();
+		pw.print(str);
+	}
 }
 
 

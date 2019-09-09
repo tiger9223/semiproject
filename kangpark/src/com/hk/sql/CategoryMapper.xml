@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hk.category">
+	<select id="CategoryList" resultType="CategoryDto">
+		SELECT SEQ, TITLE FROM CATEGORY
+	</select>
+	
+	<insert id="InsertCategory" parameterType="CategoryDto">
+		INSERT INTO CATEGORY (SEQ,TITLE,BOARD_SEQ) VALUES(CATEGORY_SEQ.NEXTVAL, #{title}, #{seq})
+	</insert>
+	
+	<update id="UpdateCategory" parameterType="CategoryDto">
+		UPDATE CATEGORY SET TITLE=#{title}
+		WHERE SEQ=#{seq}
+	</update>
+	
+	<delete id="DeleteCategory" parameterType="CategoryDto">
+		DELETE FROM CATEGORY WHERE SEQ=#{seq}
+	</delete>
+	
+	<select id="CategoryBySeq" resultType="CategoryDto" parameterType="int">
+		SELECT c.SEQ, c.TITLE FROM CATEGORY c,BOARD b WHERE c.BOARD_SEQ = b.SEQ AND BOARD_SEQ=#{seq}
+	</select>
+</mapper>
