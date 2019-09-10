@@ -9,7 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <style type="text/css">
 	/*  selector표현식의 대표적인 표현식3가지: id,> class,> tagName
 		class="a"  ---> .a   (같은이름을 중복해서 선언할 수 있다.)
@@ -44,7 +43,7 @@
 	</tr>
 	<tr>
 		<th>작성자</th>
-		<td><%=dto.getId()%></td>
+		<td><%=dto.getId() %></td>
 	</tr>
 	<tr>
 		<th>제목</th>
@@ -57,8 +56,8 @@
 	<tr>
 		<td colspan="2">
 			<button onclick="replyForm()">답글</button>
-			<button onclick="updateForm(${dto.seq})">수정</button>
-			<button onclick="delPost(${dto.seq})">삭제</button>
+			<button onclick="updateForm(<%=ldto.getSeq()%>)">수정</button>
+			<button onclick="delPost(<%=ldto.getSeq()%>)">삭제</button>
 <%-- 			<button onclick="location.href='postcontroller.do?command=boardlist&boardseq=<%=%>'">글목록</button> --%>
 		</td>
 	</tr>
@@ -71,7 +70,7 @@
 <table border="1">
 	<tr>
 		<th>아이디</th>
-		<td><input type="text" name="id" class="inputval"/></td>
+		<td><input type="text" name="id" class="inputval" value="<%=ldto.getId()%>" readonly="readonly"/></td>
 	</tr>
 	<tr>
 		<th>제목</th>

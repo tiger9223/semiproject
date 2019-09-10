@@ -93,7 +93,7 @@
 	
 </script>
 <%
-	LoginDto ldto = (LoginDto)request.getAttribute("ldto");
+	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	List<PostDto> list = (List<PostDto>)request.getAttribute("list");
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
 	CategoryDto cdto = (CategoryDto)request.getAttribute("cdto");
@@ -160,7 +160,12 @@
 		<td colspan="6">
 			<input type="button" value="글추가" 
 			       onclick="location.href='PostController.do?command=InsertForm&boardseq=<%=bdto.getSeq()%>'"/>
-			<input type="submit" value="글삭제"/>       
+			<input type="submit" value="글삭제"/> 
+			<%for(int i=0;i<40;i++){%>
+			&nbsp;
+			<%} %> 
+			<input type="button" value="뒤로가기" 
+			       onclick="location.href='LoginController.do?command=login&id=<%=ldto.getId()%>&password=<%=ldto.getPassword()%>'"/>
 		</td>
 	</tr>
 </table>

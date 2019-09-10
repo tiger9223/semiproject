@@ -76,6 +76,8 @@ public class PostController extends HttpServlet {
 			
 			PostDto pdto = pdao.getPost(MemberSeq);
 			ldto = ldao.getUserInfo(MemberSeq);
+			System.out.println(pdto);
+			System.out.println(ldto);
 			request.setAttribute("pdto", pdto);
 			request.setAttribute("dto", ldto);
 			dispatch("postdetail.jsp", request, response);

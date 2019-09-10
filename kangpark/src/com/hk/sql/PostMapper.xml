@@ -4,13 +4,13 @@
 <mapper namespace="com.hk.post">
 	
 	<sql id="selectSqlJoinMember">
-		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG
+		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG,p.REGDATE,p.NOTICE,p.MEMBER_SEQ,p.BOARD_SEQ,p.CATEGORY_SEQ
 		FROM POST p, MEMBER m
 		WHERE p.MEMBER_SEQ = m.SEQ
 	</sql>
 
 	<select id="getPost" resultType="PostDto" parameterType="Map">
-		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG
+		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG,p.REGDATE,p.NOTICE,p.MEMBER_SEQ,p.BOARD_SEQ,p.CATEGORY_SEQ
 		FROM POST p, MEMBER m
 		<where>
 			<if test="seq!=null">
@@ -20,9 +20,9 @@
 	</select>
 	
 	<select id="PostlistByBoardSeq" resultType="PostDto" parameterType="int">
-		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG
+		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG,p.REGDATE,p.NOTICE,p.MEMBER_SEQ,p.BOARD_SEQ,p.CATEGORY_SEQ
 		FROM POST p, MEMBER m
-		WHERE p.MEMBER_SEQ = m.SEQ AND p.BOARD_SEQ = #{boardSeq}		
+		WHERE p.MEMBER_SEQ = m.SEQ AND p.BOARD_SEQ = #{boardSeq}
 		ORDER BY REF,STEP 
 	</select>
 	

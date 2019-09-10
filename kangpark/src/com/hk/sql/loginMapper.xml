@@ -14,7 +14,7 @@
 	</select>
 	<!-- 	내 정보 조회 -->
 	<select id="getUserInfo" parameterType="int" resultType="LoginDto">
-		SELECT SEQ, ID, NAME, ADDRESS, PHONE, EMAIL, REGDATE 
+		SELECT SEQ, ID, PASSWORD, NAME, ADDRESS, PHONE, EMAIL, REGDATE 
 		FROM MEMBER WHERE SEQ=#{seq}
 	</select>
 	<!-- 	정보수정 -->

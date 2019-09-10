@@ -1,5 +1,7 @@
+<%@page import="com.hk.dtos.BoardDto"%>
+<%@page import="java.util.List"%>
+<%@page import="com.hk.daos.BoardDao"%>
 <%@page import="com.hk.util.Util"%>
-<%@include file="us_header.jsp"%>
 <%@page import="com.hk.dtos.LoginDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <% request.setCharacterEncoding("utf-8"); %>
@@ -12,6 +14,9 @@
 </head>
 <%
 	LoginDto dto = (LoginDto)request.getAttribute("dto");
+	BoardDao bdao = new BoardDao();
+	List<BoardDto> list = bdao.getBoardList();
+	request.setAttribute("list", list);
 %>
 <body>
 <h1>나의 정보 조회</h1>
@@ -47,7 +52,8 @@
 	<tr>
 		<td colspan="2">
 			<button onclick="update(<%=dto.getSeq()%>)">수정</button>
-			<button onclick="withdraw('<%=dto.getId()%>')">탈퇴</button>
+			<button onclick="withdraw('<%=dto.getId()%>')">탈퇴</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			<button onclick="location.href='LoginController.do?command=login&id=<%=dto.getId()%>&password=<%=dto.getPassword()%>'">메인으로</button>
 		</td>
 	</tr>
 </table>
@@ -61,6 +67,7 @@
 			location.href = "LoginController.do?command=withdraw&id="+id;
 		}
 	}
+	
 </script>
 </body>
 </html>
