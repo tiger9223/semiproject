@@ -1,7 +1,8 @@
 package com.hk.controller;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -56,8 +57,14 @@ public class PostController extends HttpServlet {
 			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardListBySeq(boardseq);
 			List<PostDto> list = pdao.getPostByBoardSeq(boardseq);
+			List<CategoryDto> clist=new ArrayList<>();
+			for(PostDto dto:list) {
+				int seq=dto.getCategory_seq();
+				clist.addAll(cdao.getCategoryList(seq));
+			}
 			request.setAttribute("bdto", bdto);
 			request.setAttribute("list", list);
+			request.setAttribute("clist", clist);
 //			request.getRequestDispatcher("boardlist.jsp").forward(request, response);
 			dispatch("postlist.jsp", request, response);
 			

@@ -78,6 +78,7 @@
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	List<PostDto> list = (List<PostDto>)request.getAttribute("list");
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
+	List<CategoryDto> clist = (List<CategoryDto>)request.getAttribute("clist");
 %>
 <style type="text/css">
 	img{width: 12px; height: 12px;}
@@ -128,11 +129,22 @@
 				}
 				%>
 				</td>
-				<td></td>
+				<%
+				for(CategoryDto cdto:clist){ 
+					if(dto.getCategory_seq()==cdto.getSeq()){
+				%>
+				<td><%=cdto.getTitle()%></td>
+			<%  
+				
+				}
+			
+			}
+			%>
 				<td><%=Util.getToDate(dto.getRegdate()) %></td>
-				<td><%=dto.getReadcount() %></td>
+				<td><%=dto.getReadcount()%></td>
 			</tr>
 			<%
+			
 		}
 	}
 	%>

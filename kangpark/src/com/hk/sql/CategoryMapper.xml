@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hk.category">
-	<select id="CategoryList" resultType="CategoryDto">
-		SELECT SEQ, TITLE FROM CATEGORY
+	<select id="CategoryList" parameterType="int" resultType="CategoryDto" >
+		SELECT SEQ, TITLE,BOARD_SEQ FROM CATEGORY WHERE SEQ=#{seq}
 	</select>
 	
 	<select id="categorytitleByseq" parameterType="int" >

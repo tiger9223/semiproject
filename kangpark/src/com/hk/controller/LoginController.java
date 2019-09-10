@@ -14,8 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import com.hk.daos.BoardDao;
 import com.hk.daos.LoginDao;
+import com.hk.daos.PostDao;
 import com.hk.dtos.BoardDto;
 import com.hk.dtos.LoginDto;
+import com.hk.dtos.PostDto;
 
 @WebServlet("/LoginController.do")
 public class LoginController extends HttpServlet {
