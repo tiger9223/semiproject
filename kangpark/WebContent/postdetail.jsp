@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
 <style type="text/css">
@@ -29,11 +30,11 @@
 </head>
 <body>
 <%
+	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
  	PostDto pdto = (PostDto)request.getAttribute("pdto");
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	LoginDto dto = (LoginDto)request.getAttribute("dto");
 %>
-<jsp:include page="header.jsp"  />
 <div id="container">
 <h1>게시글상세보기</h1>
 <table border="1">
@@ -56,9 +57,9 @@
 	<tr>
 		<td colspan="2">
 			<button onclick="replyForm()">답글</button>
-			<button onclick="updateForm(<%=ldto.getSeq()%>)">수정</button>
+			<button onclick="updateForm()">수정</button>
 			<button onclick="delPost(<%=ldto.getSeq()%>)">삭제</button>
-<%-- 			<button onclick="location.href='postcontroller.do?command=boardlist&boardseq=<%=%>'">글목록</button> --%>
+			<button onclick="location.href='PostController.do?command=PostList&boardseq=<%=bdto.getSeq()%>'">글목록</button>
 		</td>
 	</tr>
 </table>
@@ -83,8 +84,6 @@
 	<tr>
 		<td colspan="2">
 			<input type="submit" value="답글등록"/>
-			<input type="button" value="목록" 
-			          onclick="location.herf='PostController.do?command=PostList'"/>
 		</td>
 	</tr>
 </table>
@@ -99,11 +98,15 @@
 		var replyPosition=$("#replyForm").offset().top;//div태그의 상단 위치를 구함
 		$("#container").animate({
 			"scrollTop":replyPosition
-		},1000);
+		},500);
 		//animate({css속성값정의},지연시간,easing)
 	}
-	function updateForm(seq){
-		location.href="PostController.do?command=UpdatePost&seq="+seq;
+	function updateForm(){
+		if(<%=ldto.getId()%>!=<%=dto.getId() %>){
+			alert("본인의 글만 수정 가능합니다.");
+		}else{
+<%-- 			location.href = "PostController.do?command=UpdateForm&memberSeq=<%=ldto.getSeq()%>&postSeq=<%=pdto.getSeq()%>"; --%>
+		}
 	}
 	function delPost(seq){
 		location.href="PostController.do?command=muldel&chk="+seq;

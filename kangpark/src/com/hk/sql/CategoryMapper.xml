@@ -6,6 +6,10 @@
 		SELECT SEQ, TITLE FROM CATEGORY
 	</select>
 	
+	<select id="categorytitleByseq" parameterType="int" >
+		SELECT C.TITLE FROM POST P, CATEGORY C WHERE P.CATEGORY_SEQ = C.SEQ AND C.SEQ = #{category_seq}
+	</select>
+	
 	<insert id="InsertCategory" parameterType="CategoryDto">
 		INSERT INTO CATEGORY (SEQ,TITLE,BOARD_SEQ) VALUES(CATEGORY_SEQ.NEXTVAL, #{title}, #{seq})
 	</insert>

@@ -16,7 +16,7 @@ public class CategoryDao extends SqlMapConfig{
 
 	private String nameSpace="com.hk.category.";
 	
-		//게판의 게시글 유형 전체조회
+		//category 전체조회
 		public List<CategoryDto> getCategoryList(){
 			List<CategoryDto> list=new ArrayList<>();
 			SqlSession sqlSession=null;
@@ -30,7 +30,21 @@ public class CategoryDao extends SqlMapConfig{
 			}
 			return list;
 		}
-	
+		
+		//category 조회
+		public CategoryDto getCategorytitleBySeq(int seq){
+			CategoryDto dto = new CategoryDto();
+			SqlSession sqlSession=null;
+			try {
+				sqlSession = getSqlSessionFactory().openSession(true);
+				dto=sqlSession.selectOne(nameSpace+"categorytitleByseq", seq);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				sqlSession.close();
+			}
+			return dto;
+		}
 		
 		//게시판의 게시글 유형 가져오기
 		public List<CategoryDto> getCategoryBySeq(int seq){

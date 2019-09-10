@@ -20,16 +20,6 @@
 // 			chks[i].checked=ele;
 // 		}
 // 	}
-	function allSel(ele){ // ele는 전체 선택 체크박스의 체크여부 즉 (true/false)
-//		alert(ele);
-		//어떻게 하면 다른 체크박스의 체크여부를 전달해줄 수 있을까??
-		//DOM탐색 메소드의 종류: getElementById(), getElementsByName(), getElementsByTagName()
-		//                 getElementsByClass(), querySelector(), querySelectorAll()
-		var chks=document.getElementsByName("chk");//chks[chk,chk,chk,chk]
-		for(var i=0;i<chks.length;i++){
-			chks[i].checked=ele;//각각의 체크박스에 전달받은 체크여부(true/false)를 적용
-		}
-	}
 	
 	//js: 페이지로딩 이벤트 구현---> window.onload=function(){ 기능정의  }
 	//jq:    ""           ---> $(document).ready(function(){기능정의})
@@ -39,15 +29,7 @@
 		//이벤트메서드: change(), click(), mouseover()..... 
 		//필터링메서드: eq(), find(), children(),
 		//트리탐색메서드: next(), prev().....
-		$("form").submit(function(){
-			var bool=true;
-			var count=$(this).find("input[name=chk]:checked").length;//체크된 input태그의 개수
-			if(count==0){
-				alert("최소하나이상 체크해야된다~~");
-				bool=false;
-			}
-			return bool;
-		});
+		
 		
 		//내용 미리보기 ajax구현
 		//hover() 메서드를 사용해서 마우스 커서가 올라갈때와 나갈때에 대한 이벤트 처리
@@ -96,7 +78,6 @@
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	List<PostDto> list = (List<PostDto>)request.getAttribute("list");
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
-	CategoryDto cdto = (CategoryDto)request.getAttribute("cdto");
 %>
 <style type="text/css">
 	img{width: 12px; height: 12px;}
@@ -111,17 +92,16 @@
 <input type="hidden" name="command" value="muldel" />
 <table border="1">
 	<col width="50px" />
-	<col width="50px" />
 	<col width="100px" />
 	<col width="300px" />
-	<col width="100px" />
+	<col width="70px" />
 	<col width="50px" />
 	<col width="50px" />
 	<tr>
-		<th><input type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
 		<th>번호</th>
 		<th>작성자</th>
 		<th>제 목</th>
+		<th>유형</th>
 		<th>작성일</th>
 		<th>조회수</th>
 	</tr>
@@ -135,7 +115,6 @@
 		for(PostDto dto:list){
 			%>
 			<tr>
-				<td><input type="checkbox" name="chk" value="<%=dto.getSeq()%>"/></td>
 				<td><%=dto.getSeq() %></td>
 				<td><%=dto.getId() %></td>
 				<td>
@@ -149,6 +128,7 @@
 				}
 				%>
 				</td>
+				<td></td>
 				<td><%=Util.getToDate(dto.getRegdate()) %></td>
 				<td><%=dto.getReadcount() %></td>
 			</tr>
@@ -158,12 +138,11 @@
 	%>
 	<tr>
 		<td colspan="6">
-			<input type="button" value="글추가" 
+			<input type="button" value="글추가"
 			       onclick="location.href='PostController.do?command=InsertForm&boardseq=<%=bdto.getSeq()%>'"/>
-			<input type="submit" value="글삭제"/> 
-			<%for(int i=0;i<40;i++){%>
+			<%for(int i=0;i<44;i++){%>
 			&nbsp;
-			<%} %> 
+			<%} %>
 			<input type="button" value="뒤로가기" 
 			       onclick="location.href='LoginController.do?command=login&id=<%=ldto.getId()%>&password=<%=ldto.getPassword()%>'"/>
 		</td>

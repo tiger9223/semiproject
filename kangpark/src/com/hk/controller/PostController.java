@@ -76,11 +76,10 @@ public class PostController extends HttpServlet {
 			
 			PostDto pdto = pdao.getPost(MemberSeq,PostSeq);
 			ldto = ldao.getUserInfo(MemberSeq);
-			System.out.println(MemberSeq);
-			System.out.println(pdto);
-			System.out.println(ldto);
+			BoardDto bdto = bdao.getBoardListBySeq(pdto.getBoard_seq());
 			request.setAttribute("pdto", pdto);
 			request.setAttribute("dto", ldto);
+			request.setAttribute("bdto", bdto);
 			dispatch("postdetail.jsp", request, response);
 			
 			
@@ -122,9 +121,10 @@ public class PostController extends HttpServlet {
 			}
 			
 			
-		}else if(command.equals("UpdatePost")) {
-			int seq = Integer.parseInt(request.getParameter("seq"));
-			PostDto dto = pdao.getPost(seq,seq);
+		}else if(command.equals("UpdateForm")) {
+			int memberSeq = Integer.parseInt(request.getParameter("memberSeq"));
+			int postSeq = Integer.parseInt(request.getParameter("postSeq"));
+			PostDto dto = pdao.getPost(memberSeq,postSeq);
 			request.setAttribute("dto", dto);
 			dispatch("updatepost.jsp", request, response);
 			
