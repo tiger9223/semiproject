@@ -74,8 +74,9 @@ public class PostController extends HttpServlet {
 				request.getSession().setAttribute("readcount", PostSeq+"");
 			}
 			
-			PostDto pdto = pdao.getPost(MemberSeq);
+			PostDto pdto = pdao.getPost(MemberSeq,PostSeq);
 			ldto = ldao.getUserInfo(MemberSeq);
+			System.out.println(MemberSeq);
 			System.out.println(pdto);
 			System.out.println(ldto);
 			request.setAttribute("pdto", pdto);
@@ -104,13 +105,14 @@ public class PostController extends HttpServlet {
 			dispatch("insertpost.jsp", request, response);
 			
 		}else if(command.equals("InsertPost")) {
-			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));
+			int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
+			int memberSeq = Integer.parseInt(request.getParameter("memberSeq"));
 			String id = request.getParameter("id");
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			int categorySeq = Integer.parseInt(request.getParameter("category"));
 			
-			boolean isS = pdao.insertPost(new PostDto(title, content, ldto.getSeq(), boardSeq, categorySeq));
+			boolean isS = pdao.insertPost(new PostDto(title, content, memberSeq, boardSeq, categorySeq));
 			if(isS) {
 				jsForward("PostController.do?command=PostList&boardseq="+boardSeq, "글이 정상적으로 등록 됐습니다.", response);
 				
@@ -122,7 +124,7 @@ public class PostController extends HttpServlet {
 			
 		}else if(command.equals("UpdatePost")) {
 			int seq = Integer.parseInt(request.getParameter("seq"));
-			PostDto dto = pdao.getPost(seq);
+			PostDto dto = pdao.getPost(seq,seq);
 			request.setAttribute("dto", dto);
 			dispatch("updatepost.jsp", request, response);
 			

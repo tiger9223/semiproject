@@ -64,11 +64,12 @@ public class PostDao extends SqlMapConfig{
 			return count>0?true:false;
 		}
 		//글상세보기(AnsDto반환)
-		public PostDto getPost(int seq){
+		public PostDto getPost(int MemberSeq,int PostSeq){
 			PostDto dto=new PostDto();
 			SqlSession sqlSession=null;
 			Map<String, Integer> map=new HashMap<>();
-			map.put("seq", seq);
+			map.put("MemberSeq", MemberSeq);
+			map.put("PostSeq", PostSeq);
 			try {
 				sqlSession=getSqlSessionFactory().openSession(true);
 				dto=sqlSession.selectOne(nameSpace+"getPost", map);

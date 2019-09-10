@@ -56,7 +56,8 @@
 <h1>게시글 추가하기</h1>
 <form action="PostController.do" method="post" >
 <input type="hidden" name="command" value="InsertPost"/>
-<input type="hidden" name="boardseq" value="<%=bdto.getSeq()%>"/>
+<input type="hidden" name="boardSeq" value="<%=bdto.getSeq() %>"/>
+<input type="hidden" name="memberSeq" value="<%=ldto.getSeq() %>"/>
 <table border="1">
 	<tr>
 		<th>아이디</th>
