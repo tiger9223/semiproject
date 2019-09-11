@@ -1,3 +1,5 @@
+<%@page import="com.hk.dtos.CategoryDto"%>
+<%@page import="java.util.List"%>
 <%@page import="com.hk.dtos.PostDto"%>
 <%@page import="com.hk.dtos.LoginDto"%>
 <%@page import="com.hk.dtos.BoardDto"%>
@@ -34,6 +36,7 @@
  	PostDto pdto = (PostDto)request.getAttribute("pdto");
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	LoginDto dto = (LoginDto)request.getAttribute("dto");
+	CategoryDto cdto = (CategoryDto)request.getAttribute("cdto");
 %>
 <div id="container">
 <h1>게시글상세보기</h1>
@@ -48,7 +51,7 @@
 	</tr>
 	<tr>
 		<th>제목</th>
-		<td><%=pdto.getTitle() %></td>
+		<td>[<%=cdto.getTitle() %>]&nbsp;<%=pdto.getTitle() %></td>
 	</tr>
 	<tr>
 		<th>내용</th>

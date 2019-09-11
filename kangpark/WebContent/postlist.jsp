@@ -96,7 +96,7 @@
 	<col width="100px" />
 	<col width="300px" />
 	<col width="70px" />
-	<col width="50px" />
+	<col width="100px" />
 	<col width="50px" />
 	<tr>
 		<th>번호</th>
@@ -113,35 +113,35 @@
 	</tr> 
 	<%
 	}else{
-		for(PostDto dto:list){
+		for(PostDto pdto:list){
 			%>
 			<tr>
-				<td><%=dto.getSeq() %></td>
-				<td><%=dto.getId() %></td>
+				<td><%=pdto.getSeq() %></td>
+				<td><%=pdto.getId() %></td>
 				<td>
 				<%
-				if(dto.getDelflag().equals("N")){
+				if(pdto.getDelflag().equals(1)){
 					%>삭제된 글입니다.<%
 				}else{
 					%>
-					<a href="PostController.do?command=PostDetail&PostSeq=<%=dto.getSeq()%>&MemberSeq=<%=dto.getMember_seq()%>"><%=dto.getTitle()%></a>
+					<a href="PostController.do?command=PostDetail&PostSeq=<%=pdto.getSeq()%>&MemberSeq=<%=pdto.getMember_seq()%>"><%=pdto.getTitle()%></a>
 					<%
 				}
 				%>
 				</td>
 				<%
 				for(CategoryDto cdto:clist){ 
-					if(dto.getCategory_seq()==cdto.getSeq()){
+					if(pdto.getCategory_seq()==cdto.getSeq()){
 				%>
 				<td><%=cdto.getTitle()%></td>
 			<%  
-				
+				break;
 				}
 			
 			}
 			%>
-				<td><%=Util.getToDate(dto.getRegdate()) %></td>
-				<td><%=dto.getReadcount()%></td>
+				<td><%=Util.getToDate(pdto.getRegdate()) %></td>
+				<td><%=pdto.getReadcount()%></td>
 			</tr>
 			<%
 			
@@ -152,7 +152,7 @@
 		<td colspan="6">
 			<input type="button" value="글추가"
 			       onclick="location.href='PostController.do?command=InsertForm&boardseq=<%=bdto.getSeq()%>'"/>
-			<%for(int i=0;i<44;i++){%>
+			<%for(int i=0;i<47;i++){%>
 			&nbsp;
 			<%} %>
 			<input type="button" value="뒤로가기" 

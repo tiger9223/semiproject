@@ -57,6 +57,7 @@ public class PostController extends HttpServlet {
 			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardListBySeq(boardseq);
 			List<PostDto> list = pdao.getPostByBoardSeq(boardseq);
+			
 			List<CategoryDto> clist=new ArrayList<>();
 			for(PostDto dto:list) {
 				int seq=dto.getCategory_seq();
@@ -82,11 +83,15 @@ public class PostController extends HttpServlet {
 			}
 			
 			PostDto pdto = pdao.getPost(MemberSeq,PostSeq);
+			int category_seq = pdto.getCategory_seq();
+			System.out.println(category_seq);
+			CategoryDto cdto = cdao.getCategoryTitleBySeq(category_seq);
 			ldto = ldao.getUserInfo(MemberSeq);
 			BoardDto bdto = bdao.getBoardListBySeq(pdto.getBoard_seq());
 			request.setAttribute("pdto", pdto);
 			request.setAttribute("dto", ldto);
 			request.setAttribute("bdto", bdto);
+			request.setAttribute("cdto", cdto);
 			dispatch("postdetail.jsp", request, response);
 			
 			

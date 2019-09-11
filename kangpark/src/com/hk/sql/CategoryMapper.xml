@@ -6,8 +6,8 @@
 		SELECT SEQ, TITLE,BOARD_SEQ FROM CATEGORY WHERE SEQ=#{seq}
 	</select>
 	
-	<select id="categorytitleByseq" parameterType="int" >
-		SELECT C.TITLE FROM POST P, CATEGORY C WHERE P.CATEGORY_SEQ = C.SEQ AND C.SEQ = #{category_seq}
+	<select id="categorytitleByseq" parameterType="int" resultType="CategoryDto" >
+		SELECT C.SEQ, C.TITLE,C.BOARD_SEQ FROM POST P, CATEGORY C WHERE P.CATEGORY_SEQ = C.SEQ AND C.SEQ = #{category_seq}
 	</select>
 	
 	<insert id="InsertCategory" parameterType="CategoryDto">

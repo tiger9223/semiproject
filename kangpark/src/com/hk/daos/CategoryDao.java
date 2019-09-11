@@ -16,7 +16,7 @@ public class CategoryDao extends SqlMapConfig{
 
 	private String nameSpace="com.hk.category.";
 	
-		//category 전체조회
+		//특정 게시판의 category 전체조회
 		public List<CategoryDto> getCategoryList(int seq){
 			List<CategoryDto> list=new ArrayList<>();
 			SqlSession sqlSession=null;
@@ -31,8 +31,8 @@ public class CategoryDao extends SqlMapConfig{
 			return list;
 		}
 		
-		//category 조회
-		public CategoryDto getCategorytitleBySeq(int seq){
+		//categorytitle 조회
+		public CategoryDto getCategoryTitleBySeq(int seq){
 			CategoryDto dto = new CategoryDto();
 			SqlSession sqlSession=null;
 			try {

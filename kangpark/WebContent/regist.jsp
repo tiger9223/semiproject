@@ -51,7 +51,9 @@
 	}
 	//뒤로가기
 	function back(){
-		location.href="LoginController.do?command=logout"
+		if(confirm("회원가입 중에 있습니다. 뒤로 가시면 작성 중인 내용은 삭제됩니다.")==true){
+			location.href="LoginController.do?command=logout"
+		}
 	}
 </script>
 </head>
@@ -94,7 +96,7 @@
 	<tr>
 		<td colspan="2">
 		<input type="submit" name="가입완료" value="완료"/>
-		<input type="button" value="뒤로가기" onclick="back()"></button>
+		<input type="button" value="뒤로가기" onclick="back()">
 		</td>
 	</tr>
 </table>
