@@ -20,18 +20,19 @@
 
 	function back(boardseq){
 		if(confirm("글 작성 중에 있습니다. 목록으로 가시면 작성 중인 글은 삭제됩니다.")==true){
-			location.herf="PostController.do?command=Postlist&boardseq="+boardseq;
+			location.href="PostController.do?command=PostList&boardseq="+boardseq;
 		}
 	}
 	
 	window.onload = function() {
 		var form = document.getElementsByTagName("form")[0];//[form]
+		
 		//form태그에서 submit이벤트가 발생하면 함수를 실행해라
 		form.onsubmit = function() {//패스워드가 정확하게 입력됐는지와 모든 입력값을 넣었는지 확인
 			var inputs = document.querySelectorAll("table input");//[input,input....]
 			
 				for (var i = 0; i < inputs.length; i++) {
-					if(inputs[i].value=="") {
+					if(inputs[i].value==""||ta[i].value=="") {
 						var tagEleTxt = inputs[i].parentNode.previousElementSibling.textContent;
 						//						 .부모태그 구함 .앞에오는 형제엘리먼트 구함      .내부에 text 구함 
 						alert(tagEleTxt+"를 입력하세요.");
@@ -105,7 +106,7 @@
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td><textarea rows="10" cols="60" name="content" class="inputval"></textarea> </td>
+		<td><textarea rows="10" cols="60" name="content" id="ta" class="inputval"></textarea> </td>
 	</tr>
 	<tr>
 		<td colspan="2">

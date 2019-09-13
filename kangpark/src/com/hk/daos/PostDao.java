@@ -63,6 +63,22 @@ public class PostDao extends SqlMapConfig{
 			}
 			return count>0?true:false;
 		}
+		
+		public PostDto getPostDetail(int PostSeq) {
+			PostDto dto=new PostDto();
+			SqlSession sqlSession=null;
+			try {
+				sqlSession=getSqlSessionFactory().openSession(true);
+				dto=sqlSession.selectOne(nameSpace+"getCategoryTitle", PostSeq);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				sqlSession.close();
+			}
+			return dto;
+		
+		}
+		
 		//글상세보기(AnsDto반환)
 		public PostDto getPost(int MemberSeq,int PostSeq){
 			PostDto dto=new PostDto();
@@ -104,6 +120,22 @@ public class PostDao extends SqlMapConfig{
 			try {
 				sqlSession=getSqlSessionFactory().openSession(true);
 				count=sqlSession.update(nameSpace+"mulDel", map);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				sqlSession.close();
+			}
+			
+			return count>0?true:false;
+		}
+		//글삭제하기(seq)
+		public boolean deletePost(int postSeq) {
+
+			int count=0;
+			SqlSession sqlSession=null;
+			try {
+				sqlSession=getSqlSessionFactory().openSession(true);
+				count=sqlSession.update(nameSpace+"DeletePost", postSeq);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {

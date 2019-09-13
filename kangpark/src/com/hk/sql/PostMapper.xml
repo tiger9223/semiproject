@@ -22,16 +22,17 @@
 	</select>
 	
 	<select id="PostlistByBoardSeq" resultType="PostDto" parameterType="int">
-		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG,p.REGDATE,p.NOTICE,p.MEMBER_SEQ,p.BOARD_SEQ,p.CATEGORY_SEQ
-		FROM POST p, MEMBER m
-		WHERE p.MEMBER_SEQ = m.SEQ AND p.BOARD_SEQ = #{boardSeq}
+		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG,p.REGDATE,p.NOTICE,p.MEMBER_SEQ,p.BOARD_SEQ,p.CATEGORY_SEQ ,c.TITLE as category_title
+		FROM POST p, MEMBER m, CATEGORY c
+		WHERE p.MEMBER_SEQ = m.SEQ  AND c.SEQ = p.CATEGORY_SEQ AND p.BOARD_SEQ = #{boardSeq}
 		ORDER BY REF,STEP 
 	</select>
 	
-	<select id="getboard" parameterType="int">
-		SELECT SEQ,TITLE,CONTENT,REGDATE,REF,STEP,DEPTH,READCOUNT,DELFLAG
-		FROM POST 
-		WHERE SEQ = #{seq}
+	<select id="getCategoryTitle"  resultType="PostDto" parameterType="int">
+		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG,p.REGDATE,p.NOTICE,p.MEMBER_SEQ,p.BOARD_SEQ,p.CATEGORY_SEQ ,c.TITLE as category_title
+		FROM POST p, MEMBER m, CATEGORY c
+		WHERE p.MEMBER_SEQ = m.SEQ AND p.CATEGORY_SEQ = c.SEQ AND p.SEQ = #{seq}
+		ORDER BY REF,STEP 	
 	</select>
 	
 	<insert id="insertPost" parameterType="PostDto">
@@ -59,6 +60,10 @@
 		<foreach collection="seqs" item="seq" open="(" close=")" separator=",">
 			#{seq}
 		</foreach>
+	</update>
+	
+	<update id="DeletePost" parameterType="PostDto">
+		UPDATE POST SET DELFLAG=1 WHERE SEQ = #{PostSeq}
 	</update>
 	
 	<update id="readcount" parameterType="int">

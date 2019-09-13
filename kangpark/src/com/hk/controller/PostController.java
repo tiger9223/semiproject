@@ -58,14 +58,14 @@ public class PostController extends HttpServlet {
 			BoardDto bdto = bdao.getBoardListBySeq(boardseq);
 			List<PostDto> list = pdao.getPostByBoardSeq(boardseq);
 			
-			List<CategoryDto> clist=new ArrayList<>();
-			for(PostDto dto:list) {
-				int seq=dto.getCategory_seq();
-				clist.addAll(cdao.getCategoryList(seq));
-			}
+//			List<CategoryDto> clist=new ArrayList<>();
+//			for(PostDto dto:list) {
+//				int seq=dto.getCategory_seq();
+//				clist.addAll(cdao.getCategoryList(seq));
+//			}
 			request.setAttribute("bdto", bdto);
 			request.setAttribute("list", list);
-			request.setAttribute("clist", clist);
+//			request.setAttribute("clist", clist);
 //			request.getRequestDispatcher("boardlist.jsp").forward(request, response);
 			dispatch("postlist.jsp", request, response);
 			
@@ -82,25 +82,20 @@ public class PostController extends HttpServlet {
 				request.getSession().setAttribute("readcount", PostSeq+"");
 			}
 			
-			PostDto pdto = pdao.getPost(MemberSeq,PostSeq);
-			int category_seq = pdto.getCategory_seq();
-			System.out.println(category_seq);
-			CategoryDto cdto = cdao.getCategoryTitleBySeq(category_seq);
+			PostDto pdto = pdao.getPostDetail(PostSeq);
 			ldto = ldao.getUserInfo(MemberSeq);
 			BoardDto bdto = bdao.getBoardListBySeq(pdto.getBoard_seq());
 			request.setAttribute("pdto", pdto);
 			request.setAttribute("dto", ldto);
 			request.setAttribute("bdto", bdto);
-			request.setAttribute("cdto", cdto);
 			dispatch("postdetail.jsp", request, response);
 			
 			
-		}else if(command.equals("muldel")) {
-			String [] seqs = request.getParameterValues("chk");
-			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
-			boolean isS=pdao.mulDel(seqs);
+		}else if(command.equals("DeletePost")) {
+			int PostSeq = Integer.parseInt(request.getParameter("PostSeq"));
+			boolean isS=pdao.deletePost(PostSeq);
 			if(isS) {
-				response.sendRedirect("PostController.do?command=PostList&boardseq="+boardseq);
+				response.sendRedirect("PostController.do?command=PostList&boardseq="+PostSeq);
 			}else {
 				request.setAttribute("msg", "글여러개삭제실패");
 				dispatch("error.jsp", request, response);

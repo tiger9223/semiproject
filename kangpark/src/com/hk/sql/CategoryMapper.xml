@@ -7,7 +7,10 @@
 	</select>
 	
 	<select id="categorytitleByseq" parameterType="int" resultType="CategoryDto" >
-		SELECT C.SEQ, C.TITLE,C.BOARD_SEQ FROM POST P, CATEGORY C WHERE P.CATEGORY_SEQ = C.SEQ AND C.SEQ = #{category_seq}
+		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG,p.REGDATE,p.NOTICE,p.MEMBER_SEQ,p.BOARD_SEQ,p.CATEGORY_SEQ ,c.TITLE as category_title
+		FROM POST p, MEMBER m, CATEGORY c
+		WHERE p.MEMBER_SEQ = m.SEQ AND p.BOARD_SEQ = c.BOARD_SEQ AND p.CATEGORY_SEQ = #{seq}
+		ORDER BY REF,STEP 	
 	</select>
 	
 	<insert id="InsertCategory" parameterType="CategoryDto">

@@ -19,6 +19,7 @@ public class PostDto {
 	private int member_seq;
 	private int board_seq;
 	private int category_seq;
+	private String category_title;
 	
 	public PostDto() {
 		super();
@@ -173,15 +174,23 @@ public class PostDto {
 		this.category_seq = category_seq;
 	}
 
+	public String getCategory_title() {
+		return category_title;
+	}
+
+	public void setCategory_title(String category_title) {
+		this.category_title = category_title;
+	}
+
 	@Override
 	public String toString() {
 		return "PostDto [seq=" + seq + ", id=" + id + ", title=" + title + ", content=" + content + ", ref=" + ref
 				+ ", step=" + step + ", depth=" + depth + ", readcount=" + readcount + ", delflag=" + delflag
 				+ ", regdate=" + regdate + ", notice=" + notice + ", member_seq=" + member_seq + ", board_seq="
-				+ board_seq + ", category_seq=" + category_seq + "]";
+				+ board_seq + ", category_seq=" + category_seq + ", categoryTitle=" + category_title + "]";
 	}
 
-	
+
 	
 	
 }

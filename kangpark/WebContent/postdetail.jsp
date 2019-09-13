@@ -51,7 +51,7 @@
 	</tr>
 	<tr>
 		<th>제목</th>
-		<td>[<%=cdto.getTitle() %>]&nbsp;<%=pdto.getTitle() %></td>
+		<td>[<%=pdto.getCategory_title() %>]&nbsp;<%=pdto.getTitle() %></td>
 	</tr>
 	<tr>
 		<th>내용</th>
@@ -60,8 +60,12 @@
 	<tr>
 		<td colspan="2">
 			<button onclick="replyForm()">답글</button>
+			<%if(ldto.getId().equals(dto.getId())){
+				%>
 			<button onclick="updateForm()">수정</button>
-			<button onclick="delPost(<%=ldto.getSeq()%>)">삭제</button>
+			<button onclick="delPost(<%=pdto.getSeq()%>)">삭제</button>
+			<% 
+			}%>
 			<button onclick="location.href='PostController.do?command=PostList&boardseq=<%=bdto.getSeq()%>'">글목록</button>
 		</td>
 	</tr>
@@ -105,14 +109,10 @@
 		//animate({css속성값정의},지연시간,easing)
 	}
 	function updateForm(){
-		if(<%=ldto.getId()%>!=<%=dto.getId() %>){
-			alert("본인의 글만 수정 가능합니다.");
-		}else{
 <%-- 			location.href = "PostController.do?command=UpdateForm&memberSeq=<%=ldto.getSeq()%>&postSeq=<%=pdto.getSeq()%>"; --%>
-		}
 	}
 	function delPost(seq){
-		location.href="PostController.do?command=muldel&chk="+seq;
+			location.href = "PostController.do?command=DeletePost&PostSeq="seq;
 	}
 </script>
 </body>

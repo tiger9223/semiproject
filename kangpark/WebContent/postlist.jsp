@@ -60,25 +60,25 @@
 		});
 		
 		
-		//상세내용 보기
-		//slice(s,e) : 엘리먼트를 인덱스를 활용해서 여러개를 추출할 수 있다.
-		$("#detail").click(function(){
-			$("th").slice(5, 8).toggle().end().slice(9).toggle();
-// 			$("th").slice(9).toggle();
-			$("tr").each(function(){
-				$(this).children("td").slice(5,8).toggle().end().slice(9).toggle();
-			});
-//			alert($("th:hidden").length);
-			$("tr").last().children("td").attr("colspan",$("th:visible").length);
-		});
-	});//onload
+// 		//상세내용 보기
+// 		//slice(s,e) : 엘리먼트를 인덱스를 활용해서 여러개를 추출할 수 있다.
+// 		$("#detail").click(function(){
+// 			$("th").slice(5, 8).toggle().end().slice(9).toggle();
+// // 			$("th").slice(9).toggle();
+// 			$("tr").each(function(){
+// 				$(this).children("td").slice(5,8).toggle().end().slice(9).toggle();
+// 			});
+// //			alert($("th:hidden").length);
+// 			$("tr").last().children("td").attr("colspan",$("th:visible").length);
+// 		});
+// 	});//onload
 	
 </script>
 <%
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	List<PostDto> list = (List<PostDto>)request.getAttribute("list");
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
-	List<CategoryDto> clist = (List<CategoryDto>)request.getAttribute("clist");
+	//List<CategoryDto> clist = (List<CategoryDto>)request.getAttribute("clist");
 %>
 <style type="text/css">
 	img{width: 12px; height: 12px;}
@@ -88,7 +88,7 @@
 <body> 
 <h1><%=bdto.getTitle()%></h1>
 <textarea rows="2" cols="30" id="contentView"></textarea>
-<button id="detail">상세정보</button>
+<!-- <button id="detail">상세정보</button> -->
 <form action="PostController.do" method="post">
 <input type="hidden" name="command" value="muldel" />
 <table border="1">
@@ -129,17 +129,9 @@
 				}
 				%>
 				</td>
-				<%
-				for(CategoryDto cdto:clist){ 
-					if(pdto.getCategory_seq()==cdto.getSeq()){
-				%>
-				<td><%=cdto.getTitle()%></td>
-			<%  
-				break;
-				}
-			
-			}
-			%>
+				
+				<td><%=pdto.getCategory_title()%></td>
+
 				<td><%=Util.getToDate(pdto.getRegdate()) %></td>
 				<td><%=pdto.getReadcount()%></td>
 			</tr>
