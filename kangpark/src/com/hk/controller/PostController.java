@@ -93,11 +93,12 @@ public class PostController extends HttpServlet {
 			
 		}else if(command.equals("DeletePost")) {
 			int PostSeq = Integer.parseInt(request.getParameter("PostSeq"));
+			PostDto pdto = pdao.getPostDetail(PostSeq);
 			boolean isS=pdao.deletePost(PostSeq);
 			if(isS) {
-				response.sendRedirect("PostController.do?command=PostList&boardseq="+PostSeq);
+				response.sendRedirect("PostController.do?command=PostList&boardseq="+pdto.getBoard_seq());
 			}else {
-				request.setAttribute("msg", "글여러개삭제실패");
+				request.setAttribute("msg", "글삭제실패");
 				dispatch("error.jsp", request, response);
 			}
 			
@@ -129,35 +130,51 @@ public class PostController extends HttpServlet {
 			
 			
 		}else if(command.equals("UpdateForm")) {
-			int memberSeq = Integer.parseInt(request.getParameter("memberSeq"));
-			int postSeq = Integer.parseInt(request.getParameter("postSeq"));
-			PostDto dto = pdao.getPost(memberSeq,postSeq);
-			request.setAttribute("dto", dto);
+			int memberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
+			int postSeq = Integer.parseInt(request.getParameter("PostSeq"));
+			PostDto pdto = pdao.getPost(memberSeq,postSeq);
+			request.setAttribute("pdto", pdto);
 			dispatch("updatepost.jsp", request, response);
 			
 			
 		}else if(command.equals("UpdatePost")) {
-			int seq = Integer.parseInt(request.getParameter("seq"));
+			int MemberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
+			int postSeq = Integer.parseInt(request.getParameter("PostSeq"));
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			
-			boolean isS=pdao.updatePost(new PostDto(seq,title,content));
+			boolean isS=pdao.updatePost(new PostDto(postSeq,title,content));
 			if(isS) {
-				response.sendRedirect("PostController.do?command=PostDetail&seq="+seq);
+				ldto = ldao.getUserInfo(MemberSeq);
+				PostDto pdto = pdao.getPostDetail(postSeq);
+				BoardDto bdto = bdao.getBoardListBySeq(pdto.getBoard_seq());
+				request.setAttribute("pdto", pdto);
+				request.setAttribute("dto", ldto);
+				request.setAttribute("bdto", bdto);
+				dispatch("postdetail.jsp", request, response);
 			}else {
 				request.setAttribute("msg", "글수정하기 실패");
 				dispatch("error.jsp", request, response);
 			}
 			
 		}else if(command.equals("replyPost")) {
-			int seq = Integer.parseInt(request.getParameter("seq"));
+			int seq = Integer.parseInt(request.getParameter("PostSeq"));
+			int memberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
+			int boardSeq = Integer.parseInt(request.getParameter("BoardSeq"));
+			int categorySeq = Integer.parseInt(request.getParameter("CategorySeq"));
 			String id = request.getParameter("id");
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
+			System.out.println(memberSeq);
+			System.out.println(boardSeq);
+			System.out.println(categorySeq);
+			System.out.println(id);
+			System.out.println(title);
+			System.out.println(content);
 			
-			boolean isS=pdao.replyPost(new PostDto());
+			boolean isS=pdao.replyPost(new PostDto(seq,title, content, memberSeq, boardSeq, categorySeq));
 			if(isS) {
-				response.sendRedirect("PostController.do?command=PostList");
+				jsForward("PostController.do?command=PostList&boardseq="+boardSeq, "답글이 정상적으로 등록 됐습니다.", response);
 			}else {
 				request.setAttribute("msg", "답글달기실패");
 				dispatch("error.jsp", request, response);

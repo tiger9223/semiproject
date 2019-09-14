@@ -13,7 +13,7 @@ public class PostDto {
 	private int step;
 	private int depth;
 	private int readcount;
-	private String delflag;
+	private int delflag;
 	private Date regdate;
 	private int notice;
 	private int member_seq;
@@ -35,7 +35,7 @@ public class PostDto {
 
 
 	public PostDto(int seq, String id, String title, String content, int ref, int step, int depth, int readcount,
-			String delflag, Date regdate, int notice, int member_seq, int board_seq, int category_seq) {
+			int delflag, Date regdate, int notice, int member_seq, int board_seq, int category_seq) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -48,6 +48,18 @@ public class PostDto {
 		this.delflag = delflag;
 		this.regdate = regdate;
 		this.notice = notice;
+		this.member_seq = member_seq;
+		this.board_seq = board_seq;
+		this.category_seq = category_seq;
+	}
+	
+	
+
+	public PostDto(int seq, String title, String content, int member_seq, int board_seq, int category_seq) {
+		super();
+		this.seq = seq;
+		this.title = title;
+		this.content = content;
 		this.member_seq = member_seq;
 		this.board_seq = board_seq;
 		this.category_seq = category_seq;
@@ -126,11 +138,11 @@ public class PostDto {
 		this.readcount = readcount;
 	}
 
-	public String getDelflag() {
+	public int getDelflag() {
 		return delflag;
 	}
 
-	public void setDelflag(String delflag) {
+	public void setDelflag(int delflag) {
 		this.delflag = delflag;
 	}
 

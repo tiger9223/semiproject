@@ -25,21 +25,15 @@
 	}
 	
 	window.onload = function() {
-		var form = document.getElementsByTagName("form")[0];//[form]
-		
+		var forms = document.getElementById("form");//[form]
 		//form태그에서 submit이벤트가 발생하면 함수를 실행해라
 		form.onsubmit = function() {//패스워드가 정확하게 입력됐는지와 모든 입력값을 넣었는지 확인
-			var inputs = document.querySelectorAll("table input");//[input,input....]
-			
-				for (var i = 0; i < inputs.length; i++) {
-					if(inputs[i].value==""||ta[i].value=="") {
-						var tagEleTxt = inputs[i].parentNode.previousElementSibling.textContent;
-						//						 .부모태그 구함 .앞에오는 형제엘리먼트 구함      .내부에 text 구함 
-						alert(tagEleTxt+"를 입력하세요.");
-						inputs[i].focus();
-						return false;
-					}
-				}
+			if(forms.title.value==""){
+				alert("제목를 입력하세요");
+			}else if(forms.content.value==""){
+				alert("내용을 입력하세요");
+			}
+		return false;
 		}
 	}
  	//탐색메서드: eq(),find(),prev(), next(), children(),parent()
@@ -80,7 +74,7 @@
 </head>
 <body>
 <h1>게시글 추가하기</h1>
-<form action="PostController.do" method="post" >
+<form id="form" action="PostController.do" method="post" >
 <input type="hidden" name="command" value="InsertPost"/>
 <input type="hidden" name="boardSeq" value="<%=bdto.getSeq() %>"/>
 <input type="hidden" name="memberSeq" value="<%=ldto.getSeq() %>"/>

@@ -78,6 +78,7 @@
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	List<PostDto> list = (List<PostDto>)request.getAttribute("list");
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
+	
 	//List<CategoryDto> clist = (List<CategoryDto>)request.getAttribute("clist");
 %>
 <style type="text/css">
@@ -120,10 +121,12 @@
 				<td><%=pdto.getId() %></td>
 				<td>
 				<%
-				if(pdto.getDelflag().equals(1)){
+				if(pdto.getDelflag()==0){
 					%>삭제된 글입니다.<%
 				}else{
 					%>
+					<%Util.setArrowNbsp(pdto.getDepth());%>
+					<%=Util.getArrowNbsp()%>
 					<a href="PostController.do?command=PostDetail&PostSeq=<%=pdto.getSeq()%>&MemberSeq=<%=pdto.getMember_seq()%>"><%=pdto.getTitle()%></a>
 					<%
 				}
@@ -136,7 +139,7 @@
 				<td><%=pdto.getReadcount()%></td>
 			</tr>
 			<%
-			
+		
 		}
 	}
 	%>

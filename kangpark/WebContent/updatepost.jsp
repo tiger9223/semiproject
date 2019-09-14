@@ -1,3 +1,4 @@
+<%@page import="com.hk.dtos.PostDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
@@ -25,33 +26,36 @@ $(function(){
 			});
 		})
 </script>
+<%
+	PostDto pdto = (PostDto)request.getAttribute("pdto");
+%>
 </head>
 <body>
 <h1>게시글수정하기</h1>
 <form action="PostController.do" method="post">
-<input type="hidden" name="command" value="updateboard"/>
-<input type="hidden" name="seq" value="${dto.seq}"/>
+<input type="hidden" name="command" value="UpdatePost"/>
+<input type="hidden" name="PostSeq" value="<%=pdto.getSeq()%>"/>
+<input type="hidden" name="MemberSeq" value="<%=pdto.getMember_seq()%>"/>
 <table border="1">
 	<tr>
 		<th>번호</th>
-		<td>${requestScope.dto.seq}</td>
+		<td><%=pdto.getSeq() %></td>
 	</tr>
 	<tr>
 		<th>작성자</th>
-		<td>${dto.id}</td>
+		<td><%=pdto.getId() %></td>
 	</tr>
 	<tr>
 		<th>제목</th>
-		<td><input type="text" name="title" value="${dto.title}"/></td>
+		<td><input type="text" name="title" value="<%=pdto.getTitle()%>"/></td>
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td><textarea rows="10" cols="60" name="content">${dto.content}</textarea> </td>
+		<td><textarea rows="10" cols="60" name="content"><%=pdto.getContent() %></textarea></td>
 	</tr>
 	<tr>
 		<td colspan="2">
 			<input type="submit" value="수정완료"/>
-			<button type="button" onclick="location.href='PostController.do?command=boardlist'">글목록</button>
 		</td>
 	</tr>
 </table>

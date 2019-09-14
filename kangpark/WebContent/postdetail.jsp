@@ -26,9 +26,6 @@
 	}
 
 </style>
-<script type="text/javascript">
-	
-</script>
 </head>
 <body>
 <%
@@ -62,8 +59,8 @@
 			<button onclick="replyForm()">답글</button>
 			<%if(ldto.getId().equals(dto.getId())){
 				%>
-			<button onclick="updateForm()">수정</button>
-			<button onclick="delPost(<%=pdto.getSeq()%>)">삭제</button>
+			<button onclick="location.href = 'PostController.do?command=UpdateForm&PostSeq=<%=pdto.getSeq()%>&MemberSeq=<%=pdto.getMember_seq()%>'">수정</button>
+			<button onclick="location.href = 'PostController.do?command=DeletePost&PostSeq=<%=pdto.getSeq()%>'">삭제</button>
 			<% 
 			}%>
 			<button onclick="location.href='PostController.do?command=PostList&boardseq=<%=bdto.getSeq()%>'">글목록</button>
@@ -74,7 +71,10 @@
 <h1>답글달기</h1>
 <form action="PostController.do" method="post" >
 <input type="hidden" name="command" value="replyPost"/>
-<input type="hidden" name="seq" value="${dto.seq}"/>
+<input type="hidden" name="PostSeq" value="<%=pdto.getSeq() %>"/>
+<input type="hidden" name="BoardSeq" value="<%=bdto.getSeq() %>"/>
+<input type="hidden" name="MemberSeq" value="<%=ldto.getSeq()%>"/>
+<input type="hidden" name="CategorySeq" value="<%=pdto.getCategory_seq() %>"/>
 <table border="1">
 	<tr>
 		<th>아이디</th>
@@ -111,9 +111,7 @@
 	function updateForm(){
 <%-- 			location.href = "PostController.do?command=UpdateForm&memberSeq=<%=ldto.getSeq()%>&postSeq=<%=pdto.getSeq()%>"; --%>
 	}
-	function delPost(seq){
-			location.href = "PostController.do?command=DeletePost&PostSeq="seq;
-	}
+	
 </script>
 </body>
 </html>

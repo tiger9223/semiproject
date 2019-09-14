@@ -45,7 +45,7 @@
 		VALUES
 		(POST_SEQ.NEXTVAL ,#{title}, #{content},
 		(SELECT NVL(MAX(REF)+1,0) FROM POST), 0, 0,
-		0, 0, SYSDATE,
+		0, 1, SYSDATE,
 		0, #{member_seq}, #{board_seq},
 		#{category_seq})
 	</insert>
@@ -56,14 +56,14 @@
 	</update>
 	
 	<update id="mulDel" parameterType="Map">
-		UPDATE POST SET DELFLAG='N' WHERE SEQ IN 
+		UPDATE POST SET DELFLAG=0 WHERE SEQ IN 
 		<foreach collection="seqs" item="seq" open="(" close=")" separator=",">
 			#{seq}
 		</foreach>
 	</update>
 	
 	<update id="DeletePost" parameterType="PostDto">
-		UPDATE POST SET DELFLAG=1 WHERE SEQ = #{PostSeq}
+		UPDATE POST SET DELFLAG=0 WHERE SEQ = #{PostSeq}
 	</update>
 	
 	<update id="readcount" parameterType="int">
@@ -83,10 +83,17 @@
 	
 	<insert id="replyinsert" parameterType="PostDto">
 		INSERT INTO POST 
-		VALUES(POST_SEQ.NEXTVAL,#{id},#{title},#{content},SYSDATE, 
-		(SELECT REFER FROM POST WHERE SEQ=#{seq}), 
-		(SELECT STEP FROM POST WHERE SEQ=#{seq})+1, 
-		(SELECT DEPTH FROM POST WHERE SEQ=#{seq})+1,0,'N')
+		(SEQ, TITLE, CONTENT,
+		REF, STEP, DEPTH,
+		READCOUNT, DELFLAG, REGDATE,
+		NOTICE, MEMBER_SEQ, BOARD_SEQ,
+		CATEGORY_SEQ) 
+		VALUES
+		(POST_SEQ.NEXTVAL ,#{title}, #{content},
+		(SELECT REF FROM POST WHERE SEQ=#{seq}),(SELECT STEP FROM POST WHERE SEQ=#{seq})+1, (SELECT DEPTH FROM POST WHERE SEQ=#{seq})+1,
+		0, 1, SYSDATE,
+		0, #{member_seq}, #{board_seq},
+		#{category_seq})
 	</insert>
 	
 	<select id="contentAjax" parameterType="int" resultType="PostDto">
