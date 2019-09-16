@@ -22,22 +22,25 @@
 <th>게시판 이름</th>
 <td><input type="text" name="title" value="<%=bdto.getTitle() %>"/></td>
 </tr>
-<tr>
-<th>유형</th>
 <%
-for(CategoryDto cdto : clist){
-	if(clist==null||clist.size()==0){
+	if(clist==null || clist.size()==0){
 		%>
+		<tr>
+		<th>유형</th>
 		<td>유형이 없습니다.</td>
+		</tr>
 		<%
 	}else{
+	for(CategoryDto cdto : clist){
 		%>
-		<td><%=cdto.getTitle() %></td>
+<tr>
+	<th>유형</th>
+	<td><a href="PostController.do?command=updatecategoryform&categoryseq=<%=cdto.getSeq()%>"><%=cdto.getTitle() %></a></td>
+</tr>
 		<%
 	}
 }
 %>
-</tr>
 <tr>
 <td colspan="2"><input type="submit" value="수정완료"/></td>
 </tr>

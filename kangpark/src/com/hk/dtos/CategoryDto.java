@@ -9,6 +9,20 @@ public class CategoryDto {
 	public CategoryDto() {
 		super();
 	}
+	
+
+	public CategoryDto(int seq) {
+		super();
+		this.seq = seq;
+	}
+
+	
+	public CategoryDto(int seq, String title) {
+		super();
+		this.seq = seq;
+		this.title = title;
+	}
+
 
 	public CategoryDto(int seq, String title, int board_seq) {
 		super();

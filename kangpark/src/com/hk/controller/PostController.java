@@ -106,7 +106,7 @@ public class PostController extends HttpServlet {
 		}else if(command.equals("InsertForm")) {
 			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardseq);
-			List<CategoryDto> list = cdao.getCategoryBySeq(boardseq);
+			List<CategoryDto> list = cdao.getCategoryByBoardSeq(boardseq);
 			request.setAttribute("list",list);
 			request.setAttribute("bdto", bdto);
 			dispatch("insertpost.jsp", request, response);
@@ -190,7 +190,7 @@ public class PostController extends HttpServlet {
 		}else if(command.equals("updateboardform")) {
 			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardSeq);
-			List<CategoryDto> clist = cdao.getCategoryBySeq(boardSeq);
+			List<CategoryDto> clist = cdao.getCategoryByBoardSeq(boardSeq);
 			request.setAttribute("bdto", bdto);
 			request.setAttribute("clist", clist);
 			dispatch("updateboard.jsp", request, response);
@@ -205,7 +205,32 @@ public class PostController extends HttpServlet {
 				dispatch("error.jsp", request, response);
 			}
 			
+		}else if(command.equals("updatecategoryform")) {
+			int categoryseq = Integer.parseInt(request.getParameter("categoryseq"));
+			CategoryDto cdto = cdao.getCategoryBySeq(categoryseq);
+			request.setAttribute("cdto", cdto);
+			dispatch("updatecategory.jsp", request, response);
+		}else if(command.equals("updatecategory")) {
+			int categoryseq = Integer.parseInt(request.getParameter("categoryseq"));
+			String title = request.getParameter("title");
+			boolean isS = cdao.updateCategory(new CategoryDto(categoryseq,title));
+			if(isS) {
+				jsForward("admin_main.jsp","유형이 정상적으로 수정됐습니다.", response);
+			}else {
+				request.setAttribute("msg", "유형수정실패");
+				dispatch("error.jsp", request, response);
+			}
+		}else if(command.equals("Deletecategory")) {
+			int categoryseq = Integer.parseInt(request.getParameter("categoryseq"));
+			boolean isS = cdao.deleteCategory(new CategoryDto(categoryseq));
+			if(isS) {
+				jsForward("admin_main.jsp","유형이 정상적으로 삭제됐습니다.", response);
+			}else {
+				request.setAttribute("msg", "유형삭제실패");
+				dispatch("error.jsp", request, response);
+			}
 		}
+		
 	}//doPost()종료
 	
 	//RequestDispatcher객체를 구해서 forward()할 수 있도록 구현한 메서드

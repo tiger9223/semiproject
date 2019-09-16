@@ -16,7 +16,10 @@
 <h1>게시판 목록</h1>
 <form action="PostController.do" method="post">
 <table border="1">
-<col width="50px" />
+<tr>
+<td>게시판 번호</td>
+<td>게시판 이름</td>
+</tr>
 <% for(BoardDto bdto: blist){
 	%>
 <% 
