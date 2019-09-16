@@ -190,7 +190,9 @@ public class PostController extends HttpServlet {
 		}else if(command.equals("updateboardform")) {
 			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardSeq);
+			List<CategoryDto> clist = cdao.getCategoryBySeq(boardSeq);
 			request.setAttribute("bdto", bdto);
+			request.setAttribute("clist", clist);
 			dispatch("updateboard.jsp", request, response);
 		}else if(command.equals("updateboard")) {
 			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));

@@ -94,7 +94,6 @@ public class LoginController extends HttpServlet {
 			response.sendRedirect("index.jsp");
 		}else if(command.equals("idChk")) {
 			String id = request.getParameter("id");
-			System.out.println(id);
 			LoginDto dto = dao.idChk(id);
 			request.setAttribute("dto", dto);
 //			pageContext.forward("idchkform.jsp");

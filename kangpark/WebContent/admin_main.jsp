@@ -30,8 +30,8 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 		<ul>
 			<li><a href="LoginController.do?command=alluserstatus">회원 상태정보 조회</a></li>
 			<li><a href="LoginController.do?command=alluserlist">회원정보 목록 조회</a></li>
-			<li><a href="insertboard.jsp">게시판 추가</a></li>
 			<li><a href="PostController.do?command=boarddetail">게시판 목록보기</a></li>
+			<li><a href="HomeController.do?command=notice">공지게시판 관리</a></li>
 		</ul>
 		<%
 	}

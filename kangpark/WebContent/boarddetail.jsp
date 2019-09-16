@@ -16,13 +16,14 @@
 <h1>게시판 목록</h1>
 <form action="PostController.do" method="post">
 <table border="1">
+<col width="50px" />
 <% for(BoardDto bdto: blist){
 	%>
 <% 
 	if(blist == null || blist.size()==0){%>
-<tr>
-	<td>등록된 게시판이 없습니다.</td>
-</tr>
+	<tr>
+		<td colspan="2">등록된 게시판이 없습니다.</td>
+	</tr>
 	<%}else{
 		%>
 	<tr>
@@ -32,7 +33,10 @@
 	<%
 	}
 }%>
-	
+<tr>
+	<td colspan="2"><input type="button" value="게시판추가"
+			       onclick="location.href='insertboard.jsp'"/></td>
+</tr>
 </table>
 </form>
 </body>
