@@ -103,7 +103,7 @@ public class PostController extends HttpServlet {
 			}
 			
 			
-		}else if(command.equals("InsertForm")) {
+		}else if(command.equals("InsertForm")) {//게시판에 글을 넣기위해 어떤게시판을 호출할지
 			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardseq);
 			List<CategoryDto> list = cdao.getCategoryBySeq(boardseq);

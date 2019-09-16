@@ -17,7 +17,9 @@ import com.hk.daos.CategoryDao;
 import com.hk.daos.LoginDao;
 import com.hk.daos.PostDao;
 import com.hk.dtos.BoardDto;
+import com.hk.dtos.CategoryDto;
 import com.hk.dtos.LoginDto;
+import com.hk.dtos.PostDto;
 
 @WebServlet("/HomeController.do")
 public class HomeController extends HttpServlet {
@@ -36,8 +38,19 @@ HttpSession session = request.getSession();
 		LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 		
 		if(command.equals("notice")) {
-			System.out.println("들어왔다");
+			int seq = 21;
+			BoardDto bdto = bdao.getBoardBySeq(seq);
+			List<PostDto> list = pdao.getPostByBoardSeq(seq);
+			request.setAttribute("bdto", bdto);
+			request.setAttribute("list", list);
 			dispatch("notice.jsp", request, response);
+		}else if(command.equals("InsertNoticeForm")) {
+			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
+			BoardDto bdto = bdao.getBoardBySeq(boardseq);
+			List<CategoryDto> list = cdao.getCategoryBySeq(boardseq);
+			request.setAttribute("list",list);
+			request.setAttribute("bdto", bdto);
+			dispatch("insertnotice.jsp", request, response);
 		}
 		
 		List<BoardDto> list = bdao.getBoardList();
