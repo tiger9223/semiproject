@@ -9,5 +9,6 @@
 </head>
 <body>
 <h1>공지게시판</h1>
+
 </body>
 </html>
