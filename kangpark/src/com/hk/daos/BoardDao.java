@@ -32,12 +32,12 @@ public class BoardDao extends SqlMapConfig{
 	}
 	
 	//한개의 게시판 가져오기
-	public BoardDto getBoardListBySeq(int seq){
+	public BoardDto getBoardBySeq(int seq){
 		BoardDto board= new BoardDto();
 		SqlSession sqlSession=null;
 		try {
 			sqlSession = getSqlSessionFactory().openSession(true);
-			board=sqlSession.selectOne(nameSpace+"boardlistbyseq", seq);
+			board=sqlSession.selectOne(nameSpace+"getboardbyseq", seq);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -47,13 +47,13 @@ public class BoardDao extends SqlMapConfig{
 	}
 	
 	//게시판 추가하기
-	public boolean insertBoardList(BoardDto dto) {
+	public boolean insertBoard(BoardDto dto) {
 		int count=0;
 		SqlSession sqlSession=null;
 		try {
 			
 			sqlSession=getSqlSessionFactory().openSession(true);
-			count=sqlSession.insert(nameSpace+"insertboardlist", dto);
+			count=sqlSession.insert(nameSpace+"insertboard", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -62,12 +62,12 @@ public class BoardDao extends SqlMapConfig{
 		return count>0?true:false;
 	}
 	//게시판 수정하기
-	public boolean updateBoardList(BoardDto dto) {
+	public boolean updateBoard(BoardDto dto) {
 		int count=0;
 		SqlSession sqlSession=null;
 		try {
 			sqlSession=getSqlSessionFactory().openSession(true);
-			count=sqlSession.update(nameSpace+"updateboardlist", dto);
+			count=sqlSession.update(nameSpace+"updateboard", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {

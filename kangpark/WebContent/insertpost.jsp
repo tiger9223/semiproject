@@ -15,7 +15,6 @@
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
 	List<CategoryDto> list = (List<CategoryDto>)request.getAttribute("list");
 %>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 
 	function back(boardseq){
@@ -25,15 +24,18 @@
 	}
 	
 	window.onload = function() {
-		var forms = document.getElementById("form");//[form]
+		var forms = document.getElementById("forms");//[form]
 		//form태그에서 submit이벤트가 발생하면 함수를 실행해라
-		form.onsubmit = function() {//패스워드가 정확하게 입력됐는지와 모든 입력값을 넣었는지 확인
+		forms.onsubmit = function() {//패스워드가 정확하게 입력됐는지와 모든 입력값을 넣었는지 확인
 			if(forms.title.value==""){
+				forms.title.focus();
 				alert("제목를 입력하세요");
+				return false;
 			}else if(forms.content.value==""){
+				forms.content.focus();
 				alert("내용을 입력하세요");
+				return false;
 			}
-		return false;
 		}
 	}
  	//탐색메서드: eq(),find(),prev(), next(), children(),parent()
@@ -74,20 +76,20 @@
 </head>
 <body>
 <h1>게시글 추가하기</h1>
-<form id="form" action="PostController.do" method="post" >
+<form id="forms" action="PostController.do" method="post" >
 <input type="hidden" name="command" value="InsertPost"/>
 <input type="hidden" name="boardSeq" value="<%=bdto.getSeq() %>"/>
 <input type="hidden" name="memberSeq" value="<%=ldto.getSeq() %>"/>
 <table border="1">
 	<tr>
 		<th>아이디</th>
-		<td><input type="text" name="id" class="inputval" readonly="readonly" value="<%=ldto.getId()%>"/></td>
+		<td><input type="text" name="id" readonly="readonly" value="<%=ldto.getId()%>"/></td>
 	</tr>
 	<tr>
 		<th>제목</th>
 		<td>
-			<input type="text" name="title" class="inputval"/>
-				<select name="category">
+			<input type="text" name="title" />
+				<select name="categorySeq">
 				<%
 				for(CategoryDto cdto:list){
 					%>
@@ -100,12 +102,12 @@
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td><textarea rows="10" cols="60" name="content" id="ta" class="inputval"></textarea> </td>
+		<td><textarea rows="10" cols="60" name="content" ></textarea> </td>
 	</tr>
 	<tr>
 		<td colspan="2">
 			<input type="submit" value="글등록"/>
-			<input type="button" value="뒤로가기" onclick="back(<%=bdto.getSeq()%>)">
+			<input type="button" value="글목록보기" onclick="back(<%=bdto.getSeq()%>)">
 		</td>
 	</tr>
 </table>

@@ -78,15 +78,15 @@
 <table border="1">
 	<tr>
 		<th>아이디</th>
-		<td><input type="text" name="id" class="inputval" value="<%=ldto.getId()%>" readonly="readonly"/></td>
+		<td><input type="text" name="id" value="<%=ldto.getId()%>" readonly="readonly"/></td>
 	</tr>
 	<tr>
 		<th>제목</th>
-		<td><input type="text" name="title" class="inputval"/></td>
+		<td><input type="text" name="title" /></td>
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td><textarea rows="10" cols="60" name="content" class="inputval"></textarea> </td>
+		<td><textarea rows="10" cols="60" name="content" ></textarea> </td>
 	</tr>
 	<tr>
 		<td colspan="2">
@@ -108,10 +108,6 @@
 		},500);
 		//animate({css속성값정의},지연시간,easing)
 	}
-	function updateForm(){
-<%-- 			location.href = "PostController.do?command=UpdateForm&memberSeq=<%=ldto.getSeq()%>&postSeq=<%=pdto.getSeq()%>"; --%>
-	}
-	
 </script>
 </body>
 </html>

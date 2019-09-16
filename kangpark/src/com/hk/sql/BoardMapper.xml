@@ -7,12 +7,12 @@
 		SELECT SEQ, TITLE FROM BOARD
 	</select>
 	
-	<insert id="insertboardlist" parameterType="BoardDto">
-		INSERT INTO BOARD (SEQ,TITLE) VALUES(BOARD_SEQ.NEXTVAL, #{list})
+	<insert id="insertboard" parameterType="BoardDto">
+		INSERT INTO BOARD (SEQ,TITLE) VALUES(BOARD_SEQ.NEXTVAL, #{title})
 	</insert>
 	
-	<update id="updateboardlist" parameterType="BoardDto">
-		UPDATE BOARD SET TITLE=#{list} 
+	<update id="updateboard" parameterType="BoardDto">
+		UPDATE BOARD SET TITLE=#{title} 
 		WHERE SEQ=#{seq}
 	</update>
 	
@@ -20,7 +20,7 @@
 		DELETE FROM BOARD WHERE SEQ=#{seq}
 	</delete>
 	
-	<select id="boardlistbyseq" resultType="BoardDto" parameterType="int">
+	<select id="getboardbyseq" resultType="BoardDto" parameterType="int">
 		SELECT SEQ, TITLE FROM BOARD WHERE SEQ=#{seq}
 	</select>
 </mapper>

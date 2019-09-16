@@ -55,7 +55,7 @@ public class PostController extends HttpServlet {
 			//"readcount"값을 삭제한다.
 			request.getSession().removeAttribute("readcount");
 			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
-			BoardDto bdto = bdao.getBoardListBySeq(boardseq);
+			BoardDto bdto = bdao.getBoardBySeq(boardseq);
 			List<PostDto> list = pdao.getPostByBoardSeq(boardseq);
 			
 //			List<CategoryDto> clist=new ArrayList<>();
@@ -84,7 +84,7 @@ public class PostController extends HttpServlet {
 			
 			PostDto pdto = pdao.getPostDetail(PostSeq);
 			ldto = ldao.getUserInfo(MemberSeq);
-			BoardDto bdto = bdao.getBoardListBySeq(pdto.getBoard_seq());
+			BoardDto bdto = bdao.getBoardBySeq(pdto.getBoard_seq());
 			request.setAttribute("pdto", pdto);
 			request.setAttribute("dto", ldto);
 			request.setAttribute("bdto", bdto);
@@ -105,7 +105,7 @@ public class PostController extends HttpServlet {
 			
 		}else if(command.equals("InsertForm")) {
 			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
-			BoardDto bdto = bdao.getBoardListBySeq(boardseq);
+			BoardDto bdto = bdao.getBoardBySeq(boardseq);
 			List<CategoryDto> list = cdao.getCategoryBySeq(boardseq);
 			request.setAttribute("list",list);
 			request.setAttribute("bdto", bdto);
@@ -117,9 +117,10 @@ public class PostController extends HttpServlet {
 			String id = request.getParameter("id");
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
-			int categorySeq = Integer.parseInt(request.getParameter("category"));
+			int categorySeq = Integer.parseInt(request.getParameter("categorySeq"));
 			
 			boolean isS = pdao.insertPost(new PostDto(title, content, memberSeq, boardSeq, categorySeq));
+			
 			if(isS) {
 				jsForward("PostController.do?command=PostList&boardseq="+boardSeq, "글이 정상적으로 등록 됐습니다.", response);
 				
@@ -147,7 +148,7 @@ public class PostController extends HttpServlet {
 			if(isS) {
 				ldto = ldao.getUserInfo(MemberSeq);
 				PostDto pdto = pdao.getPostDetail(postSeq);
-				BoardDto bdto = bdao.getBoardListBySeq(pdto.getBoard_seq());
+				BoardDto bdto = bdao.getBoardBySeq(pdto.getBoard_seq());
 				request.setAttribute("pdto", pdto);
 				request.setAttribute("dto", ldto);
 				request.setAttribute("bdto", bdto);
@@ -165,12 +166,6 @@ public class PostController extends HttpServlet {
 			String id = request.getParameter("id");
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
-			System.out.println(memberSeq);
-			System.out.println(boardSeq);
-			System.out.println(categorySeq);
-			System.out.println(id);
-			System.out.println(title);
-			System.out.println(content);
 			
 			boolean isS=pdao.replyPost(new PostDto(seq,title, content, memberSeq, boardSeq, categorySeq));
 			if(isS) {
@@ -179,6 +174,35 @@ public class PostController extends HttpServlet {
 				request.setAttribute("msg", "답글달기실패");
 				dispatch("error.jsp", request, response);
 			}
+		}else if(command.equals("InsertBoard")) {
+			String board = request.getParameter("board");
+			boolean isS = bdao.insertBoard(new BoardDto(board));
+			if(isS) {
+				jsForward("admin_main.jsp","게시판이 정상적으로 등록 됐습니다.", response);
+			}else {
+				request.setAttribute("msg", "게시판추가실패");
+				dispatch("error.jsp", request, response);
+			}
+		}else if(command.equals("boarddetail")) {
+			List<BoardDto> blist = bdao.getBoardList();
+			request.setAttribute("blist", blist);
+			dispatch("boarddetail.jsp", request, response);
+		}else if(command.equals("updateboardform")) {
+			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));
+			BoardDto bdto = bdao.getBoardBySeq(boardSeq);
+			request.setAttribute("bdto", bdto);
+			dispatch("updateboard.jsp", request, response);
+		}else if(command.equals("updateboard")) {
+			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));
+			String title = request.getParameter("title");
+			boolean isS = bdao.updateBoard(new BoardDto(boardSeq,title));
+			if(isS) {
+				jsForward("admin_main.jsp","게시판이 정상적으로 수정됐습니다.", response);
+			}else {
+				request.setAttribute("msg", "게시판수정실패");
+				dispatch("error.jsp", request, response);
+			}
+			
 		}
 	}//doPost()종료
 	

@@ -8,12 +8,26 @@ public class BoardDto {
 	public BoardDto() {
 		super();
 	}
+	
+
+	public BoardDto(int seq) {
+		super();
+		this.seq = seq;
+	}
+
+
+	public BoardDto(String title) {
+		super();
+		this.title = title;
+	}
+	
 
 	public BoardDto(int seq, String title) {
 		super();
 		this.seq = seq;
 		this.title = title;
 	}
+
 
 	public int getSeq() {
 		return seq;

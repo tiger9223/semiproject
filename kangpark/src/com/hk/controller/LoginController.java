@@ -159,12 +159,6 @@ public class LoginController extends HttpServlet {
 				request.setAttribute("msg", "회원 탈퇴실패");
 				dispatch("error.jsp", request, response);
 			}
-		}else if(command.equals("marketboard")) {
-			int seq = Integer.parseInt(request.getParameter("seq"));
-			LoginDto dto = dao.getUserInfo(seq);
-			request.setAttribute("dto", dto);
-//			pageContext.forward("user_info.jsp");
-			dispatch("BoardController.do?command=boardlist", request, response);
 		}
 	}
 	public void dispatch(String url, HttpServletRequest request
