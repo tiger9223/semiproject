@@ -22,7 +22,7 @@ public class CategoryDao extends SqlMapConfig{
 			SqlSession sqlSession=null;
 			try {
 				sqlSession = getSqlSessionFactory().openSession(true);
-				list=sqlSession.selectList(nameSpace+"CategoryList",seq);
+				list=sqlSession.selectList(nameSpace+"getCategory",seq);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -46,13 +46,28 @@ public class CategoryDao extends SqlMapConfig{
 			return dto;
 		}
 		
+		//categorytitle 조회
+			public CategoryDto getCategoryBySeq(int seq){
+				CategoryDto dto = new CategoryDto();
+				SqlSession sqlSession=null;
+				try {
+					sqlSession = getSqlSessionFactory().openSession(true);
+					dto=sqlSession.selectOne(nameSpace+"getCategory", seq);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally {
+					sqlSession.close();
+				}
+				return dto;
+			}
+		
 		//게시판의 게시글 유형 가져오기
-		public List<CategoryDto> getCategoryBySeq(int seq){
+		public List<CategoryDto> getCategoryByBoardSeq(int seq){
 			List<CategoryDto> list=new ArrayList<>();
 			SqlSession sqlSession=null;
 			try {
 				sqlSession = getSqlSessionFactory().openSession(true);
-				list=sqlSession.selectList(nameSpace+"CategoryBySeq", seq);
+				list=sqlSession.selectList(nameSpace+"CategoryByBoardSeq", seq);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {
