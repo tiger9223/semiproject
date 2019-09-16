@@ -174,6 +174,7 @@ public class PostController extends HttpServlet {
 				request.setAttribute("msg", "답글달기실패");
 				dispatch("error.jsp", request, response);
 			}
+			
 		}else if(command.equals("InsertBoard")) {
 			String board = request.getParameter("board");
 			boolean isS = bdao.insertBoard(new BoardDto(board));
@@ -183,10 +184,12 @@ public class PostController extends HttpServlet {
 				request.setAttribute("msg", "게시판추가실패");
 				dispatch("error.jsp", request, response);
 			}
+			
 		}else if(command.equals("boarddetail")) {
 			List<BoardDto> blist = bdao.getBoardList();
 			request.setAttribute("blist", blist);
 			dispatch("boarddetail.jsp", request, response);
+			
 		}else if(command.equals("updateboardform")) {
 			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardSeq);
@@ -194,6 +197,7 @@ public class PostController extends HttpServlet {
 			request.setAttribute("bdto", bdto);
 			request.setAttribute("clist", clist);
 			dispatch("updateboard.jsp", request, response);
+			
 		}else if(command.equals("updateboard")) {
 			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));
 			String title = request.getParameter("title");
@@ -210,6 +214,7 @@ public class PostController extends HttpServlet {
 			CategoryDto cdto = cdao.getCategoryBySeq(categoryseq);
 			request.setAttribute("cdto", cdto);
 			dispatch("updatecategory.jsp", request, response);
+			
 		}else if(command.equals("updatecategory")) {
 			int categoryseq = Integer.parseInt(request.getParameter("categoryseq"));
 			String title = request.getParameter("title");
@@ -220,6 +225,7 @@ public class PostController extends HttpServlet {
 				request.setAttribute("msg", "유형수정실패");
 				dispatch("error.jsp", request, response);
 			}
+			
 		}else if(command.equals("Deletecategory")) {
 			int categoryseq = Integer.parseInt(request.getParameter("categoryseq"));
 			boolean isS = cdao.deleteCategory(new CategoryDto(categoryseq));
@@ -229,8 +235,37 @@ public class PostController extends HttpServlet {
 				request.setAttribute("msg", "유형삭제실패");
 				dispatch("error.jsp", request, response);
 			}
+			
+		}else if(command.equals("boardInsertForm")) {
+			int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
+			String title = request.getParameter("title");
+			boolean isS = bdao.updateBoard(new BoardDto(boardSeq,title));
+			if(isS) {
+				jsForward("admin_main.jsp","게시판이 정상적으로 수정됐습니다.", response);
+			}else {
+				request.setAttribute("msg", "게시판수정실패");
+				dispatch("error.jsp", request, response);
+			}
+		}else if(command.equals("insertCategoryForm")) {
+			int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
+			BoardDto bdto = bdao.getBoardBySeq(boardSeq);
+			request.setAttribute("bdto", bdto);
+			dispatch("insertcategory.jsp", request, response);
+		}else if(command.equals("InsertCategory")) {
+			int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
+			String title = request.getParameter("title");
+			boolean isS = cdao.insertCategory(new CategoryDto(title,boardSeq));
+			if(isS) {
+				jsForward("admin_main.jsp","카테고리가 추가됐습니다.", response);
+			}else {
+				request.setAttribute("msg", "카테고리 추가실패");
+				dispatch("error.jsp", request, response);
+			}
 		}
 		
+		
+
+			
 	}//doPost()종료
 	
 	//RequestDispatcher객체를 구해서 forward()할 수 있도록 구현한 메서드

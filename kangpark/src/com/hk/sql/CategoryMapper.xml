@@ -14,7 +14,7 @@
 	</select>
 	
 	<insert id="InsertCategory" parameterType="CategoryDto">
-		INSERT INTO CATEGORY (SEQ,TITLE,BOARD_SEQ) VALUES(CATEGORY_SEQ.NEXTVAL, #{title}, #{seq})
+		INSERT INTO CATEGORY (SEQ,TITLE,BOARD_SEQ) VALUES(CATEGORY_SEQ.NEXTVAL, #{title}, #{board_seq})
 	</insert>
 	
 	<update id="UpdateCategory" parameterType="CategoryDto">

@@ -17,10 +17,6 @@
 		<td><input type="text" name="board"/>예시)**게시판</td>
 	</tr>
 	<tr>
-		<th>카테고리 유형</th>
-		<td><input type="text" name="category"/></td>
-	</tr>
-	<tr>
 		<td colspan="2"><input type="submit" value="등록"/></td>
 	</tr>
 </table>
