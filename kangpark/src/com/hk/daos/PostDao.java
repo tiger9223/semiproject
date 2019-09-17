@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.hk.config.SqlMapConfig;
 import com.hk.dtos.PostDto;
@@ -18,7 +19,7 @@ public class PostDao extends SqlMapConfig{
 	
 	private String nameSpace="com.hk.post.";
 	
-		//전체 게시글 조회(list를 반환)
+	//전체 게시글 조회(list를 반환)
 		public List<PostDto> getPostList(){
 			List<PostDto> list=new ArrayList<>();
 			SqlSession sqlSession=null;
