@@ -6,6 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 화면</title>
+<style type="text/css">
+	table {
+    width: 30%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  	}
+ 	th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	 }
+</style>
 <script type="text/javascript">
 	function regist() {
 		location.href = "LoginController.do?command=regist";

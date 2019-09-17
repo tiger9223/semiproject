@@ -6,6 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<style type="text/css">
+	table {
+    width: 40%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  	}
+ 	th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	 }
+</style>
 <script type="text/javascript">
 	//사용한 이벤트 : onload, onsubmit
 	//submit이벤트 취소하는 방법 : return false;

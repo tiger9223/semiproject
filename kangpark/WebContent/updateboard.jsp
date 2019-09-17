@@ -9,6 +9,17 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<style type="text/css">
+	table {
+    width: 30%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  	}
+ 	th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	 }
+</style>
 <%
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
 	List<CategoryDto> clist = (List<CategoryDto>)request.getAttribute("clist");
