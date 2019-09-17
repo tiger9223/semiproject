@@ -24,7 +24,7 @@
 <h1><%=bdto.getTitle() %></h1>
 <form action="HomeController.do" method="post">
 <input type="hidden" name="command" value="muldel" />
-<table border="1">
+<table border="1"> 
 	<col width="50px" />
 	<col width="100px" />
 	<col width="300px" />
