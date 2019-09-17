@@ -17,6 +17,8 @@
 <body>
 <h1>게시판 수정하기</h1>
 <form action="PostController.do" method="post">
+<input type="hidden" name="command" value="boardInsertForm"/>
+<input type="hidden" name="boardSeq" value="<%=bdto.getSeq()%>"/>
 <table border="1">
 <tr>
 <th>게시판 이름</th>
@@ -42,7 +44,11 @@
 }
 %>
 <tr>
-<td colspan="2"><input type="submit" value="수정완료"/></td>
+<td colspan="2">
+<input type="submit" value="수정완료"/>
+<input type="button" value="유형추가"
+		onclick="location.href = 'PostController.do?command=insertCategoryForm&boardSeq=<%=bdto.getSeq()%>'"/>
+</td>
 </tr>
 </table>
 </form>

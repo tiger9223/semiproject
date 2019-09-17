@@ -24,6 +24,13 @@ public class CategoryDto {
 	}
 
 
+	public CategoryDto(String title, int board_seq) {
+		super();
+		this.title = title;
+		this.board_seq = board_seq;
+	}
+
+
 	public CategoryDto(int seq, String title, int board_seq) {
 		super();
 		this.seq = seq;
