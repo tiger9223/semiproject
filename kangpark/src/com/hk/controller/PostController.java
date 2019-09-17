@@ -246,11 +246,13 @@ public class PostController extends HttpServlet {
 				request.setAttribute("msg", "게시판수정실패");
 				dispatch("error.jsp", request, response);
 			}
+			
 		}else if(command.equals("insertCategoryForm")) {
 			int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardSeq);
 			request.setAttribute("bdto", bdto);
 			dispatch("insertcategory.jsp", request, response);
+			
 		}else if(command.equals("InsertCategory")) {
 			int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
 			String title = request.getParameter("title");
