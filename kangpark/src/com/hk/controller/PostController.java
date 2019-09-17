@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +19,7 @@ import com.hk.daos.BoardDao;
 import com.hk.daos.CategoryDao;
 import com.hk.daos.LoginDao;
 import com.hk.dtos.PostDto;
+import com.hk.util.Paging;
 import com.hk.dtos.BoardDto;
 import com.hk.dtos.CategoryDto;
 import com.hk.dtos.LoginDto;
@@ -67,6 +69,7 @@ public class PostController extends HttpServlet {
 			dispatch("postlist.jsp", request, response);
 			
 		}else if(command.equals("PostDetail")) {
+			
 			int MemberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
 			int PostSeq = Integer.parseInt(request.getParameter("PostSeq"));
 			//세션에 "readcount"가 있는지 가져와 본다
@@ -87,8 +90,8 @@ public class PostController extends HttpServlet {
 			request.setAttribute("bdto", bdto);
 			dispatch("postdetail.jsp", request, response);
 			
-			
 		}else if(command.equals("DeletePost")) {
+			
 			int PostSeq = Integer.parseInt(request.getParameter("PostSeq"));
 			PostDto pdto = pdao.getPostDetail(PostSeq);
 			boolean isS=pdao.deletePost(PostSeq);
@@ -101,6 +104,7 @@ public class PostController extends HttpServlet {
 			
 		//--------------------------------------------------------------------	
 		}else if(command.equals("InsertForm")) {//게시판에 글을 넣기위해 어떤게시판을 호출할지
+			
 			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardseq);
 			List<CategoryDto> list = cdao.getCategoryByBoardSeq(boardseq);
@@ -109,6 +113,7 @@ public class PostController extends HttpServlet {
 			dispatch("insertpost.jsp", request, response);
 			
 		}else if(command.equals("InsertPost")) {
+			
 			int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
 			int memberSeq = Integer.parseInt(request.getParameter("memberSeq"));
 			String id = request.getParameter("id");
@@ -128,6 +133,7 @@ public class PostController extends HttpServlet {
 			
 			
 		}else if(command.equals("UpdateForm")) {
+			
 			int memberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
 			int postSeq = Integer.parseInt(request.getParameter("PostSeq"));
 			PostDto pdto = pdao.getPost(memberSeq,postSeq);
@@ -136,12 +142,14 @@ public class PostController extends HttpServlet {
 			
 			
 		}else if(command.equals("UpdatePost")) {
+			
 			int MemberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
 			int postSeq = Integer.parseInt(request.getParameter("PostSeq"));
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			
 			boolean isS=pdao.updatePost(new PostDto(postSeq,title,content));
+			
 			if(isS) {
 				ldto = ldao.getUserInfo(MemberSeq);
 				PostDto pdto = pdao.getPostDetail(postSeq);
@@ -156,6 +164,7 @@ public class PostController extends HttpServlet {
 			}
 			
 		}else if(command.equals("replyPost")) {
+			
 			int seq = Integer.parseInt(request.getParameter("PostSeq"));
 			int memberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
 			int boardSeq = Integer.parseInt(request.getParameter("BoardSeq"));
@@ -173,6 +182,7 @@ public class PostController extends HttpServlet {
 			}
 			
 		}else if(command.equals("InsertBoard")) {
+			
 			String board = request.getParameter("board");
 			boolean isS = bdao.insertBoard(new BoardDto(board));
 			if(isS) {
@@ -183,11 +193,13 @@ public class PostController extends HttpServlet {
 			}
 			
 		}else if(command.equals("boarddetail")) {
+			
 			List<BoardDto> blist = bdao.getBoardList();
 			request.setAttribute("blist", blist);
 			dispatch("boarddetail.jsp", request, response);
 			
 		}else if(command.equals("updateboardform")) {
+			
 			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardSeq);
 			List<CategoryDto> clist = cdao.getCategoryByBoardSeq(boardSeq);
@@ -196,6 +208,7 @@ public class PostController extends HttpServlet {
 			dispatch("updateboard.jsp", request, response);
 			
 		}else if(command.equals("updateboard")) {
+			
 			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));
 			String title = request.getParameter("title");
 			boolean isS = bdao.updateBoard(new BoardDto(boardSeq,title));
@@ -207,12 +220,14 @@ public class PostController extends HttpServlet {
 			}
 			
 		}else if(command.equals("updatecategoryform")) {
+			
 			int categoryseq = Integer.parseInt(request.getParameter("categoryseq"));
 			CategoryDto cdto = cdao.getCategoryBySeq(categoryseq);
 			request.setAttribute("cdto", cdto);
 			dispatch("updatecategory.jsp", request, response);
 			
 		}else if(command.equals("updatecategory")) {
+			
 			int categoryseq = Integer.parseInt(request.getParameter("categoryseq"));
 			String title = request.getParameter("title");
 			boolean isS = cdao.updateCategory(new CategoryDto(categoryseq,title));
@@ -224,6 +239,7 @@ public class PostController extends HttpServlet {
 			}
 			
 		}else if(command.equals("Deletecategory")) {
+			
 			int categoryseq = Integer.parseInt(request.getParameter("categoryseq"));
 			boolean isS = cdao.deleteCategory(new CategoryDto(categoryseq));
 			if(isS) {
@@ -234,6 +250,7 @@ public class PostController extends HttpServlet {
 			}
 			
 		}else if(command.equals("boardInsertForm")) {
+			
 			int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
 			String title = request.getParameter("title");
 			boolean isS = bdao.updateBoard(new BoardDto(boardSeq,title));
@@ -244,11 +261,14 @@ public class PostController extends HttpServlet {
 				dispatch("error.jsp", request, response);
 			}
 		}else if(command.equals("insertCategoryForm")) {
+			
 			int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardSeq);
 			request.setAttribute("bdto", bdto);
 			dispatch("insertcategory.jsp", request, response);
+			
 		}else if(command.equals("InsertCategory")) {
+			
 			int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
 			String title = request.getParameter("title");
 			boolean isS = cdao.insertCategory(new CategoryDto(title,boardSeq));
@@ -258,6 +278,7 @@ public class PostController extends HttpServlet {
 				request.setAttribute("msg", "카테고리 추가실패");
 				dispatch("error.jsp", request, response);
 			}
+			
 		}
 		
 		
