@@ -47,8 +47,8 @@ HttpSession session = request.getSession();
 		}else if(command.equals("InsertNoticeForm")) {
 			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardseq);
-			List<CategoryDto> list = cdao.getCategoryBySeq(boardseq);
-			request.setAttribute("list",list);
+			CategoryDto cdto = cdao.getCategoryBySeq(boardseq);
+			request.setAttribute("list",cdto);
 			request.setAttribute("bdto", bdto);
 			dispatch("insertnotice.jsp", request, response);
 		}
