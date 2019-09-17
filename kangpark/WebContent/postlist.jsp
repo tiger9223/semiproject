@@ -34,10 +34,10 @@
     border-bottom: 1px solid #444444;
     padding: 10px;
  	 }
-	
 </style>
 </head>
 <body> 
+<div id="div">
 <h1><%=bdto.getTitle()%></h1>
 <form action="PostController.do" method="post">
 <input type="hidden" name="command" value="muldel" />
@@ -103,5 +103,6 @@
 	</tr>
 </table>
 </form>
+</div>
 </body>
 </html>

@@ -10,6 +10,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
+<style type="text/css">
+	table {
+    width: 50%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  	}
+ 	th,td{
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	 }
+</style>
 <%
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");

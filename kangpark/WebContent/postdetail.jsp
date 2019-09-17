@@ -20,20 +20,25 @@
 	*/
 	#replyForm{display: none;}
 	#container{
-		height: 400px;
-		width: 800px;
-		border: 1px solid red;
+/* 		text-align: center; */
+		height: 800px;
+		width: 1500px;
 		overflow: auto;
 	}
-	table {
-    width: 30%;
+ 	table {
+    text-align: left;
+    line-height: 1.5;
+    margin : 20px 10px;
+    display: inline-block;
+    width: 40%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
   	}
- 	th, td {
+ 	th,td{
     border-bottom: 1px solid #444444;
     padding: 10px;
- 	 }
+    text-align: center;
+ 	}
 </style>
 </head>
 <body>
@@ -46,7 +51,7 @@
 %>
 <div id="container">
 <h1>게시글상세보기</h1>
-<table border="1">
+<table class="bodyTable" border="1">
 	<tr>
 		<th>번호</th>
 		<td><%=pdto.getSeq() %></td>
@@ -65,7 +70,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<button onclick="replyForm()">답글</button>
+			<button onclick="replyForm()">답글달기</button>
 			<%if(ldto.getId().equals(dto.getId())){
 				%>
 			<button onclick="location.href = 'PostController.do?command=UpdateForm&PostSeq=<%=pdto.getSeq()%>&MemberSeq=<%=pdto.getMember_seq()%>'">수정</button>
@@ -77,14 +82,14 @@
 	</tr>
 </table>
 <div id="replyForm">
-<h1>답글달기</h1>
+<h1>답글</h1>
 <form id="forms" action="PostController.do" method="post" >
 <input type="hidden" name="command" value="replyPost"/>
 <input type="hidden" name="PostSeq" value="<%=pdto.getSeq() %>"/>
 <input type="hidden" name="BoardSeq" value="<%=bdto.getSeq() %>"/>
 <input type="hidden" name="MemberSeq" value="<%=ldto.getSeq()%>"/>
 <input type="hidden" name="CategorySeq" value="<%=pdto.getCategory_seq() %>"/>
-<table border="1">
+<table class="bodyTable" border="1">
 	<tr>
 		<th>아이디</th>
 		<td><input type="text" name="id" value="<%=ldto.getId()%>" readonly="readonly"/></td>
