@@ -1,4 +1,4 @@
-......<%@page import="com.hk.dtos.LoginDto"%>
+<%@page import="com.hk.dtos.LoginDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
@@ -7,6 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>idchkform</title>
+<style type="text/css">
+	table {
+    width: 40%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  	}
+ 	th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	 }
+</style>
 <script type="text/javascript">
 	window.onload = function() {
 		//현재 페이지를 열어준 부모페이지

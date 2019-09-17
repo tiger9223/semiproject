@@ -39,11 +39,17 @@
 <tr>
 <td colspan="2">
 <input type="submit" value="수정"/>
-<input type="button" value="삭제"
-			       onclick="location.href = 'PostController.do?command=Deletecategory&categoryseq=<%=cdto.getSeq()%>'"/>		       
+<input type="button" value="삭제" onclick="del(<%=cdto.getSeq()%>)"/>		       
 </td>
 </tr>
 </table>
 </form>
+<script type="text/javascript">
+	function del(categoryseq){
+		if(confirm("정말 삭제하시겠습니까?")==true){
+			location.href = 'PostController.do?command=Deletecategory&categoryseq='+categoryseq;
+		}
+	}
+</script>
 </body>
 </html>
