@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.hk.config.SqlMapConfig;
 import com.hk.dtos.PostDto;
@@ -18,7 +19,7 @@ public class PostDao extends SqlMapConfig{
 	
 	private String nameSpace="com.hk.post.";
 	
-		//전체 게시글 조회(list를 반환)
+	//전체 게시글 조회(list를 반환)
 		public List<PostDto> getPostList(){
 			List<PostDto> list=new ArrayList<>();
 			SqlSession sqlSession=null;
@@ -47,7 +48,7 @@ public class PostDao extends SqlMapConfig{
 			}
 			return list;
 		}
-		
+
 		//새글추가(id,title,content값 전달받음)
 		public boolean insertPost(PostDto dto) {
 			int count=0;
@@ -56,6 +57,22 @@ public class PostDao extends SqlMapConfig{
 				//         <--SqlSessionFactory객체에서 sqlSession객체를 구함
 				sqlSession=getSqlSessionFactory().openSession(true);
 				count=sqlSession.insert(nameSpace+"insertPost", dto);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				sqlSession.close();
+			}
+			return count>0?true:false;
+		}
+		
+		//공지글 추가
+		public boolean insertNotice(PostDto dto) {
+			int count=0;
+			SqlSession sqlSession=null;
+			try {
+				//         <--SqlSessionFactory객체에서 sqlSession객체를 구함
+				sqlSession=getSqlSessionFactory().openSession(true);
+				count=sqlSession.insert(nameSpace+"insertNotice", dto);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {

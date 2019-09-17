@@ -17,13 +17,18 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 <head>
 <meta charset="UTF-8">
 <title></title>
+<style type="text/css">
+	#head{
+		
+	}
+</style>
 </head>
 <body>
 <%
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	List<BoardDto> list = (List<BoardDto>)request.getAttribute("list");
 %>
-<div><%=ldto.getId()%>님 반가워요.(등급:<%=ldto.getRole().equals("USER")?"일반회원":"정회원"%>)
+<div id="head"><%=ldto.getId()%>님 반가워요.(등급:<%=ldto.getRole().equals("USER")?"일반회원":"정회원"%>)
 	<a href="LoginController.do?command=logout">로그아웃</a>
 </div>
 <ul>												<!-- ldto에 로그인 정보가 있으니까.. -->

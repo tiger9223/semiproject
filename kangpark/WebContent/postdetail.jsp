@@ -10,6 +10,7 @@
 <html>
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
 <style type="text/css">
@@ -24,7 +25,15 @@
 		border: 1px solid red;
 		overflow: auto;
 	}
-
+	table {
+    width: 30%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  	}
+ 	th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	 }
 </style>
 </head>
 <body>
@@ -69,7 +78,7 @@
 </table>
 <div id="replyForm">
 <h1>답글달기</h1>
-<form action="PostController.do" method="post" >
+<form id="forms" action="PostController.do" method="post" >
 <input type="hidden" name="command" value="replyPost"/>
 <input type="hidden" name="PostSeq" value="<%=pdto.getSeq() %>"/>
 <input type="hidden" name="BoardSeq" value="<%=bdto.getSeq() %>"/>
@@ -107,6 +116,21 @@
 			"scrollTop":replyPosition
 		},500);
 		//animate({css속성값정의},지연시간,easing)
+	}
+	window.onload = function() {
+		var forms = document.getElementById("forms");//[form]
+		//form태그에서 submit이벤트가 발생하면 함수를 실행해라
+		forms.onsubmit = function() {//패스워드가 정확하게 입력됐는지와 모든 입력값을 넣었는지 확인
+			if(forms.title.value==""){
+				forms.title.focus();
+				alert("제목를 입력하세요");
+				return false;
+			}else if(forms.content.value==""){
+				forms.content.focus();
+				alert("내용을 입력하세요");
+				return false;
+			}
+		}
 	}
 </script>
 </body>

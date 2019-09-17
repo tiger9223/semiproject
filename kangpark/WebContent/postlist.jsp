@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="com.hk.dtos.CategoryDto"%>
 <%@page import="com.hk.dtos.PostDto"%>
 <%@page import="com.hk.util.Util"%>
@@ -16,11 +17,24 @@
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	List<PostDto> list = (List<PostDto>)request.getAttribute("list");
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
-	
+	Map<String, Integer> map = (Map<String, Integer>)request.getAttribute("pmap");
 	//List<CategoryDto> clist = (List<CategoryDto>)request.getAttribute("clist");
 %>
 <style type="text/css">
-	img{width: 12px; height: 12px;}
+	img{
+	width: 12px;
+	height: 12px;
+	}
+	table {
+    width: 80%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  	}
+ 	th,td{
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	 }
+	
 </style>
 </head>
 <body> 
@@ -82,9 +96,7 @@
 		<td colspan="6">
 			<input type="button" value="글추가"
 			       onclick="location.href='PostController.do?command=InsertForm&boardseq=<%=bdto.getSeq()%>'"/>
-			<%for(int i=0;i<45;i++){%>
 			&nbsp;
-			<%} %>
 			<input type="button" value="돌아가기" 
 			       onclick="location.href='LoginController.do?command=login&id=<%=ldto.getId()%>&password=<%=ldto.getPassword()%>'"/>
 		</td>

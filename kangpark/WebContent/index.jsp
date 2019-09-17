@@ -6,15 +6,42 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 화면</title>
+<style type="text/css">
+	table {
+    width: 30%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  	}
+ 	th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	 }
+</style>
 <script type="text/javascript">
 	function regist() {
 		location.href = "LoginController.do?command=regist";
+	}
+	
+	window.onload = function() {
+		var forms = document.getElementById("forms");//[form]
+		//form태그에서 submit이벤트가 발생하면 함수를 실행해라
+		forms.onsubmit = function() {//패스워드가 정확하게 입력됐는지와 모든 입력값을 넣었는지 확인
+			if(forms.id.value==""){
+				forms.id.focus();
+				alert("아이디를 입력하세요");
+				return false;
+			}else if(forms.password.value==""){
+				forms.password.focus();
+				alert("패스워드를 입력하세요");
+				return false;
+			}
+		}
 	}
 </script>
 </head>
 <body>
 <h1>로그인</h1>
-<form action="LoginController.do" method="post">
+<form id="forms" action="LoginController.do" method="post">
 	<input type="hidden" name="command" value="login">
 	<table border="1">
 		<tr>

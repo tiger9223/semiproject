@@ -7,6 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<style type="text/css">
+	table {
+    width: 30%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  	}
+ 	th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	 }
+</style>
 <%
 	CategoryDto cdto = (CategoryDto)request.getAttribute("cdto");
 %>
@@ -28,11 +39,17 @@
 <tr>
 <td colspan="2">
 <input type="submit" value="수정"/>
-<input type="button" value="삭제"
-			       onclick="location.href = 'PostController.do?command=Deletecategory&categoryseq=<%=cdto.getSeq()%>'"/>		       
+<input type="button" value="삭제" onclick="del(<%=cdto.getSeq()%>)"/>		       
 </td>
 </tr>
 </table>
 </form>
+<script type="text/javascript">
+	function del(categoryseq){
+		if(confirm("정말 삭제하시겠습니까?")==true){
+			location.href = 'PostController.do?command=Deletecategory&categoryseq='+categoryseq;
+		}
+	}
+</script>
 </body>
 </html>
