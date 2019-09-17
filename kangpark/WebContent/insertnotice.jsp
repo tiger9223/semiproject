@@ -13,12 +13,12 @@
 <%
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
     BoardDto bdto = (BoardDto)request.getAttribute("bdto");
-	List<CategoryDto> list = (List<CategoryDto>)request.getAttribute("list");
+	CategoryDto cdto = (CategoryDto)request.getAttribute("cdto");
 %>
 <script type="text/javascript">
 	function back(boardseq){
 		if(confirm("글 작성 중에 있습니다. 목록으로 가시면 작성 중인 글은 삭제됩니다.")==true){
-			location.href="notice.jsp";
+			location.href="HomeController.do?command=notice";
 		}
 	}
 	window.onload = function(){
@@ -35,8 +35,8 @@
 </head>
 <body>
 <h1>게시글 추가하기</h1>
-<form id="forms" cation="HomeContrller.do" method="post" >
-<input type="hidden" name="command" value="InsertPost"/>
+<form id="forms" action="HomeController.do" method="post" >
+<input type="hidden" name="command" value="InsertNoticePost"/>
 <input type="hidden" name="boardSeq" value="<%=bdto.getSeq() %>"/>
 <input type="hidden" name="memberSeq" value="<%=ldto.getSeq() %>"/>
 <table border="1">
@@ -49,13 +49,7 @@
 		<td>
 			<input type="text" name="title" />
 				<select name="categorySeq">
-				<%
-				for(CategoryDto cdto:list){
-					%>
 				<option value="<%=cdto.getSeq()%>"><%=cdto.getTitle() %></option>
-				<%
-				}
-				%>
 				</select>
 		</td>
 	</tr>

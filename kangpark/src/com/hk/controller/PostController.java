@@ -22,9 +22,6 @@ import com.hk.dtos.BoardDto;
 import com.hk.dtos.CategoryDto;
 import com.hk.dtos.LoginDto;
 
-/**
- * Servlet implementation class BoardController
- */
 @WebServlet("/PostController.do")
 public class PostController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -102,7 +99,7 @@ public class PostController extends HttpServlet {
 				dispatch("error.jsp", request, response);
 			}
 			
-			
+		//--------------------------------------------------------------------	
 		}else if(command.equals("InsertForm")) {//게시판에 글을 넣기위해 어떤게시판을 호출할지
 			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardseq);

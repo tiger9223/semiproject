@@ -22,7 +22,9 @@
 	</select>
 	
 	<select id="PostlistByBoardSeq" resultType="PostDto" parameterType="int">
-		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,p.DEPTH,p.READCOUNT,p.DELFLAG,p.REGDATE,p.NOTICE,p.MEMBER_SEQ,p.BOARD_SEQ,p.CATEGORY_SEQ ,c.TITLE as category_title
+		SELECT p.SEQ, m.ID,p.TITLE,p.CONTENT,p.REGDATE,p.REF,p.STEP,
+			p.DEPTH,p.READCOUNT,p.DELFLAG,p.REGDATE,p.NOTICE,p.MEMBER_SEQ,
+			p.BOARD_SEQ,p.CATEGORY_SEQ ,c.TITLE as category_title
 		FROM POST p, MEMBER m, CATEGORY c
 		WHERE p.MEMBER_SEQ = m.SEQ  AND c.SEQ = p.CATEGORY_SEQ AND p.BOARD_SEQ = #{boardSeq}
 		ORDER BY REF,STEP 
@@ -36,6 +38,21 @@
 	</select>
 	
 	<insert id="insertPost" parameterType="PostDto">
+		INSERT INTO POST 
+		(SEQ, TITLE, CONTENT,
+		REF, STEP, DEPTH,
+		READCOUNT, DELFLAG, REGDATE,
+		NOTICE, MEMBER_SEQ, BOARD_SEQ,
+		CATEGORY_SEQ) 
+		VALUES
+		(POST_SEQ.NEXTVAL ,#{title}, #{content},
+		(SELECT NVL(MAX(REF)+1,0) FROM POST), 0, 0,
+		0, 1, SYSDATE,
+		0, #{member_seq}, #{board_seq},
+		#{category_seq})
+	</insert>
+	
+	<insert id="insertNotice" parameterType="PostDto">
 		INSERT INTO POST 
 		(SEQ, TITLE, CONTENT,
 		REF, STEP, DEPTH,

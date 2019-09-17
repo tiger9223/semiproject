@@ -47,7 +47,7 @@ public class PostDao extends SqlMapConfig{
 			}
 			return list;
 		}
-		
+
 		//새글추가(id,title,content값 전달받음)
 		public boolean insertPost(PostDto dto) {
 			int count=0;
@@ -56,6 +56,22 @@ public class PostDao extends SqlMapConfig{
 				//         <--SqlSessionFactory객체에서 sqlSession객체를 구함
 				sqlSession=getSqlSessionFactory().openSession(true);
 				count=sqlSession.insert(nameSpace+"insertPost", dto);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				sqlSession.close();
+			}
+			return count>0?true:false;
+		}
+		
+		//공지글 추가
+		public boolean insertNotice(PostDto dto) {
+			int count=0;
+			SqlSession sqlSession=null;
+			try {
+				//         <--SqlSessionFactory객체에서 sqlSession객체를 구함
+				sqlSession=getSqlSessionFactory().openSession(true);
+				count=sqlSession.insert(nameSpace+"insertNotice", dto);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {
