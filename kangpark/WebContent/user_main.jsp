@@ -1,7 +1,6 @@
 <%@page import="com.hk.dtos.BoardDto"%>
 <%@page import="java.util.List"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-
 <%
 response.setHeader("pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1

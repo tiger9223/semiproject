@@ -66,7 +66,7 @@
 			%>
 			<tr>
 				<td><%=dto.getSeq()%></td>
-				<td><%=dto.getId()%></td>
+				<td><a href="LoginController.do?command=banishform&seq=<%=dto.getSeq()%>"><%=dto.getId()%></a></td>
 				<td><%=dto.getName()%></td>
 				<td><%=dto.getAddress()%></td>
 				<td><%=dto.getPhone()%></td>

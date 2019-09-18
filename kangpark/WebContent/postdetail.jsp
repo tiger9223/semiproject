@@ -76,7 +76,7 @@
 	<tr>
 		<td colspan="2">
 			<button onclick="replyForm()">답글달기</button>
-			<%if(ldto.getId().equals(dto.getId())){
+			<%if(ldto.getId().equals(dto.getId())||ldto.getRole().equals("MANAGER")){
 				%>
 			<button onclick="location.href = 'PostController.do?command=UpdateForm&PostSeq=<%=pdto.getSeq()%>&MemberSeq=<%=pdto.getMember_seq()%>'">수정</button>
 			<button onclick="del(<%=pdto.getSeq()%>)">삭제</button>

@@ -94,7 +94,7 @@
 	%>
 	<tr>
 		<td colspan="6">
-		<%if(ldto.getRole().equals("ADMIN")){
+		<%if(!ldto.getRole().equals("USER")){
 		%>
 			<input type="button" value="글추가"
 			       onclick="location.href='HomeController.do?command=InsertNoticeForm&boardseq=<%=bdto.getSeq()%>'"/>

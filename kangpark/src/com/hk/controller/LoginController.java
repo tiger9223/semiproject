@@ -40,6 +40,10 @@ public class LoginController extends HttpServlet {
 		
 		if(command.equals("regist")) {
 			response.sendRedirect("regist.jsp");
+		}else if(command.equals("adminregist")) {
+			response.sendRedirect("adminregist.jsp");
+		}else if(command.equals("userregist")) {
+			response.sendRedirect("userregist.jsp");
 		}else if(command.equals("insertuser")) {
 			String id = request.getParameter("id");
 			String name = request.getParameter("name");
@@ -49,6 +53,23 @@ public class LoginController extends HttpServlet {
 			String email = request.getParameter("email");
 			
 			boolean isS = dao.insertUser(new LoginDto(0, id, name, password, address, phone, email, null, null, null));
+			
+			if(isS) {
+				jsForward("index.jsp", "회원가입이 완료되었습니다.", response);
+			}else {
+				request.setAttribute("msg", "회원가입 실패");
+//				pageContext.forward("error.jsp");
+				dispatch("error.jsp", request, response);
+			}
+		}else if(command.equals("insertadmin")) {
+			String id = request.getParameter("id");
+			String name = request.getParameter("name");
+			String password = request.getParameter("password");
+			String address = request.getParameter("address");
+			String phone = request.getParameter("phone");
+			String email = request.getParameter("email");
+			
+			boolean isS = dao.insertAdmin(new LoginDto(0, id, name, password, address, phone, email, null, null, null));
 			
 			if(isS) {
 				jsForward("index.jsp", "회원가입이 완료되었습니다.", response);
@@ -155,12 +176,27 @@ public class LoginController extends HttpServlet {
 			String id = request.getParameter("id");
 			boolean isS = dao.withdraw(id);
 			if(isS) {
-				 jsForward("LoginController.do?command=logout", "회원 탈퇴 되었습니다.", response);
+				 jsForward("LoginController.do?command=logout", "회원이 탈퇴되었습니다.", response);
+			}else {
+				request.setAttribute("msg", "회원 탈퇴실패");
+				dispatch("error.jsp", request, response);
+			}
+		}else if(command.equals("banishform")) {
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			LoginDto dto = dao.getUserInfo(seq);
+			request.setAttribute("dto", dto);
+			dispatch("banishform.jsp", request, response);
+		}else if(command.equals("restore")) {
+			String id = request.getParameter("id");
+			boolean isS = dao.withdraw(id);
+			if(isS) {
+				 jsForward("LoginController.do?command=logout", "회원이 탈퇴되었습니다.", response);
 			}else {
 				request.setAttribute("msg", "회원 탈퇴실패");
 				dispatch("error.jsp", request, response);
 			}
 		}
+		
 	}
 	public void dispatch(String url, HttpServletRequest request
 							, HttpServletResponse response) throws ServletException, IOException {

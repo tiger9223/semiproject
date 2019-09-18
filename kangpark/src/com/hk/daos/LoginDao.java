@@ -39,6 +39,21 @@ public class LoginDao extends SqlMapConfig{
 		return count > 0 ? true:false;
 	}
 	
+	public boolean insertAdmin(LoginDto dto) {
+		int count = 0;
+		SqlSession sqlSession = null;
+		
+		try {
+			sqlSession = getSqlSessionFactory().openSession(true);//autocommit->true
+			count = sqlSession.insert(nameSpace+"insertAdmin" , dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+		return count > 0 ? true:false;
+	}
+	
 	//2. 로그인 기능 구현 --> id와 password를 입력받아서 두개의 값을 만족하는 조건을 확인해서 결과가 있으면 로그인 실행
 	public LoginDto getLogin(String id, String password) {
 		LoginDto dto = new LoginDto(id,password);
@@ -97,6 +112,23 @@ public class LoginDao extends SqlMapConfig{
 		try {
 			sqlSession = getSqlSessionFactory().openSession(true);
 			count = sqlSession.update(nameSpace+"withdraw", id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		
+		return count>0 ? true : false;
+	}
+	//5. 회원 복원 기능 구현 (enabled를 'Y'으로 수정 --> getLogin(): 로그인시 쿼리 수정해야 됨)
+	public boolean restore(String id) {
+		int count = 0;
+		
+		SqlSession sqlSession = null;
+		
+		try {
+			sqlSession = getSqlSessionFactory().openSession(true);
+			count = sqlSession.update(nameSpace+"restore", id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

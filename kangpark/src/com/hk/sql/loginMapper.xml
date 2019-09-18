@@ -7,6 +7,10 @@
 		INSERT INTO MEMBER VALUES(MEMBER_SEQ.NEXTVAL, #{id}, #{name}, #{password}, #{address},
 		 #{phone}, #{email}, 'Y', 'USER', SYSDATE)
 	</insert>
+	<insert id="insertAdmin" parameterType="LoginDto">
+		INSERT INTO MEMBER VALUES(MEMBER_SEQ.NEXTVAL, #{id}, #{name}, #{password}, #{address},
+		 #{phone}, #{email}, 'Y', 'ADMIN', SYSDATE)
+	</insert>
 	<!-- 	로그인 -->
 	<select id="getLogin" parameterType="LoginDto" resultType="LoginDto">
 		SELECT SEQ, ID, NAME, PASSWORD, ADDRESS, PHONE, EMAIL, ENABLED, ROLE, REGDATE
@@ -25,6 +29,10 @@
 	<!-- 	회원탈퇴 -->
 	<update id="withdraw" parameterType="String">
 		UPDATE MEMBER SET ENABLED='N' WHERE ID=#{id}
+	</update>
+	<!-- 	회원복원 -->
+	<update id="restore" parameterType="String">
+		UPDATE MEMBER SET ENABLED='Y' WHERE ID=#{id}
 	</update>
 	<!-- 	아이디 중복체크 -->
 	<select id="idChk" parameterType="String" resultType="LoginDto">
