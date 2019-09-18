@@ -181,6 +181,15 @@ public class LoginController extends HttpServlet {
 				request.setAttribute("msg", "회원 탈퇴실패");
 				dispatch("error.jsp", request, response);
 			}
+		}else if(command.equals("banish")) {
+			String id = request.getParameter("id");
+			boolean isS = dao.withdraw(id);
+			if(isS) {
+				 jsForward("LoginController.do?command=alluserstatus", "회원을 강제 탈퇴시켰습니다.", response);
+			}else {
+				request.setAttribute("msg", "회원 탈퇴실패");
+				dispatch("error.jsp", request, response);
+			}
 		}else if(command.equals("banishform")) {
 			int seq = Integer.parseInt(request.getParameter("seq"));
 			LoginDto dto = dao.getUserInfo(seq);
@@ -188,9 +197,9 @@ public class LoginController extends HttpServlet {
 			dispatch("banishform.jsp", request, response);
 		}else if(command.equals("restore")) {
 			String id = request.getParameter("id");
-			boolean isS = dao.withdraw(id);
+			boolean isS = dao.restore(id);
 			if(isS) {
-				 jsForward("LoginController.do?command=logout", "회원이 탈퇴되었습니다.", response);
+				 jsForward("LoginController.do?command=alluserstatus", "회원이 복원되었습니다.", response);
 			}else {
 				request.setAttribute("msg", "회원 탈퇴실패");
 				dispatch("error.jsp", request, response);

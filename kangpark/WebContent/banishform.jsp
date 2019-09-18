@@ -3,6 +3,7 @@
 <%@page import="com.hk.daos.BoardDao"%>
 <%@page import="com.hk.util.Util"%>
 <%@page import="com.hk.dtos.LoginDto"%>
+<%@include file = "ad_header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
@@ -10,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>강제 탈퇴</title>
+<title>회원 탈퇴,복원 페이지</title>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <style type="text/css">
@@ -41,7 +42,7 @@
 %>
 <body>
 <div id="header">
-<h1>강제 탈퇴</h1>
+<h1>회원 탈퇴,복원 페이지</h1>
 </div>
 <table border="1">
 	<tr>
@@ -82,7 +83,7 @@
 <script type="text/javascript">
 function banish(id){
 	if(confirm("정말 추방하시겠습니까?")==true){
-		location.href = "LoginController.do?command=withdraw&id="+id;
+		location.href = "LoginController.do?command=banish&id="+id;
 	}
 }
 function restore(id){
