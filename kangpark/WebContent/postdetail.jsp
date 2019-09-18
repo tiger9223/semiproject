@@ -10,7 +10,8 @@
 <html>
 <head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
 <style type="text/css">
@@ -26,19 +27,22 @@
 		overflow: auto;
 	}
  	table {
-    text-align: left;
-    line-height: 1.5;
-    margin : 20px 10px;
-    display: inline-block;
     width: 40%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
   	}
  	th,td{
     border-bottom: 1px solid #444444;
     padding: 10px;
-    text-align: center;
- 	}
+ 	 }
+    .header{
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    }
 </style>
 </head>
 <body>
@@ -47,10 +51,11 @@
  	PostDto pdto = (PostDto)request.getAttribute("pdto");
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	LoginDto dto = (LoginDto)request.getAttribute("dto");
-	CategoryDto cdto = (CategoryDto)request.getAttribute("cdto");
 %>
 <div id="container">
-<h1>게시글상세보기</h1>
+<div class="header">
+<h1>상세보기</h1>
+</div>
 <table class="bodyTable" border="1">
 	<tr>
 		<th>번호</th>
@@ -82,7 +87,9 @@
 	</tr>
 </table>
 <div id="replyForm">
+<div class="header">
 <h1>답글</h1>
+</div>
 <form id="forms" action="PostController.do" method="post" >
 <input type="hidden" name="command" value="replyPost"/>
 <input type="hidden" name="PostSeq" value="<%=pdto.getSeq() %>"/>

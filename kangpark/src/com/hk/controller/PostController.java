@@ -282,9 +282,6 @@ public class PostController extends HttpServlet {
 			
 		}
 		
-		
-
-			
 	}//doPost()종료
 	
 	//RequestDispatcher객체를 구해서 forward()할 수 있도록 구현한 메서드

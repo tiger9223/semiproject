@@ -13,6 +13,8 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <%
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	List<PostDto> list = (List<PostDto>)request.getAttribute("list");
@@ -29,16 +31,28 @@
     width: 80%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
   	}
  	th,td{
     border-bottom: 1px solid #444444;
     padding: 10px;
  	 }
+ 	th {
+    background-color: #ee82ee;
+    }
+    #header{
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    }
 </style>
 </head>
-<body> 
-<div id="div">
+<body>
+<div id="header"> 
 <h1><%=bdto.getTitle()%></h1>
+</div>
 <form action="PostController.do" method="post">
 <input type="hidden" name="command" value="muldel" />
 <table border="1">
@@ -103,6 +117,5 @@
 	</tr>
 </table>
 </form>
-</div>
 </body>
 </html>

@@ -10,24 +10,38 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <style type="text/css">
 	table {
     width: 70%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
   	}
  	th, td {
     border-bottom: 1px solid #444444;
     padding: 10px;
  	 }
-	
+ 	th {
+    background-color: DodgerBlue;
+    }
+	#header{
+ 	display: table;
+    margin-left: auto;
+    margin-right: auto;
+ 	}
 </style>
 </head>
 <body>
 <%
 	List<LoginDto> list = (List<LoginDto>)request.getAttribute("list");
 %>
+<div id="header">
 <h1>회원정보상태조회</h1>
+</div>
 <table border="1">
 	<tr>
 		<th>번호</th>

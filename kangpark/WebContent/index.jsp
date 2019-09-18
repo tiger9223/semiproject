@@ -6,16 +6,26 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 화면</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <style type="text/css">
 	table {
     width: 30%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
   	}
  	th, td {
     border-bottom: 1px solid #444444;
     padding: 10px;
  	 }
+ 	#header{
+ 	display: table;
+    margin-left: auto;
+    margin-right: auto;
+ 	}
 </style>
 <script type="text/javascript">
 	function regist() {
@@ -40,7 +50,9 @@
 </script>
 </head>
 <body>
+<div id="header">
 <h1>로그인</h1>
+</div>
 <form id="forms" action="LoginController.do" method="post">
 	<input type="hidden" name="command" value="login">
 	<table border="1">

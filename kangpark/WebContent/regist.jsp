@@ -6,16 +6,26 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <style type="text/css">
 	table {
     width: 40%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
   	}
  	th, td {
     border-bottom: 1px solid #444444;
     padding: 10px;
  	 }
+ 	#header{
+ 	display: table;
+    margin-left: auto;
+    margin-right: auto;
+ 	}
 </style>
 <script type="text/javascript">
 	//사용한 이벤트 : onload, onsubmit
@@ -69,7 +79,9 @@
 </script>
 </head>
 <body>
+<div id="header">
 <h1>회원가입</h1>
+</div>
 <form action="LoginController.do" method="post">
 <input type="hidden" name="command" value="insertuser">
 <table border="1">
