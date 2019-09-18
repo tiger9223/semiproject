@@ -43,10 +43,6 @@
 <input type="hidden" name="seq" value="<%=dto.getSeq()%>" />
 <table border="1">
 	<tr>
-	    <th>회원번호</th>
-	    <td><%=dto.getSeq()%></td>
-	</tr>
-	<tr>
 	    <th>아이디</th>
 	    <td><%=dto.getId()%></td>
 	</tr>

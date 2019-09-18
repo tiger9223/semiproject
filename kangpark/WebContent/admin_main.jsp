@@ -5,6 +5,7 @@ response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
 response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 %>
 <%@page import="com.hk.dtos.LoginDto"%>
+<%@include file = "ad_header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>

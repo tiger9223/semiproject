@@ -113,11 +113,11 @@
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td><textarea rows="10" cols="60" name="content" ></textarea> </td>
+		<td><textarea rows="10" cols="60" name="content" style="background-color:rgb(255,204,255); border-color:rgb(255,204,255);"></textarea> </td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<input type="submit" value="글등록"/>
+			<input type="submit" value="글등록" />
 			<input type="button" value="글목록보기" onclick="back(<%=bdto.getSeq()%>)">
 		</td>
 	</tr>

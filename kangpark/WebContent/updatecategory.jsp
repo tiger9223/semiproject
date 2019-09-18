@@ -1,4 +1,5 @@
 <%@page import="com.hk.dtos.CategoryDto"%>
+<%@include file = "ad_header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
@@ -7,15 +8,25 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <style type="text/css">
 	table {
     width: 30%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
   	}
  	th, td {
     border-bottom: 1px solid #444444;
     padding: 10px;
+ 	}
+ 	#header{
+ 	display: table;
+    margin-left: auto;
+    margin-right: auto;
  	}
 </style>
 <script type="text/javascript">
@@ -36,7 +47,9 @@
 %>
 </head>
 <body>
+<div id="header">
 <h1>카테고리 수정,삭제하기</h1>
+</div>
 <form id="forms" action="PostController.do" method="post">
 <input type="hidden" name="command" value="updatecategory"/>
 <input type="hidden" name="categoryseq" value="<%=cdto.getSeq()%>"/>

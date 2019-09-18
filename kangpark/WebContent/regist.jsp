@@ -38,6 +38,7 @@
 		//form태그에서 submit이벤트가 발생하면 함수를 실행해라
 		form.onsubmit = function() {//패스워드가 정확하게 입력됐는지와 모든 입력값을 넣었는지 확인
 			var inputs = document.querySelectorAll("table input");//[input,input....]
+			
 			if(inputs[3].value!=inputs[4].value) {	//유효하지 않을 값이 존재하면 submit전송 기능 취소해야한다
 				alert("패스워드를 확인하세요.");
 				inputs[3].vlaue="";
@@ -110,11 +111,11 @@
 	</tr>
 	<tr>
 		<th>전화번호</th>
-		<td><input type="tel" name="phone"></td>
+		<td><input type="tel" name="phone" placeholder="010-0000-0000" ></td>
 	</tr>
 	<tr>
 		<th>이메일</th>
-		<td><input type="email" name="email"></td>
+		<td><input type="email" name="email" placeholder="예)abc@xxxxx.com"></td>
 	</tr>
 	<tr>
 		<td colspan="2">

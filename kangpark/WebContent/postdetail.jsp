@@ -71,7 +71,7 @@
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td><textarea rows="10" cols="60" readonly="readonly"><%=pdto.getContent() %></textarea> </td>
+		<td><textarea rows="10" cols="60" readonly="readonly" style="background-color:rgb(255,204,255); border-color:rgb(255,204,255);"><%=pdto.getContent() %></textarea> </td>
 	</tr>
 	<tr>
 		<td colspan="2">
@@ -79,7 +79,7 @@
 			<%if(ldto.getId().equals(dto.getId())){
 				%>
 			<button onclick="location.href = 'PostController.do?command=UpdateForm&PostSeq=<%=pdto.getSeq()%>&MemberSeq=<%=pdto.getMember_seq()%>'">수정</button>
-			<button onclick="location.href = 'PostController.do?command=DeletePost&PostSeq=<%=pdto.getSeq()%>'">삭제</button>
+			<button onclick="del(<%=pdto.getSeq()%>)">삭제</button>
 			<% 
 			}%>
 			<button onclick="location.href='PostController.do?command=PostList&boardseq=<%=bdto.getSeq()%>'">글목록</button>
@@ -107,7 +107,7 @@
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td><textarea rows="10" cols="60" name="content" ></textarea> </td>
+		<td><textarea rows="10" cols="60" name="content" style="background-color:rgb(255,204,255); border-color:rgb(255,204,255);"></textarea> </td>
 	</tr>
 	<tr>
 		<td colspan="2">
@@ -142,6 +142,11 @@
 				alert("내용을 입력하세요");
 				return false;
 			}
+		}
+	}
+	function del(seq){
+		if(confirm("삭제하시겠습니까?")==true){
+			location.href = 'PostController.do?command=DeletePost&PostSeq='+seq;
 		}
 	}
 </script>

@@ -86,7 +86,7 @@
 	}
 	
 	function withdraw(id){
-		if(confirm("정말 탈퇴하시겠습니까?")==true){
+		if(confirm("탈퇴하시겠습니까?")==true){
 			location.href = "LoginController.do?command=withdraw&id="+id;
 		}
 	}

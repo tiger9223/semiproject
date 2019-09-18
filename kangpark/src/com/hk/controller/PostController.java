@@ -19,7 +19,6 @@ import com.hk.daos.BoardDao;
 import com.hk.daos.CategoryDao;
 import com.hk.daos.LoginDao;
 import com.hk.dtos.PostDto;
-import com.hk.util.Paging;
 import com.hk.dtos.BoardDto;
 import com.hk.dtos.CategoryDto;
 import com.hk.dtos.LoginDto;
