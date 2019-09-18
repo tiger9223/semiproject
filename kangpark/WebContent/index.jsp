@@ -26,6 +26,16 @@
     margin-left: auto;
     margin-right: auto;
  	}
+ 	#main{
+ 	
+ 	display: table;
+    margin-left: auto;
+    margin-right: auto;
+ 	}
+ 	img{
+ 	width: 50px;
+	height: 50px;
+ 	}
 </style>
 <script type="text/javascript">
 	function regist() {
@@ -50,8 +60,11 @@
 </script>
 </head>
 <body>
+<div id="main">
+<h1>Baby<img src="img\home.jpg" alt="메인">Home</h1>
+</div>
 <div id="header">
-<h1>로그인</h1>
+<h3>로그인</h3>
 </div>
 <form id="forms" action="LoginController.do" method="post">
 	<input type="hidden" name="command" value="login">
