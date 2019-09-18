@@ -47,22 +47,16 @@
 	<%
 	}else{
 		for(PostDto pdto:list){
+				if(pdto.getDelflag()==1){
 			%>
 			<tr>
 				<td><%=pdto.getSeq() %></td>
 				<td><%=pdto.getId() %></td>
 				<td>
-				<%
-				if(pdto.getDelflag()==0){
-					%>삭제된 글입니다.<%
-				}else{
-					%>
 					<%Util.setArrowNbsp(pdto.getDepth());%>
 					<%=Util.getArrowNbsp()%>
-					<a href="HomeController.do?command=PostDetail&PostSeq=<%=pdto.getSeq()%>&MemberSeq=<%=pdto.getMember_seq()%>"><%=pdto.getTitle()%></a>
-					<%
-				}
-				%>
+					<a href="HomeController.do?command=noticedetail&PostSeq=<%=pdto.getSeq()%>&MemberSeq=<%=pdto.getMember_seq()%>"><%=pdto.getTitle()%></a>
+					
 				</td>
 				
 				<td><%=pdto.getCategory_title()%></td>
@@ -71,7 +65,7 @@
 				<td><%=pdto.getReadcount()%></td>
 			</tr>
 			<%
-		
+			}
 		}
 	}
 	%>

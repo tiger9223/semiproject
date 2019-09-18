@@ -28,12 +28,15 @@ public class HomeController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
 		HttpSession session = request.getSession();
 		
 		String command=request.getParameter("command");
@@ -73,12 +76,71 @@ public class HomeController extends HttpServlet {
 		boolean isS = pdao.insertNotice(new PostDto(title, content, memberSeq, boardSeq, categorySeq));
 		
 		if(isS) {
-			jsForward("notice.jsp", "글이 정상적으로 등록 됐습니다.", response);
+			jsForward("admin_main.jsp", "글이 정상적으로 등록 됐습니다.", response);
 			
 		}else {
 			request.setAttribute("msg", "글추가실패");
 			dispatch("error.jsp", request, response);
 		}
+		
+	}else if(command.equals("noticedetail")) {
+		
+		int PostSeq = Integer.parseInt(request.getParameter("PostSeq"));
+		int memberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
+		String rSeq=(String)request.getSession().getAttribute("readcount");
+		
+		if(rSeq==null) {
+			//조회수 올리기
+			pdao.readCount(PostSeq);
+			//현재 조회된 글에 번호를 세션에 "readcount"라는 이름으로 담아두기
+			request.getSession().setAttribute("readcount", PostSeq+"");
+		}
+		PostDto pdto = pdao.getPostDetail(PostSeq);
+		ldto = ldao.getUserInfo(memberSeq);
+		BoardDto bdto = bdao.getBoardBySeq(pdto.getBoard_seq());
+		request.setAttribute("pdto", pdto);
+		request.setAttribute("dto", ldto);
+		request.setAttribute("bdto", bdto);
+		dispatch("noticedetail.jsp", request, response);
+	}else if(command.equals("noticedelete")) {
+		int PostSeq = Integer.parseInt(request.getParameter("PostSeq"));
+		PostDto pdto = pdao.getPostDetail(PostSeq);
+		boolean isS=pdao.deletePost(PostSeq);
+		if(isS) {
+			response.sendRedirect("HomeController.do?command=notice");
+		}else {
+			request.setAttribute("msg", "글삭제실패");
+			dispatch("error.jsp", request, response);
+		}
+	}else if(command.equals("noticeUpdateForm")) {
+		
+		int memberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
+		int postSeq = Integer.parseInt(request.getParameter("PostSeq"));
+		PostDto pdto = pdao.getPost(memberSeq,postSeq);
+		request.setAttribute("pdto", pdto);
+		dispatch("updatenotice.jsp", request, response);		
+	}else if(command.equals("UpdatePost")) {
+		
+		int memberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
+		int postSeq = Integer.parseInt(request.getParameter("PostSeq"));
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		boolean isS=pdao.updatePost(new PostDto(postSeq,title,content));
+		
+		if(isS) {
+			ldto = ldao.getUserInfo(memberSeq);
+			PostDto pdto = pdao.getPostDetail(postSeq);
+			BoardDto bdto = bdao.getBoardBySeq(pdto.getBoard_seq());
+			request.setAttribute("pdto", pdto);
+			request.setAttribute("dto", ldto);
+			request.setAttribute("bdto", bdto);
+			dispatch("HomeController.do?command=notice", request, response);		
+		}else {
+			request.setAttribute("msg", "글수정실패");
+			dispatch("error.jsp", request, response);
+		}
+	
 	}
 	
 	
