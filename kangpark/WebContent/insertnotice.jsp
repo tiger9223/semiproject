@@ -15,10 +15,31 @@
     BoardDto bdto = (BoardDto)request.getAttribute("bdto");
 	CategoryDto cdto = (CategoryDto)request.getAttribute("cdto");
 %>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<style type="text/css">
+	table {
+    width: 50%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+  	}
+ 	th,td{
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	 }
+ 	 #header{
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    }
+</style>
 <script type="text/javascript">
 	function back(boardseq){
 		if(confirm("글 작성 중에 있습니다. 목록으로 가시면 작성 중인 글은 삭제됩니다.")==true){
-			location.href="HomeController.do?command=notice";
+			location.href="HomeController.do?command=notice&boardseq="+boardseq;
 		}
 	}
 	window.onload = function(){
@@ -34,7 +55,9 @@
 </script>
 </head>
 <body>
+<div id="header">
 <h1>게시글 추가하기</h1>
+</div>
 <form id="forms" action="HomeController.do" method="post" >
 <input type="hidden" name="command" value="InsertNoticePost"/>
 <input type="hidden" name="boardSeq" value="<%=bdto.getSeq() %>"/>

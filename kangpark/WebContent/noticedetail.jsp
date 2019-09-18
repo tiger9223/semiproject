@@ -12,23 +12,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
 <title></title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <style type="text/css">
-	#replyForm{display:none;}
-	#container{
-		height:400px;
-		width:800px;
-		border: 1px solid red;
-		overflow: auto;
-	}
-	table{
-	width: 30%;
-	border-top: 1px solid #444444;
-	border-collapse: collapse;
-	}
-	th, td{
-	border-bottom: 1px solid #444444;
-	padding: 10px;
-	}
+	table {
+    width: 40%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+  	}
+ 	th,td{
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	 }
+    #header{
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    }
 </style>
 </head>
 <body>
@@ -39,7 +42,9 @@
 	LoginDto dto = (LoginDto)request.getAttribute("dto");
 %>
 <div id="container">
+<div id="header">
 <h1>게시글상세보기</h1>
+</div>
 <table border="1">
 	<tr>
 		<th>번호</th>
@@ -62,14 +67,21 @@
 			<%if(ldto.getId().equals(pdto.getId())){
 				%>
 			<button onclick="location.href = 'HomeController.do?command=noticeUpdateForm&PostSeq=<%=pdto.getSeq()%>&MemberSeq=<%=pdto.getMember_seq()%>'">수정</button>
-			<button onclick="location.href = 'HomeController.do?command=noticedelete&PostSeq=<%=pdto.getSeq()%>'">삭제</button>
+			<button onclick="del(<%=pdto.getSeq()%>)">삭제</button>
 			<% 
 			}%>
-			<button onclick="location.href='HomeController.do?command=notice'">글목록</button>
+			<button onclick="location.href='HomeController.do?command=notice&boardseq=<%=bdto.getSeq()%>'">글목록</button>
 		</td>
 	</tr>
 </table>
 </div>
 </div>
+<script type="text/javascript">
+	function del(seq){
+		if(confirm("삭제하시겠습니까?")==true){
+			location.href = 'HomeController.do?command=noticedelete&PostSeq='+seq;
+		}
+	}
+</script>
 </body>
 </html>

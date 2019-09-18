@@ -62,9 +62,6 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 			}
 		}
 		%>
-		<ul>
-			<li><a href="HomeController.do?command=notice">공지게시판</a></li>
-		</ul>
 		</div>
 </div>
 </body>

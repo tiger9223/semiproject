@@ -75,6 +75,19 @@ public class CategoryDao extends SqlMapConfig{
 			}
 			return list;
 		}
+		public CategoryDto getCateByBoardSeq(int seq){
+			CategoryDto dto = new CategoryDto();
+			SqlSession sqlSession=null;
+			try {
+				sqlSession = getSqlSessionFactory().openSession(true);
+				dto=sqlSession.selectOne(nameSpace+"CategoryByBoardSeq", seq);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				sqlSession.close();
+			}
+			return dto;
+		}
 		
 		//게시글 유형 추가하기
 		public boolean insertCategory(CategoryDto dto) {

@@ -54,6 +54,11 @@ public class PostController extends HttpServlet {
 			request.getSession().removeAttribute("readcount");
 			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardseq);
+			
+			if(bdto.getTitle().equals("공지게시판")) {
+				dispatch("HomeController.do?command=notice&boardseq="+boardseq, request, response);
+			}
+			
 			List<PostDto> list = pdao.getPostByBoardSeq(boardseq);
 			
 //			List<CategoryDto> clist=new ArrayList<>();

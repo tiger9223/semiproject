@@ -23,4 +23,8 @@
 	<select id="getboardbyseq" resultType="BoardDto" parameterType="int">
 		SELECT SEQ, TITLE FROM BOARD WHERE SEQ=#{seq}
 	</select>
+	
+	<select id="getboardbypostseq" resultType="BoardDto" parameterType="int">
+		SELECT B.SEQ, B.TITLE FROM BOARD B,POST P WHERE B.SEQ=P.BOARD_SEQ AND p.SEQ=#{seq}
+	</select>
 </mapper>

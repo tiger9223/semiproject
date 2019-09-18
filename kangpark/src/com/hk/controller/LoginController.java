@@ -74,8 +74,10 @@ public class LoginController extends HttpServlet {
 					session.setAttribute("ldto", ldto);//세션삽입
 					session.setMaxInactiveInterval(10*60);// 10분간 요청이 없으면 세션을 삭제
 					if(ldto.getRole().toUpperCase().equals("ADMIN")) {
-						
-						response.sendRedirect("admin_main.jsp");
+						BoardDao bdao = new BoardDao();
+						List<BoardDto> list = bdao.getBoardList();
+						request.setAttribute("list", list);
+						dispatch("admin_main.jsp", request, response);
 					}else if(ldto.getRole().toUpperCase().equals("USER")) {
 						BoardDao bdao = new BoardDao();
 						List<BoardDto> list = bdao.getBoardList();

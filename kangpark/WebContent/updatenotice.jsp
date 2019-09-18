@@ -7,6 +7,27 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<style type="text/css">
+	table {
+    width: 30%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+  	}
+ 	th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	}
+ 	#header{
+ 	display: table;
+    margin-left: auto;
+    margin-right: auto;
+ 	}
+</style>
 <script type="text/javascript" src="http://code.jquery.com"/jquery-latest.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -31,11 +52,14 @@ $(function(){
 %>
 </head>
 <body>
+<div id="header">
 <h1>게시글 수정하기</h1>
+</div>
 <form action="HomeController.do" method="post">
 <input type="hidden" name="command" value="UpdatePost"/>
 <input type="hidden" name="PostSeq" value="<%=pdto.getSeq()%>">
 <input type="hidden" name="MemberSeq" value="<%=pdto.getMember_seq()%>"/>
+<input type="hidden" name="boardseq" value="<%=pdto.getBoard_seq()%>"/>
 <table border="1">
 <tr>
 		<th>번호</th>

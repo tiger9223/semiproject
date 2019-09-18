@@ -49,16 +49,16 @@ public class HomeController extends HttpServlet {
 		LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 		
 		if(command.equals("notice")) {
-			int seq = 21;
-			BoardDto bdto = bdao.getBoardBySeq(seq);
-			List<PostDto> list = pdao.getPostByBoardSeq(seq);
+			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
+			BoardDto bdto = bdao.getBoardBySeq(boardseq);
+			List<PostDto> list = pdao.getPostByBoardSeq(boardseq);
 			request.setAttribute("bdto", bdto);
 			request.setAttribute("list", list);
 			dispatch("notice.jsp", request, response);
 		}else if(command.equals("InsertNoticeForm")) {
 			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardseq);
-			CategoryDto cdto = cdao.getCategoryBySeq(boardseq);
+			CategoryDto cdto = cdao.getCateByBoardSeq(boardseq);
 			System.out.println(bdto);
 			System.out.println(cdto);
 			request.setAttribute("cdto",cdto);
@@ -104,10 +104,11 @@ public class HomeController extends HttpServlet {
 		dispatch("noticedetail.jsp", request, response);
 	}else if(command.equals("noticedelete")) {
 		int PostSeq = Integer.parseInt(request.getParameter("PostSeq"));
-		PostDto pdto = pdao.getPostDetail(PostSeq);
+		BoardDto bdto = bdao.getBoardByPostSeq(PostSeq);
+		int boardseq = bdto.getSeq();
 		boolean isS=pdao.deletePost(PostSeq);
 		if(isS) {
-			response.sendRedirect("HomeController.do?command=notice");
+			jsForward("HomeController.do?command=notice&boardseq="+boardseq, "글을 삭제하였습니다.", response);
 		}else {
 			request.setAttribute("msg", "글삭제실패");
 			dispatch("error.jsp", request, response);
@@ -120,7 +121,7 @@ public class HomeController extends HttpServlet {
 		request.setAttribute("pdto", pdto);
 		dispatch("updatenotice.jsp", request, response);		
 	}else if(command.equals("UpdatePost")) {
-		
+		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 		int memberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
 		int postSeq = Integer.parseInt(request.getParameter("PostSeq"));
 		String title = request.getParameter("title");
@@ -135,7 +136,7 @@ public class HomeController extends HttpServlet {
 			request.setAttribute("pdto", pdto);
 			request.setAttribute("dto", ldto);
 			request.setAttribute("bdto", bdto);
-			dispatch("HomeController.do?command=notice", request, response);		
+			dispatch("HomeController.do?command=notice&boardseq="+boardseq, request, response);		
 		}else {
 			request.setAttribute("msg", "글수정실패");
 			dispatch("error.jsp", request, response);

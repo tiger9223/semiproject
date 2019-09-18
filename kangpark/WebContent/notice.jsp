@@ -16,12 +16,35 @@
 	List<PostDto> list = (List<PostDto>)request.getAttribute("list");
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
 %>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <style type="text/css">
-	img{width: 12px; height: 12px;}
+	table {
+    width: 80%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+  	}
+ 	th,td{
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+ 	 }
+ 	 th {
+    background-color: #ee82ee;
+    }
+    .header{
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    }
 </style>
 </head>
 <body>
+<div class="header">
 <h1><%=bdto.getTitle() %></h1>
+</div>
 <form action="HomeController.do" method="post">
 <input type="hidden" name="command" value="muldel" />
 <table border="1"> 
@@ -79,9 +102,6 @@
 			}       
 			%>
 		
-			<%for(int i=0;i<45;i++){%>
-			&nbsp;
-			<%} %>
 			<input type="button" value="돌아가기" 
 			       onclick="location.href='LoginController.do?command=login&id=<%=ldto.getId()%>&password=<%=ldto.getPassword()%>'"/>
 		</td>

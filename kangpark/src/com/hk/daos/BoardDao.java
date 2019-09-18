@@ -46,6 +46,20 @@ public class BoardDao extends SqlMapConfig{
 		return board;
 	}
 	
+	public BoardDto getBoardByPostSeq(int seq){
+		BoardDto board= new BoardDto();
+		SqlSession sqlSession=null;
+		try {
+			sqlSession = getSqlSessionFactory().openSession(true);
+			board=sqlSession.selectOne(nameSpace+"getboardbypostseq", seq);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			sqlSession.close();
+		}
+		return board;
+	}
+	
 	//게시판 추가하기
 	public boolean insertBoard(BoardDto dto) {
 		int count=0;

@@ -10,16 +10,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <style type="text/css">
 	table {
     width: 50%;
     border-top: 1px solid #444444;
     border-collapse: collapse;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
   	}
  	th,td{
     border-bottom: 1px solid #444444;
     padding: 10px;
  	 }
+ 	 #header{
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    }
 </style>
 <%
 	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
@@ -86,7 +96,9 @@
 </script>
 </head>
 <body>
+<div id="header">
 <h1>게시글 추가하기</h1>
+</div>
 <form id="forms" action="PostController.do" method="post" >
 <input type="hidden" name="command" value="InsertPost"/>
 <input type="hidden" name="boardSeq" value="<%=bdto.getSeq() %>"/>
