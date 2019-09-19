@@ -73,7 +73,14 @@
 			%>
 			<tr>
 				<td><%=pdto.getSeq() %></td>
-				<td><%=pdto.getId() %></td>
+				<td><% if(!ldto.getRole().equals("ADMIN")){
+					%>관리자<%
+				}else{%>
+					<%=pdto.getId()%>
+					<%
+				}
+				
+				%></td>
 				<td>
 					<%Util.setArrowNbsp(pdto.getDepth());%>
 					<%=Util.getArrowNbsp()%>
@@ -107,5 +114,6 @@
 	</tr>
 </table>
 </form>
+<%@include file="footer.jsp"%>
 </body>
 </html>

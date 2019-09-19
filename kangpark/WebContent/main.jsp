@@ -137,5 +137,6 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 	}
 %>
 	</div>
+<%@include file="footer.jsp"%>
 </body>
 </html>

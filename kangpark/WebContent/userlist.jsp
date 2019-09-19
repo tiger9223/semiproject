@@ -73,5 +73,6 @@
 		location.href="LoginController.do?command=roleForm&seq="+seq;
 	}
 </script>
+<%@include file="footer.jsp"%>
 </body>
 </html>

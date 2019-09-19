@@ -93,4 +93,5 @@ function restore(id){
 }
 </script>
 </body>
+<%@include file="footer.jsp"%>
 </html>
