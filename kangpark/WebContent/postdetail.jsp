@@ -3,6 +3,7 @@
 <%@page import="com.hk.dtos.PostDto"%>
 <%@page import="com.hk.dtos.LoginDto"%>
 <%@page import="com.hk.dtos.BoardDto"%>
+<%@include file="header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
@@ -22,7 +23,6 @@
 	#replyForm{display: none;}
 	#container{
 /* 		text-align: center; */
-		height: 800px;
 		width: 1500px;
 		overflow: auto;
 	}
@@ -49,7 +49,6 @@
 <%
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
  	PostDto pdto = (PostDto)request.getAttribute("pdto");
-	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	LoginDto dto = (LoginDto)request.getAttribute("dto");
 %>
 <div id="container">

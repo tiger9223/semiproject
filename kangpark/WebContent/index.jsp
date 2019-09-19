@@ -10,10 +10,7 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <style type="text/css">
 	table {
-    width: 30%;
-    border-top: 1px solid #444444;
-    border-collapse: collapse;
-    display: table;
+    width: 20%;
     margin-left: auto;
     margin-right: auto;
   	}
@@ -35,6 +32,9 @@
  	img{
  	width: 50px;
 	height: 50px;
+ 	}
+ 	#all{
+ 	height: 700px;
  	}
 </style>
 <script type="text/javascript">
