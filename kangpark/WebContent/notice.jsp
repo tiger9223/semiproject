@@ -3,6 +3,7 @@
 <%@page import="com.hk.dtos.PostDto"%>
 <%@page import="java.util.List"%>
 <%@page import="com.hk.dtos.LoginDto"%>
+<%@include file="header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
@@ -12,7 +13,6 @@
 <meta charset="UTF-8">
 <title></title>
 <%
-	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	List<PostDto> list = (List<PostDto>)request.getAttribute("list");
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
 %>
@@ -34,7 +34,7 @@
  	 th {
     background-color: #ee82ee;
     }
-    .header{
+    #header{
     display: table;
     margin-left: auto;
     margin-right: auto;
@@ -42,11 +42,10 @@
 </style>
 </head>
 <body>
-<div class="header">
+<div id="header">
 <h1><%=bdto.getTitle() %></h1>
 </div>
 <form action="HomeController.do" method="post">
-<input type="hidden" name="command" value="muldel" />
 <table border="1"> 
 	<col width="50px" />
 	<col width="100px" />

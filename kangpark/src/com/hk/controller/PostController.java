@@ -186,11 +186,11 @@ public class PostController extends HttpServlet {
 			}
 			
 		}else if(command.equals("InsertBoard")) {
-			
+			ldto = (LoginDto)session.getAttribute("ldto");
 			String board = request.getParameter("board");
 			boolean isS = bdao.insertBoard(new BoardDto(board));
 			if(isS) {
-				jsForward("main.jsp","게시판이 정상적으로 등록 됐습니다.", response);
+				jsForward("LoginController.do?command=login&id="+ldto.getId()+"&password="+ldto.getId(),"게시판이 정상적으로 등록 됐습니다.", response);
 			}else {
 				request.setAttribute("msg", "게시판추가실패");
 				dispatch("error.jsp", request, response);
@@ -212,12 +212,12 @@ public class PostController extends HttpServlet {
 			dispatch("updateboard.jsp", request, response);
 			
 		}else if(command.equals("updateboard")) {
-			
+			ldto = (LoginDto)session.getAttribute("ldto");
 			int boardSeq = Integer.parseInt(request.getParameter("boardseq"));
 			String title = request.getParameter("title");
 			boolean isS = bdao.updateBoard(new BoardDto(boardSeq,title));
 			if(isS) {
-				jsForward("main.jsp","게시판이 정상적으로 수정됐습니다.", response);
+				jsForward("LoginController.do?command=login&id="+ldto.getId()+"&password="+ldto.getId(),"게시판이 정상적으로 수정됐습니다.", response);
 			}else {
 				request.setAttribute("msg", "게시판수정실패");
 				dispatch("error.jsp", request, response);
@@ -231,35 +231,35 @@ public class PostController extends HttpServlet {
 			dispatch("updatecategory.jsp", request, response);
 			
 		}else if(command.equals("updatecategory")) {
-			
+			ldto = (LoginDto)session.getAttribute("ldto");
 			int categoryseq = Integer.parseInt(request.getParameter("categoryseq"));
 			String title = request.getParameter("title");
 			boolean isS = cdao.updateCategory(new CategoryDto(categoryseq,title));
 			if(isS) {
-				jsForward("main.jsp","유형이 정상적으로 수정됐습니다.", response);
+				jsForward("LoginController.do?command=login&id="+ldto.getId()+"&password="+ldto.getId(),"유형이 정상적으로 수정됐습니다.", response);
 			}else {
 				request.setAttribute("msg", "유형수정실패");
 				dispatch("error.jsp", request, response);
 			}
 			
 		}else if(command.equals("Deletecategory")) {
-			
+			ldto = (LoginDto)session.getAttribute("ldto");
 			int categoryseq = Integer.parseInt(request.getParameter("categoryseq"));
 			boolean isS = cdao.deleteCategory(new CategoryDto(categoryseq));
 			if(isS) {
-				jsForward("main.jsp","유형이 정상적으로 삭제됐습니다.", response);
+				jsForward("LoginController.do?command=login&id="+ldto.getId()+"&password="+ldto.getId(),"유형이 정상적으로 삭제됐습니다.", response);
 			}else {
 				request.setAttribute("msg", "유형삭제실패");
 				dispatch("error.jsp", request, response);
 			}
 			
 		}else if(command.equals("boardInsertForm")) {
-			
+			ldto = (LoginDto)session.getAttribute("ldto");
 			int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
 			String title = request.getParameter("title");
 			boolean isS = bdao.updateBoard(new BoardDto(boardSeq,title));
 			if(isS) {
-				jsForward("main.jsp","게시판이 정상적으로 수정됐습니다.", response);
+				jsForward("LoginController.do?command=login&id="+ldto.getId()+"&password="+ldto.getId(),"게시판이 정상적으로 수정됐습니다.", response);
 			}else {
 				request.setAttribute("msg", "게시판수정실패");
 				dispatch("error.jsp", request, response);
@@ -273,12 +273,12 @@ public class PostController extends HttpServlet {
 			dispatch("insertcategory.jsp", request, response);
 			
 		}else if(command.equals("InsertCategory")) {
-			
+			ldto = (LoginDto)session.getAttribute("ldto");
 			int boardSeq = Integer.parseInt(request.getParameter("boardSeq"));
 			String title = request.getParameter("title");
 			boolean isS = cdao.insertCategory(new CategoryDto(title,boardSeq));
 			if(isS) {
-				jsForward("main.jsp","카테고리가 추가됐습니다.", response);
+				jsForward("LoginController.do?command=login&id="+ldto.getId()+"&password="+ldto.getId(),"카테고리가 추가됐습니다.", response);
 			}else {
 				request.setAttribute("msg", "카테고리 추가실패");
 				dispatch("error.jsp", request, response);

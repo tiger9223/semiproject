@@ -59,8 +59,6 @@ public class HomeController extends HttpServlet {
 			int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 			BoardDto bdto = bdao.getBoardBySeq(boardseq);
 			CategoryDto cdto = cdao.getCateByBoardSeq(boardseq);
-			System.out.println(bdto);
-			System.out.println(cdto);
 			request.setAttribute("cdto",cdto);
 			request.setAttribute("bdto", bdto);
 			dispatch("insertnotice.jsp", request, response);
@@ -76,7 +74,7 @@ public class HomeController extends HttpServlet {
 		boolean isS = pdao.insertNotice(new PostDto(title, content, memberSeq, boardSeq, categorySeq));
 		
 		if(isS) {
-			jsForward("admin_main.jsp", "글이 정상적으로 등록 됐습니다.", response);
+			jsForward("HomeController.do?command=notice&boardseq="+boardSeq, "글이 정상적으로 등록 됐습니다.", response);
 			
 		}else {
 			request.setAttribute("msg", "글추가실패");

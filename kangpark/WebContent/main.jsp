@@ -43,11 +43,6 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 #bar {
 	padding: 20px;
 }
-
-#header {
-	text-align: center;
-}
-
 #body {
 	width: 300px;
 	padding: 20px;
