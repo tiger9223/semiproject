@@ -1,5 +1,5 @@
 <%@page import="com.hk.dtos.CategoryDto"%>
-<%@include file = "ad_header.jsp"%>
+<%@include file="header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>

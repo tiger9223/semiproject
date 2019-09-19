@@ -42,7 +42,7 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 <div id="container">
       <div id="header">
 		<h1><%=ldto.getId()%>님 반가워요.</h1>(등급:<%=ldto.getRole().equals("USER")?"일반회원":"정회원"%>)
-		<a href="LoginController.do?command=logout">로그아웃</a>
+		<a href="LoginController.do?command=logout">Logout</a>
       </div>
       <div id="body">
         <ul>												<!-- ldto에 로그인 정보가 있으니까.. -->

@@ -7,7 +7,7 @@ response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
 response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 %>
 <%@page import="com.hk.dtos.LoginDto"%>
-<%@include file = "ad_header.jsp"%>
+<%@include file="header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
@@ -39,18 +39,16 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 </head>
 <body>
 <%
-	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	List<BoardDto> list = (List<BoardDto>)request.getAttribute("list");
 %>
 <div id="container">
-<h1>관리자 페이지</h1>
 <%
 	if(ldto==null) {
 		response.sendRedirect("index.jsp");
-	}else {
+	}else if(ldto.getRole().equals("ADMIN")){
 		%>
 		<div><h1><%=ldto.getId()%>님 반가워요</h1>(등급:<%=ldto.getRole()%>)
-			<a href="LoginController.do?command=logout">로그아웃</a>
+			<a href="LoginController.do?command=logout">Logout</a>
 		</div>
 		<div id="bar">
 		<ul>
@@ -66,6 +64,10 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 			%>											
 			<li><a href="HomeController.do?command=notice&boardseq=<%=dto.getSeq()%>">공지게시판 관리</a></li>
 		<% 
+			}else{
+			%>											
+			<li><a href="PostController.do?command=PostList&boardseq=<%=dto.getSeq()%>"><%=dto.getTitle() %></a></li>
+		<% 
 			}
 		}
 	}
@@ -73,6 +75,33 @@ response.setDateHeader("Expires", 0L); //Do not cache in proxy server
 		</ul>
 		</div>
 		<%
+	}else{
+		%>
+		<div id="container">
+      <div id="header">
+		<h1><%=ldto.getId()%>님 반가워요.</h1>(등급:<%=ldto.getRole().equals("USER")?"일반회원":"정회원"%>)
+		<a href="LoginController.do?command=logout">Logout</a>
+      </div>
+      <div id="body">
+        <ul>												<!-- ldto에 로그인 정보가 있으니까.. -->
+		<li><a href="LoginController.do?command=getUserInfo&seq=<%=ldto.getSeq()%>">나의 정보 조회</a></li>
+		</ul>
+		<% 
+		if(list == null || list.size()==0){
+			
+		}else{
+		for(BoardDto dto:list){
+			%>
+		<ul>												
+			<li><a href="PostController.do?command=PostList&boardseq=<%=dto.getSeq()%>"><%=dto.getTitle() %></a></li>
+		</ul>
+		<% 
+			}
+		}
+		%>
+		</div>
+</div>
+		<% 
 	}
 %>
 </div>

@@ -1,7 +1,7 @@
 <%@page import="com.hk.dtos.CategoryDto"%>
 <%@page import="java.util.List"%>
 <%@page import="com.hk.dtos.BoardDto"%>
-<%@include file="ad_header.jsp" %>
+<%@include file="header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
@@ -66,7 +66,7 @@ window.onload = function() {
 		%>
 		<tr>
 		<th>유형</th>
-		<td>유형이 없습니다.</td>
+		<td>등록된 유형이 없습니다.</td>
 		</tr>
 		<%
 	}else{

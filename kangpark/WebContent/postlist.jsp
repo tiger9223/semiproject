@@ -5,6 +5,7 @@
 <%@page import="com.hk.dtos.BoardDto"%>
 <%@page import="java.util.List"%>
 <%@page import="com.hk.dtos.LoginDto"%>
+<%@include file="header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
@@ -16,7 +17,6 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <%
-	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 	List<PostDto> list = (List<PostDto>)request.getAttribute("list");
 	BoardDto bdto = (BoardDto)request.getAttribute("bdto");
 	Map<String, Integer> map = (Map<String, Integer>)request.getAttribute("pmap");
@@ -54,7 +54,6 @@
 <h1><%=bdto.getTitle()%></h1>
 </div>
 <form action="PostController.do" method="post">
-<input type="hidden" name="command" value="muldel" />
 <table border="1">
 	<col width="50px" />
 	<col width="100px" />

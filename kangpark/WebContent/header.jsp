@@ -1,28 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%request.setCharacterEncoding("utf-8"); %>
-<%response.setContentType("text/html; charset=UTF-8"); %>
+<%@page import="com.hk.dtos.BoardDto"%>
+<%@page import="java.util.List"%>
+<%@page import="com.hk.dtos.LoginDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<% request.setCharacterEncoding("utf-8"); %>
+<% response.setContentType("text/html; charset=UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <title></title>
 <style type="text/css">
-	header{background-color: orange; height: 100px;}
-	footer{background-color: orange;
-			height: 100px;
+	#main{
+	width: 50px;
+	height: 50px;
 	}
-	h1{color:red;}
+	#header{
+	padding: 10px;
+	}
 </style>
 </head>
 <body>
 <%
-// 	int a=5;
+	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
 %>
-	<header>
-		<h1>글 상세보기</h1>
-	</header>
+<div id="header">
+<a href="LoginController.do?command=login&id=<%=ldto.getId()%>&password=<%=ldto.getPassword()%>"><img id="main" src="img\home.jpg" alt="메인"></a>
+</div>
+<hr>
 </body>
 </html>
-
-
-

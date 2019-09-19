@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
-<%@include file="ad_header.jsp" %>    
+<%@include file="header.jsp"%>   
 <!DOCTYPE html>
 <html>
 <head>

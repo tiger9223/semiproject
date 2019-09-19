@@ -2,6 +2,7 @@
 <%@page import="java.util.List"%>
 <%@page import="com.hk.dtos.BoardDto"%>
 <%@page import="com.hk.dtos.LoginDto"%>
+<%@include file="header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
@@ -11,7 +12,6 @@
 <meta charset="UTF-8">
 <title></title>
 <%
-	LoginDto ldto = (LoginDto)session.getAttribute("ldto");
     BoardDto bdto = (BoardDto)request.getAttribute("bdto");
 	CategoryDto cdto = (CategoryDto)request.getAttribute("cdto");
 %>

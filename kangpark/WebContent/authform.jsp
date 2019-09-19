@@ -1,5 +1,5 @@
 <%@page import="com.hk.dtos.LoginDto"%>
-<%@include file="ad_header.jsp"%>
+<%@include file="header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
@@ -38,7 +38,7 @@
 	LoginDto dto = (LoginDto)request.getAttribute("dto");
 %>
 <div id="header">
-<h1>등급 변경</h1>
+<h1>회원등급 변경</h1>
 </div>
 <form action="LoginController.do" method="post">
 <input type="hidden" name="command" value="authchange" >
