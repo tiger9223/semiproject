@@ -38,6 +38,7 @@ public class LoginController extends HttpServlet {
 		
 		LoginDao dao = new LoginDao();
 		
+		//유저
 		if(command.equals("regist")) {
 			response.sendRedirect("regist.jsp");
 		}else if(command.equals("adminregist")) {
@@ -61,6 +62,7 @@ public class LoginController extends HttpServlet {
 //				pageContext.forward("error.jsp");
 				dispatch("error.jsp", request, response);
 			}
+			//관리자 
 		}else if(command.equals("insertadmin")) {
 			String id = request.getParameter("id");
 			String name = request.getParameter("name");
