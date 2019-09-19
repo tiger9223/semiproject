@@ -118,7 +118,7 @@ public class HomeController extends HttpServlet {
 		PostDto pdto = pdao.getPost(memberSeq,postSeq);
 		request.setAttribute("pdto", pdto);
 		dispatch("updatenotice.jsp", request, response);		
-	}else if(command.equals("UpdatePost")) {
+	}else if(command.equals("UpdatePost")) { 
 		int boardseq = Integer.parseInt(request.getParameter("boardseq"));
 		int memberSeq = Integer.parseInt(request.getParameter("MemberSeq"));
 		int postSeq = Integer.parseInt(request.getParameter("PostSeq"));
