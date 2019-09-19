@@ -134,7 +134,7 @@ public class HomeController extends HttpServlet {
 			request.setAttribute("pdto", pdto);
 			request.setAttribute("dto", ldto);
 			request.setAttribute("bdto", bdto);
-			dispatch("HomeController.do?command=notice&boardseq="+boardseq, request, response);		
+			jsForward("HomeController.do?command=notice&boardseq="+boardseq, "글을 수정하였습니다.", response);		
 		}else {
 			request.setAttribute("msg", "글수정실패");
 			dispatch("error.jsp", request, response);
