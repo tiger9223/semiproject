@@ -52,7 +52,7 @@
 		<td><input type="text" name="id" /></td>
 	</tr>
 	<tr>
-		<td><%=isS?"사용가능합니다아~":"중복된 아이디입니다아..."%></td>
+		<td><%=isS?"이 아이디는 사용가능합니다.":"중복된 아이디입니다."%></td>
 	</tr>
 	<tr>
 		<td><input type="button" value="확인" onclick="kk(<%=isS%>)" /></td>
