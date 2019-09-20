@@ -36,7 +36,7 @@
 		<ul>												
 			<li><a href="LoginController.do?command=adminregist">관리자 회원가입</a></li>
 		</ul>
-</div>
+</div> 
 <%@include file="footer.jsp"%>
 </body>
 </html>
